@@ -1,11 +1,11 @@
 import { defineStore } from "pinia";
 
 interface AuthStoreState {
-  isLogged: boolean;
+  isLoggedIn: boolean;
 }
 
 export const useAuthStore = defineStore("auth", () => ({
   state: (): AuthStoreState => ({
-    isLogged: false,
+    isLoggedIn: false,
   }),
 }));

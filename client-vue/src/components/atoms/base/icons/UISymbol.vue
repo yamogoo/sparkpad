@@ -1,5 +1,17 @@
 <template lang="pug">
-components.symbol(:is="component")
+div.symbol(
+  data-test="symbol"
+)
+  component(
+    v-if="!size"
+    :is="component"
+  )
+  component(
+    v-if="size"
+    :is="component"
+    :width="size"
+    :height="size"
+  )
 </template>
 
 <script setup lang="ts">
@@ -7,10 +19,10 @@ import { defineAsyncComponent } from "vue";
 
 import { type SymbolProps } from "./types";
 
-const props = defineProps<SymbolProps>();
+const props = withDefaults(defineProps<SymbolProps>(), {});
 
 const component = defineAsyncComponent(() => {
-  return import(`./symbols/${props.name}Icon.vue`);
+  return import(`./symbols/${props.name}.vue`);
 });
 </script>
 

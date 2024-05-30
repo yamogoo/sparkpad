@@ -1,9 +1,4 @@
-# Login Form
-
-MISHA GREBENNIKOV
-TTA17_PY_JS133
-WEEK_01
-TASK_05-VUE
+# ADA Panel
 
 ##### Unit tests:
 

@@ -4,8 +4,12 @@ form.form
     div.form--content
       div.form__header(
         v-if="showHeader"
+        data-test-id="form-header"
       )
-        h3.form__header__title(v-if="title") {{ title }}
+        h3.form__header__title(
+          v-if="title"
+          data-test-id="form-title"
+        ) {{ title }}
         slot(name="header")
       div.form__body
         slot

@@ -3,7 +3,7 @@ div.social-logos
   div.social-logos__header
     h6 Or connect with
   div.social-logos__body
-    SocialLogo.social-logo(
+    UISocialLogo.social-logo(
       v-for="button in buttons"
       :key="button.id"
       :name="button.symbol"
@@ -13,9 +13,9 @@ div.social-logos
 </template>
 
 <script setup lang="ts">
-import SocialLogo, {
+import UISocialLogo, {
   SocialLogos,
-} from "@/components/atoms/base/logos/social-logos/SocialLogo.vue";
+} from "@/components/atoms/base/logos/social-logos/UISocialLogo.vue";
 
 interface Button {
   id: number;

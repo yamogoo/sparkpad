@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`UIForm > should have the "id" attr value 1`] = `"login"`;
+
+exports[`UIForm > should not render a title into header DOM if title is not set 1`] = `false`;
+
+exports[`UIForm > should not render header (showHeader: false) 1`] = `false`;
+
+exports[`UIForm > should render body slot (<p id="body-slot">Body content</p>) 1`] = `"<p id="body-slot">Body content</p>"`;
+
+exports[`UIForm > should render footer slot (<p id="footer-slot">Footer content</p>) 1`] = `"<p id="footer-slot">Footer content</p>"`;
+
+exports[`UIForm > should render header slot (<p id="header-slot">Header content</p>) 1`] = `"<p id="header-slot">Header content</p>"`;
+
+exports[`UIForm > should render the title (%s) into header DOM 1`] = `"Login"`;

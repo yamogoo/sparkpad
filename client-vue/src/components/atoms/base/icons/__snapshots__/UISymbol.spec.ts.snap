@@ -1,0 +1,24 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`UISymbol > icon should have a custom size = 16 (with === height) 1`] = `
+{
+  "height": "16",
+  "width": "16",
+}
+`;
+
+exports[`UISymbol > icon should have a custom size = 32 (with === height) 1`] = `
+{
+  "height": "32",
+  "width": "32",
+}
+`;
+
+exports[`UISymbol > icon should have a custom size = 100% (with === height) 1`] = `
+{
+  "height": "100%",
+  "width": "100%",
+}
+`;
+
+exports[`UISymbol > should render CrossIcon icon from "Symbols" data set 1`] = `true`;

@@ -1,24 +1,30 @@
 <template lang="pug">
 div.task-box
-  div.task-box--container
-    p.task-box__author(v-if="author") {{ author.toUpperCase() }}
-    p.task-box__class-name(v-if="className") {{ className.toUpperCase() }}
-    p.task-box__task-name(v-if="taskName") {{ taskName.toUpperCase() }}
-    p.task-box__version(v-if="version") v{{ version.toUpperCase() }}
+  div.task-box--container(data-test-id="task-box-content")
+    p.task-box__author(
+      v-if="author" data-test-id="task-box-author") {{ author.toUpperCase() }}
+    p.task-box__description(
+      v-if="description"
+     data-test-id="task-box-description") {{ description.toUpperCase() }}
+    p.task-box__name(
+      v-if="name"
+      data-test-id="task-box-name") {{ name.toUpperCase() }}
+    p.task-box__version(
+      v-if="version" data-test-id="task-box-version") v{{ version.toUpperCase() }}
 </template>
 
 <script setup lang="ts">
 interface Props {
   author?: string;
-  className?: string;
-  taskName?: string;
+  description?: string;
+  name?: string;
   version?: string;
 }
 
 withDefaults(defineProps<Props>(), {
   author: import.meta.env.APP_AUTHOR,
-  taskName: import.meta.env.APP_NAME,
-  className: import.meta.env.APP_DESCRIPTION,
+  name: import.meta.env.APP_NAME,
+  description: import.meta.env.APP_DESCRIPTION,
   version: import.meta.env.APP_VERSION,
 });
 </script>

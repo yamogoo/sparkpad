@@ -1,0 +1,3 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`UIFormField > should render default slot (<p id="default-slot">Default content</p>) 1`] = `"<p id="default-slot">Default content</p>"`;

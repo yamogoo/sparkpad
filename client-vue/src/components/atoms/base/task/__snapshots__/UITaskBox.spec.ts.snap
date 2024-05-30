@@ -1,0 +1,60 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`UITaskBox > should render default names if each prop = undefined 1`] = `
+{
+  "author": DOMWrapper {
+    "isDisabled": [Function],
+    "wrapperElement": <p
+      class="task-box__author"
+      data-test-id="task-box-author"
+    >
+      MISHA GREBENNIKOV
+    </p>,
+  },
+  "description": DOMWrapper {
+    "isDisabled": [Function],
+    "wrapperElement": <p
+      class="task-box__description"
+      data-test-id="task-box-description"
+    >
+      TTA17_133
+    </p>,
+  },
+  "name": DOMWrapper {
+    "isDisabled": [Function],
+    "wrapperElement": <p
+      class="task-box__name"
+      data-test-id="task-box-name"
+    >
+      W01_T05-VUE (ADA-PANEL)
+    </p>,
+  },
+  "version": DOMWrapper {
+    "isDisabled": [Function],
+    "wrapperElement": <p
+      class="task-box__version"
+      data-test-id="task-box-version"
+    >
+      v0.1.1
+    </p>,
+  },
+}
+`;
+
+exports[`UITaskBox > should show custom props (from package.json) 1`] = `
+"<div class="task-box--container" data-test-id="task-box-content">
+  <p class="task-box__author" data-test-id="task-box-author">APP_AUTHOR</p>
+  <p class="task-box__description" data-test-id="task-box-description">APP_DESCRIPTION</p>
+  <p class="task-box__name" data-test-id="task-box-name">APP_NAME</p>
+  <p class="task-box__version" data-test-id="task-box-version">vAPP_VERSION</p>
+</div>"
+`;
+
+exports[`UITaskBox > should show default [ 'Misha Grebennikov', 'w01_t05-vue (ada-panel)', 'tta17_133', '0.1.1' ] props (from package.json) 1`] = `
+"<div class="task-box--container" data-test-id="task-box-content">
+  <p class="task-box__author" data-test-id="task-box-author">MISHA GREBENNIKOV</p>
+  <p class="task-box__description" data-test-id="task-box-description">TTA17_133</p>
+  <p class="task-box__name" data-test-id="task-box-name">W01_T05-VUE (ADA-PANEL)</p>
+  <p class="task-box__version" data-test-id="task-box-version">v0.1.1</p>
+</div>"
+`;

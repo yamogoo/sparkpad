@@ -1,7 +1,7 @@
 export enum Symbols {
-  CROSS = "cross",
+  CROSS = "CrossIcon",
 
   /* * * Thumbnails * * */
 
-  AVATAR_DEFAULT = "avatar",
+  // AVATAR_DEFAULT = "avatar",
 }
