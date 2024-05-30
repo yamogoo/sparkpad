@@ -1,0 +1,16 @@
+// Breakepoints
+$xs: 240px;
+$sm: 480px;
+$md: 760px;
+$lg: 1280px;
+$xl: 1440px;
+
+// A map of breakpoints.
+$breakpoints: (
+  xxxs: 300px,
+  xs: $xs,
+  sm: $sm,
+  md: $md,
+  lg: $lg,
+  xl: $xl,
+);

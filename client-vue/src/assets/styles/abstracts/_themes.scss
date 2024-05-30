@@ -1,0 +1,85 @@
+$themes: (
+  // dark themes:
+  dark:
+    (
+      app: (
+        selection: $c-app-selection,
+      ),
+      border: (
+        primary: #4c4c4c,
+        window: #494949,
+      ),
+      background: (
+        app: #1f1f1f,
+        primary: #303030,
+        primary--invert: #ffffff,
+        secondary: #1f1f1f,
+        secondary--active: #aeaeae,
+        secondary--disabled: #535353,
+        secondary--invert: #ffffff,
+        accent-primary: $c-accent-primary,
+        accent-secondary: $c-accent-secondary,
+        overlay: #0a0a0a80,
+        error: $c-error,
+        error-overlay: #fa0b0b88,
+      ),
+      text: (
+        primary: #d8d8d8,
+        primary--invert: #232323,
+        secondary: #bfbfbf,
+        secondary--invert: #939393,
+        accent-primary: $c-accent-primary,
+        accent-secondary: $c-accent-secondary,
+        disabled: #828282,
+        error: #ffc0c0,
+      ),
+      icon: (
+        primary: #7d7d7d,
+      ),
+      button: (
+        hover: rgba(#ffffff, 0.07),
+        accent: #1a4ffe,
+      ),
+    ),
+
+  light: (
+    app: (
+      selection: $c-app-selection,
+    ),
+    border: (
+      primary: #d9d9d9,
+      window: #e1e1e1,
+    ),
+    background: (
+      app: #ffffff,
+      primary: #ffffff,
+      primary--invert: #000000,
+      secondary: #ebebeb,
+      secondary--active: #aeaeae,
+      secondary--disabled: #535353,
+      secondary--invert: #ffffff,
+      accent-primary: $c-accent-primary,
+      accent-secondary: $c-accent-secondary,
+      overlay: #ffffffbf,
+      error: $c-error,
+      error-overlay: #fa0b0b88,
+    ),
+    text: (
+      primary: #000000,
+      primary--invert: #f2f2f2,
+      secondary: #656565,
+      secondary--invert: #bfbfbf,
+      accent-primary: $c-accent-primary,
+      accent-secondary: $c-accent-secondary,
+      disabled: #828282,
+      error: #ffc0c0,
+    ),
+    icon: (
+      primary: #7d7d7d,
+    ),
+    button: (
+      hover: rgba(#000000, 0.07),
+      accent: #1a4ffe,
+    ),
+  )
+);
