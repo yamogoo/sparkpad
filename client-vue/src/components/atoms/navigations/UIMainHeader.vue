@@ -1,17 +1,21 @@
 <template lang="pug">
-header.main-header
-    div.main-header__section
-        UILogo
-    div.main-header__section
-        UIUserBar(
-            title="user name"
-            description="email"
-        )
+header.main-header(
+  data-test-id="main-header"
+)
+  div.main-header__section
+    UILogo
+  div.main-header__section
+    UIThemeProvider
+    UIUserBar(
+      title="user name"
+      description="email"
+    )
 </template>
 
 <script setup lang="ts">
 import UILogo from "@/components/atoms/base/logos/UILogo.vue";
 import UIUserBar from "@/components/atoms/bars/UIUserBar.vue";
+import UIThemeProvider from "@/components/atoms/base/UIThemeProvider.vue";
 
 interface Props {
   isLoggedin: boolean;
@@ -53,7 +57,7 @@ $main-header: (
 
   &__section {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
   }

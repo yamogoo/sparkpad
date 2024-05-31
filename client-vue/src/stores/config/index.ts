@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-enum Themes {
+export enum Themes {
   DARK = "dark",
   LIGHT = "light",
 }
@@ -21,7 +21,7 @@ const defaults = {
 export const useConfigStore = defineStore("config", {
   state: (): ConfigStoreState => ({
     themes: {
-      themes: [Themes.DARK, Themes.LIGHT],
+      themes: [Themes.LIGHT, Themes.DARK],
       current: defaults.theme,
     },
   }),

@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`App > app container should contain a default theme name 1`] = `"light"`;
+
+exports[`App > app container should contain the dark theme 1`] = `"dark"`;
+
+exports[`App > app container should contain the light theme 1`] = `"light"`;

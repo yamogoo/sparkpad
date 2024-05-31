@@ -1,5 +1,7 @@
 <template lang="pug">
-footer.main-footer
+footer.main-footer(
+    data-test-id="main-footer"
+)
 </template>
 
 <script setup lang="ts"></script>

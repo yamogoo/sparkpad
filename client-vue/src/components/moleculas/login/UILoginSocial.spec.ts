@@ -1,7 +1,7 @@
 import { describe, expect, test, vi } from "vitest";
+import { mount } from "@vue/test-utils";
 
 import UILoginSocial from "./UILoginSocial.vue";
-import { mount } from "@vue/test-utils";
 
 describe("UILoginSocial", () => {
   test(`should render 2 buttons by default`, async () => {

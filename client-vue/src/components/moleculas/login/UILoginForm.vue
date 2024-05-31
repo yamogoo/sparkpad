@@ -3,11 +3,14 @@ Transition(
   :css="false"
   @enter="onEnter"
 )
-  UIFormProvider.login-form(v-if="isMounted")
+  UIFormProvider.login-form(
+    v-if="isMounted"
+  )
     UIForm(
       id="login"
+      data-test-id="login-form"
       type="submit"
-      title="Login"
+      title="Sign In"
     )
       template(#header)
         UILink.md(
@@ -45,11 +48,11 @@ Transition(
         div.form__group-rtl
             UIButton(
               type="submit"
-              label="Next"
+              label="login"
               for="login"
               @press="onSubmit"
             )
-        UILoginSocial
+        //- UILoginSocial
 </template>
 
 <script setup lang="ts">
@@ -63,7 +66,7 @@ import UIInput from "@/components/atoms/base/inputs/UIInput.vue";
 import UIButton from "@/components/atoms/base/buttons/UIButton.vue";
 import UICheckbox from "@/components/atoms/base/switches/UICheckbox.vue";
 import UILink from "@/components/atoms/base/links/UILink.vue";
-import UILoginSocial from "./UILoginSocial.vue";
+// import UILoginSocial from "./UILoginSocial.vue";
 
 const modelLogin = ref("");
 const modelPassword = ref("");

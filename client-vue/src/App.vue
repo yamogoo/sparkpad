@@ -1,25 +1,21 @@
 <template lang="pug">
 div.app--container(
-    :class="[`theme-${theme}`]"
+  data-test-id="app-container"
+  :class="[`theme-${theme}`]"
 )
   div.app--content
     RouterView
     UITaskBox(
       style="position: fixed; bottom: 0; left: 0;"
     )
-    UIThemeProvider(
-      style="position: fixed; top: 0; right: 0;"
-    )
 </template>
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { RouterView } from "vue-router";
 
 import { useConfigStore } from "@/stores/config";
 
 import UITaskBox from "@/components/atoms/base/task/UITaskBox.vue";
-import UIThemeProvider from "@/components/atoms/base/UIThemeProvider.vue";
 
 const configStore = useConfigStore();
 

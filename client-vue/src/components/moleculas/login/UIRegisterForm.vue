@@ -3,15 +3,18 @@ Transition(
   :css="false"
   @enter="onEnter"
 )
-  UIFormProvider.register-form(v-if="isMounted")
+  UIFormProvider.register-form(
+    v-if="isMounted"
+  )
     UIForm(
       id="register"
+      data-test-id="register-form"
       type="submit"
       title="Sign Up"
     )
       template(#header)
         UILink.md(
-          label="Login"
+          label="Sign In"
           :to="'/login'"
           style="position: absolute; right: 0; top: 10px;"
         )
@@ -51,7 +54,7 @@ Transition(
         div.form__group-rtl
             UIButton(
               type="submit"
-              label="Register"
+              label="register"
               for="register"
               @press="onSubmit"
             )

@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`authService > .env (*.local) should contain values for VITE_SERVER_API_VERSION=v1. The value must not be nullish 1`] = `"v1"`;
+
+exports[`authService > .env (*.local) should contain values for VITE_SERVER_HOST=localhost. The value must not be nullish 1`] = `"localhost"`;
+
+exports[`authService > .env (*.local) should contain values for VITE_SERVER_PORT=9002. The value must not be nullish 1`] = `"9002"`;

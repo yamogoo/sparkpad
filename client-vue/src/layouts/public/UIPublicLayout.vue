@@ -1,7 +1,14 @@
 <template lang="pug">
 div.public-layout
     RouterView
+    UIThemeProvider(
+      style="position: fixed; top: 0; right: 0;"
+    )
 </template>
+
+<script setup lang="ts">
+import UIThemeProvider from "@/components/atoms/base/UIThemeProvider.vue";
+</script>
 
 <style lang="scss">
 .public-layout {

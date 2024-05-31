@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`UIPrivateLayout > should render MainFooter 1`] = `true`;
+
+exports[`UIPrivateLayout > should render MainHeader 1`] = `true`;

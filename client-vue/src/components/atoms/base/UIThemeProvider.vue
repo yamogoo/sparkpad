@@ -1,5 +1,7 @@
 <template lang="pug">
-div.theme-provider
+div.theme-provider(
+  data-test-id="theme-provider"
+)
   p.theme-provider__label {{ theme }}
   UISwitch(
     :state="themeState"
