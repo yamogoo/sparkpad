@@ -33,6 +33,7 @@ export { Symbols } from "./Symbols";
 <style lang="scss">
 .symbol {
   fill: inherit;
+  @extend %transition;
 
   svg {
     @include box(100%);

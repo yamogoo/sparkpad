@@ -3,5 +3,5 @@ export enum Symbols {
 
   /* * * Thumbnails * * */
 
-  // AVATAR_DEFAULT = "avatar",
+  AVATAR_DEFAULT = "AvatarDefaultIcon",
 }

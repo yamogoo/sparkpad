@@ -1,6 +1,7 @@
 <template lang="pug">
 div.user-bar
     UIAvatarThumbnail
+    p {{ title }}
     p {{ description }}
 </template>
 
@@ -18,7 +19,11 @@ defineProps<Props>();
 <style lang="scss">
 .user-bar {
   display: inline-block;
-  background-color: red;
   height: 100%;
+  @extend %transition;
+
+  @include themify($themes) {
+    background-color: themed("background", "primary");
+  }
 }
 </style>

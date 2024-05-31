@@ -1,12 +1,12 @@
 {
-  "name": "w01_t05-vue (ada-panel)",
+  "name": "w1t5-todo-admin-client-vue",
   "private": true,
-  "version": "0.1.1",
+  "version": "0.0.0",
   "author": {
     "name": "Misha Grebennikov",
     "email": "grebennikovmisha@gmail.com"
   },
-  "description": "tta17_133",
+  "description": "tta17-133",
   "type": "module",
   "scripts": {
     "dev": "vite",

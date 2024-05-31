@@ -5,6 +5,7 @@ div.social-logos
   div.social-logos__body
     UISocialLogo.social-logo(
       v-for="button in buttons"
+      data-test-id="form-social-button"
       :key="button.id"
       :name="button.symbol"
       style="width: 28px; height: 28px;"
@@ -17,12 +18,7 @@ import UISocialLogo, {
   SocialLogos,
 } from "@/components/atoms/base/logos/social-logos/UISocialLogo.vue";
 
-interface Button {
-  id: number;
-  symbol: SocialLogos;
-}
-
-const buttons: Button[] = [
+const buttons: SocialButton[] = [
   {
     id: 1,
     symbol: SocialLogos.GOOGLE,
@@ -43,6 +39,13 @@ const onClick = (e: MouseEvent | TouchEvent, id: number): void => {
 
   emits("open", id);
 };
+</script>
+
+<script lang="ts">
+export interface SocialButton {
+  id: number;
+  symbol: SocialLogos;
+}
 </script>
 
 <style lang="scss">

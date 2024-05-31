@@ -1,0 +1,3 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`UILoginSocial > should render 2 buttons by default 1`] = `2`;

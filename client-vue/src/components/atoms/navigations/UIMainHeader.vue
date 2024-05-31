@@ -4,7 +4,8 @@ header.main-header
         UILogo
     div.main-header__section
         UIUserBar(
-            title="Logout"
+            title="user name"
+            description="email"
         )
 </template>
 

@@ -1,0 +1,14 @@
+.DS_Store
+
+node_modules/
+.npm
+.env
+
+logs
+*.log
+npm-debug.log*
+
+# App
+/dist
+
+*.local
