@@ -32,8 +32,6 @@ describe("UIForm", () => {
   });
 
   test("should not render a title into header DOM if title is not set", () => {
-    const TITLE = "Login";
-
     const wrapper = mount(UIForm);
 
     const title = wrapper.find('[data-test-id="form-title"]');

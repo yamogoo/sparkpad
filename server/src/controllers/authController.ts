@@ -1,16 +1,84 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
+import { v4 } from "uuid";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
-const register = (req: Request, res: Response, next: NextFunction): void => {
-  //...
-  next();
+import { db } from "@/models";
+import { Op } from "sequelize";
+
+import config from "@/config/authConfig";
+import { Roles } from "@/models/RoleModel";
+
+const User = db.models.User;
+const Role = db.models.Role;
+
+interface RegisterCredentialsRequest {
+  login: string;
+  email: string;
+  password: string;
+  roles: Roles[];
+}
+
+const register = (
+  req: Request<any, any, RegisterCredentialsRequest>,
+  res: Response
+): void => {
+  const { login, email, password, roles } = req.body;
+
+  User.create({
+    id: v4(),
+    login,
+    email,
+    password: bcrypt.hashSync(password, 8),
+  })
+    .then((user) => {
+      if (roles.length > 0) {
+        Role.findAll({
+          where: { name: { [Op.or]: roles } },
+        }).then((_roles) => {
+          res.status(200).send(user);
+        });
+      } else {
+        res.status(400).send({ message: "User roles not been provided" });
+      }
+    })
+    .catch((error) => {
+      res.status(500).send({ message: error.message });
+    });
 };
 
-const login = (req: Request, res: Response, next: NextFunction): void => {
-  //...
-  next();
+const login = (req: Request, res: Response): void => {
+  const { login, password } = req.body;
+
+  User.findOne({
+    where: {
+      login,
+    },
+  }).then((user) => {
+    if (!user) return res.status(400).send({ message: "User not found" });
+
+    const isPasswordValid = bcrypt.compareSync(password, user.password);
+
+    if (!isPasswordValid)
+      return res.status(400).send({ message: "Invalid password" });
+
+    const { secretKey } = config;
+
+    if (!secretKey)
+      return res
+        .status(500)
+        .send({ message: "Server doesn't provide access token" });
+
+    const accessToken = jwt.sign({ id: user.id }, secretKey, {
+      algorithm: "HS256",
+      allowInsecureKeySizes: true,
+      expiresIn: 86400,
+    });
+
+    res.status(200).send({
+      user: { ...user, accessToken },
+    });
+  });
 };
 
-export const authController = {
-  register,
-  login,
-};
+export const authController = { register, login };

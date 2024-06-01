@@ -1,9 +1,11 @@
 import express from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 // Routes
-import indexRouter from "@/routes/auth";
+import indexRouter from "@/routes/index";
 import authRouter from "@/routes/auth";
+import { db } from "./models";
 
 class App {
   public app: express.Application;
@@ -15,12 +17,21 @@ class App {
   }
 
   private async config() {
-    this.app.use(cors);
+    this.app.use(
+      cors({
+        origin: "*",
+      })
+    );
+    this.app.use(express.json());
+    this.app.use(express.urlencoded({ extended: true }));
+    this.app.use(cookieParser());
+
+    await db.init();
   }
 
   private setupRouter() {
-    this.app.use("/", indexRouter);
-    this.app.use("/auth/", authRouter);
+    this.app.use("/v1", indexRouter);
+    this.app.use("/v1/auth", authRouter);
   }
 }
 

@@ -9,13 +9,19 @@ interface UserAttributes {
 
 export type UserCreationAttributes = UserAttributes;
 
-class User extends Model<UserAttributes, UserCreationAttributes> {}
+class User extends Model<UserAttributes, UserCreationAttributes> {
+  [x: string]: any;
+  declare id: string;
+  declare login: string;
+  declare email: string;
+  declare password: string;
+}
 
 export default (sequelize: Sequelize): typeof User => {
   User.init(
     {
       id: {
-        type: DataTypes.UUIDV4,
+        type: DataTypes.STRING,
         primaryKey: true,
       },
       login: {

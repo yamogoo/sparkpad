@@ -3,6 +3,7 @@ import RoleModel from "./RoleModel";
 
 import { Dialect, Sequelize } from "sequelize";
 import { config } from "@/config/dbConfig";
+import { v4 } from "uuid";
 
 export class Models {
   public User;
@@ -18,11 +19,11 @@ export class Models {
   private setAssociations() {
     /* * * Associations * * */
 
-    this.Role.belongsToMany(this.Role, {
+    this.Role.belongsToMany(this.User, {
       through: "user_roles",
     });
 
-    this.User.belongsToMany(this.User, {
+    this.User.belongsToMany(this.Role, {
       through: "user_roles",
     });
   }
@@ -31,14 +32,6 @@ export class Models {
     this.setAssociations();
   }
 }
-
-// class ORM {
-//   public orm: Sequelize;
-
-//   constructor(config) {
-//     this.orm = new Sequelize(config);
-//   }
-// }
 
 export class DataBase {
   public orm: Sequelize;
@@ -72,7 +65,30 @@ export class DataBase {
   }
 
   public async init() {
-    //...
+    await this.orm.sync();
+
+    const roles = await this.models.Role.findAll();
+    const _roles = this.models.Role.Roles;
+
+    _roles.forEach((roleName) => {
+      try {
+        const isRoleExists = roles.find((role) => role.name === roleName);
+
+        if (!isRoleExists) {
+          this.models.Role.create({
+            id: v4(),
+            name: roleName,
+          });
+        }
+      } catch (error) {
+        // !!! ADD debug level
+        console.log(error);
+      }
+    });
+
+    await this.orm.sync();
+
+    // this.testConnection();
   }
 }
 

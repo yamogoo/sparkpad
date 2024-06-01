@@ -23,7 +23,7 @@ Transition(
           label="Login"
           autocomplete="username"
           required
-          v-model:value="modelLogin"
+          v-model:value="model.login"
           @update:value="onUpdateLogin"
         )
       UIFormField
@@ -31,15 +31,15 @@ Transition(
           label="Email"
           autocomplete="email"
           required
-          v-model:value="modelLogin"
-          @update:value="onUpdateLogin"
+          v-model:value="model.email"
+          @update:value="onUpdateEmail"
         )
       UIFormField
         UIInput(
           label="Password"
           autocomplete="new-password"
           required
-          v-model:value="modelPassword"
+          v-model:value="model.password"
           @update:value="onUpdatePassword"
         )
       UIFormField
@@ -47,8 +47,8 @@ Transition(
           label="Repeat password"
           autocomplete="new-password"
           required
-          v-model:value="modelPassword"
-          @update:value="onUpdatePassword"
+          v-model:value="model.passwordRepeat"
+          @update:value="onUpdateRepeatPassword"
         )
       template(#footer)
         div.form__group-rtl
@@ -64,6 +64,8 @@ Transition(
 import { onMounted, ref, Transition } from "vue";
 import g from "gsap";
 
+import { useAuthStore } from "~/src/stores/auth";
+
 import UIFormProvider from "@/components/atoms/forms/UIFormProvider.vue";
 import UIForm from "@/components/atoms/forms/UIForm.vue";
 import UIFormField from "@/components/atoms/forms/UIFormField.vue";
@@ -71,19 +73,39 @@ import UIInput from "@/components/atoms/base/inputs/UIInput.vue";
 import UIButton from "@/components/atoms/base/buttons/UIButton.vue";
 import UILink from "@/components/atoms/base/links/UILink.vue";
 
-const modelLogin = ref("");
-const modelPassword = ref("");
+const authStore = useAuthStore();
 
-const onUpdateLogin = (email: string): void => {
-  console.log(email);
+const model = ref({
+  login: "",
+  email: "",
+  password: "",
+  passwordRepeat: "",
+});
+
+const onUpdateLogin = (login: string): void => {
+  model.value.login = login;
+};
+
+const onUpdateEmail = (email: string): void => {
+  model.value.email = email;
 };
 
 const onUpdatePassword = (password: string): void => {
-  console.log(password);
+  model.value.password = password;
+};
+
+const onUpdateRepeatPassword = (password: string): void => {
+  model.value.password = password;
 };
 
 const onSubmit = (_id: number): void => {
-  console.log(_id);
+  const credentials = {
+    login: model.value.login,
+    email: model.value.email,
+    password: model.value.password,
+  };
+
+  authStore.register(credentials);
 };
 
 const isMounted = ref(false);

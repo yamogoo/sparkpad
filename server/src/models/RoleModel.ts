@@ -12,13 +12,18 @@ export interface RoleAttributes {
 
 type RoleCreationAttributes = RoleAttributes;
 
-class Role extends Model<RoleAttributes, RoleCreationAttributes> {}
+class Role extends Model<RoleAttributes, RoleCreationAttributes> {
+  static Roles = [Roles.ADMIN, Roles.USER];
+
+  declare id: string;
+  declare name: Roles;
+}
 
 export default (sequelize: Sequelize): typeof Role => {
   Role.init(
     {
       id: {
-        type: DataTypes.UUIDV4,
+        type: DataTypes.STRING,
         primaryKey: true,
       },
       name: {

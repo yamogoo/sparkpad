@@ -1,9 +1,9 @@
 <template lang="pug">
 div.public-layout
-    RouterView
-    UIThemeProvider(
-      style="position: fixed; top: 0; right: 0;"
-    )
+  RouterView
+  UIThemeProvider(
+    style="position: fixed; top: 0; right: 0;"
+  )
 </template>
 
 <script setup lang="ts">

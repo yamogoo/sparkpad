@@ -2,6 +2,7 @@ import { mount } from "@vue/test-utils";
 import { describe, expect, test } from "vitest";
 
 import { createPinia, setActivePinia } from "pinia";
+
 import UIPublicLayout from "./UIPublicLayout.vue";
 
 const pinia = createPinia();
