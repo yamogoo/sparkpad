@@ -15,7 +15,7 @@ header.main-header(
 <script setup lang="ts">
 import UILogo from "@/components/atoms/base/logos/UILogo.vue";
 import UIUserBar from "@/components/atoms/bars/UIUserBar.vue";
-import UIThemeProvider from "@/components/atoms/base/UIThemeProvider.vue";
+import UIThemeProvider from "@/components/atoms/bars/UIThemeProvider.vue";
 
 interface Props {
   isLoggedin: boolean;

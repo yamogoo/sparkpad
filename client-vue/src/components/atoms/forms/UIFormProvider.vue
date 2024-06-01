@@ -1,19 +1,45 @@
 <template lang="pug">
 div.form-provider
+  UIFormError(
+    :show="showError"
+    :message="errorMessage"
+    @update:show="onUpdateShowError"
+  )
   slot
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import UIFormError from "./UIFormError.vue";
+
+interface Props {
+  showError: boolean;
+  errorMessage: string | undefined;
+}
+
+withDefaults(defineProps<Props>(), {
+  showError: false,
+});
+
+const emits = defineEmits<{
+  (e: "update:show-error", state: boolean): void;
+}>();
+
+const onUpdateShowError = (state: boolean): void => {
+  emits("update:show-error", state);
+};
+</script>
 
 <style lang="scss">
 .form-provider {
+  position: relative;
+  overflow: hidden;
   @extend %transition;
   @include themify($themes) {
     background-color: themed("background", "primary");
   }
 
   @include respond-above(md) {
-    width: 540px !important;
+    width: 640px !important;
     @include padding-h(60px);
     @include padding-v(40px);
     border-radius: 16px;
@@ -25,10 +51,12 @@ div.form-provider
     border-radius: 0px;
   }
 
-  &__header {
-  }
+  // &__header {}
 
-  &__body {
+  // &__body {}
+
+  .form-error {
+    height: 44px;
   }
 }
 </style>

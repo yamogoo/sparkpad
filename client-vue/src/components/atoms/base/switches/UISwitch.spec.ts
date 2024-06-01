@@ -7,15 +7,15 @@ describe("Switch", () => {
   test.each([true])(
     'should add class attribute "active" to container DOM if "state" prop equals %s',
     (state) => {
-      const component = mount(UISwitch, {
+      const wrapper = mount(UISwitch, {
         props: {
           state,
         },
       });
 
-      const className = component.classes("active");
+      const className = wrapper.classes("active");
       expect(className).toBe(true);
-      expect(component.classes("normal")).toBe(false);
+      expect(wrapper.classes("normal")).toBe(false);
       expect(className).toMatchSnapshot();
     }
   );
@@ -23,31 +23,31 @@ describe("Switch", () => {
   test.each([false])(
     'should add class attribute "normal" to container DOM if "state" prop equals %s',
     (state) => {
-      const component = mount(UISwitch, {
+      const wrapper = mount(UISwitch, {
         props: {
           state,
         },
       });
 
-      const className = component.classes("normal");
+      const className = wrapper.classes("normal");
       expect(className).toBe(true);
-      expect(component.classes("active")).toBe(false);
+      expect(wrapper.classes("active")).toBe(false);
       expect(className).toMatchSnapshot();
     }
   );
 
-  test('should emit "update:state" when clicking on the component', () => {
-    const component = mount(UISwitch, {
+  test('should emit "update:state" when clicking on the wrapper', async () => {
+    const wrapper = mount(UISwitch, {
       props: {
         state: true,
       },
     });
 
-    const inputEl = component.find('input[type="checkbox"]');
-    inputEl.trigger("change");
+    const inputEl = wrapper.find('input[type="checkbox"]');
+    await inputEl.trigger("change");
 
-    expect(component.emitted("update:state")).toHaveLength(1);
-    expect(component.emitted()).toHaveProperty("update:state");
-    expect(component.emitted("update:state")).toMatchSnapshot();
+    expect(wrapper.emitted("update:state")).toHaveLength(1);
+    expect(wrapper.emitted()).toHaveProperty("update:state");
+    expect(wrapper.emitted("update:state")).toMatchSnapshot();
   });
 });

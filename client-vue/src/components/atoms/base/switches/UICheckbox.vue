@@ -1,6 +1,7 @@
 <template lang="pug">
 label.checkbox(
   :class="[state ? 'active' : 'normal']"
+  data-type-id="checkbox"
 )
   input(
     v-bind="$attrs"
@@ -10,7 +11,10 @@ label.checkbox(
   )
   div.checkbox__track
     div.checkbox__flag
-  span.checkbox__label(v-if="label") {{ label }}
+  span.checkbox__label(
+    v-if="label"
+    data-test-id="checkbox-label"
+  ) {{ label }}
 </template>
 
 <script setup lang="ts">
@@ -25,7 +29,7 @@ defineOptions({
 
 const modelValue = defineModel();
 
-defineProps<Props>();
+withDefaults(defineProps<Props>(), {});
 
 const emits = defineEmits<{
   (e: "update:state", state: boolean): void;
@@ -38,7 +42,7 @@ const onToggle = (e: Event): void => {
 </script>
 
 <style lang="scss">
-$__size: 12px;
+$__size: 16px;
 
 .checkbox {
   display: flex;

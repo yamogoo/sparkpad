@@ -62,13 +62,25 @@ export interface Props {
     box-sizing: border-box;
     border-radius: 6px;
     user-select: all;
+    outline: none;
     @extend %transition;
 
     @include themify($themes) {
       color: themed("text", "primary");
       border: 1px solid themed("border", "primary");
-      outline-color: themed("border", "accent");
+      // outline-color: themed("border", "accent");
       background-color: themed("background", "primary");
+    }
+  }
+
+  &.error {
+    input {
+      @include themify($themes) {
+        color: themed("text", "error");
+        border: 2px solid themed("border", "error");
+        // outline-color: themed("border", "error");
+        // background-color: themed("background", "error--overlay");
+      }
     }
   }
 }

@@ -4,7 +4,7 @@ import { describe, expect, test } from "vitest";
 import { nextTick } from "vue";
 import { createPinia, setActivePinia } from "pinia";
 
-import { Themes, useConfigStore } from "./stores/config";
+import { Themes, useConfigStore } from "@/stores/config";
 import App from "./App.vue";
 
 const pinia = createPinia();

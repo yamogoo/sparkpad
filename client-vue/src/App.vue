@@ -40,6 +40,10 @@ body {
   font-family: "Caros";
   letter-spacing: 0.03em;
   @include box(100vw, 100vh);
+
+  * {
+    box-sizing: border-box;
+  }
 }
 
 .app--container {

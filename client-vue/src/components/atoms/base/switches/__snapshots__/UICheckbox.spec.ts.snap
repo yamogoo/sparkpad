@@ -1,0 +1,27 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`UICheckbox > should add class attribute "active" to container DOM if "state" prop equals true 1`] = `true`;
+
+exports[`UICheckbox > should add class attribute "normal" to container DOM if "state" prop equals false 1`] = `true`;
+
+exports[`UICheckbox > should emit "update:state" when clicking on the wrapper 1`] = `
+[
+  [
+    false,
+  ],
+]
+`;
+
+exports[`UICheckbox > should render label 1`] = `
+DOMWrapper {
+  "isDisabled": [Function],
+  "wrapperElement": <span
+    class="checkbox__label"
+    data-test-id="checkbox-label"
+  >
+    Checkbox Label
+  </span>,
+}
+`;
+
+exports[`UICheckbox > should render label=Checkbox Label 1`] = `"Checkbox Label"`;

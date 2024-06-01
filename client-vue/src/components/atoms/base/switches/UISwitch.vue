@@ -70,8 +70,8 @@ watch(
 </script>
 
 <style lang="scss">
-$__width: 40px;
-$__height: 16px;
+$__width: 48px;
+$__height: 24px;
 $__knob-size: 16px;
 
 .switch {

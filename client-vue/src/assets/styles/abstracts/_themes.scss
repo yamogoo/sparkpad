@@ -7,6 +7,7 @@ $themes: (
       ),
       border: (
         primary: #4c4c4c,
+        error: $c-error,
         window: #494949,
       ),
       background: (
@@ -20,7 +21,7 @@ $themes: (
         accent-primary: $c-accent-primary,
         accent-secondary: $c-accent-secondary,
         overlay: #0a0a0a80,
-        error: $c-error,
+        error: #913f3f,
         error-overlay: #fa0b0b88,
       ),
       text: (
@@ -31,7 +32,7 @@ $themes: (
         accent-primary: $c-accent-primary,
         accent-secondary: $c-accent-secondary,
         disabled: #828282,
-        error: #ffc0c0,
+        error: $c-error,
       ),
       icon: (
         primary: #7d7d7d,
@@ -41,6 +42,10 @@ $themes: (
         hover: rgba(#ffffff, 0.07),
         accent: #1a4ffe,
       ),
+      error: (
+        text: #ffbbbb,
+        background: $c-error--background,
+      ),
     ),
 
   light: (
@@ -49,6 +54,7 @@ $themes: (
     ),
     border: (
       primary: #d9d9d9,
+      error: $c-error,
       window: #e1e1e1,
     ),
     background: (
@@ -62,7 +68,7 @@ $themes: (
       accent-primary: $c-accent-primary,
       accent-secondary: $c-accent-secondary,
       overlay: #ffffffbf,
-      error: $c-error,
+      error: #f46969,
       error-overlay: #fa0b0b88,
     ),
     text: (
@@ -73,7 +79,7 @@ $themes: (
       accent-primary: $c-accent-primary,
       accent-secondary: $c-accent-secondary,
       disabled: #828282,
-      error: #ffc0c0,
+      error: $c-error,
     ),
     icon: (
       primary: #7d7d7d,
@@ -82,6 +88,10 @@ $themes: (
     button: (
       hover: rgba(#000000, 0.07),
       accent: #1a4ffe,
+    ),
+    error: (
+      text: $c-text-primary--invert,
+      background: #f17467,
     ),
   )
 );

@@ -1,0 +1,9 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`UIThemeProvider > should contain the dark theme 1`] = `"dark"`;
+
+exports[`UIThemeProvider > should contain the light theme 1`] = `"light"`;
+
+exports[`UIThemeProvider > should render switch 1`] = `true`;
+
+exports[`UIThemeProvider > should render theme name 1`] = `"light"`;

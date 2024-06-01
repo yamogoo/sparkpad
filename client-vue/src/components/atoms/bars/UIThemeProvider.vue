@@ -2,7 +2,9 @@
 div.theme-provider(
   data-test-id="theme-provider"
 )
-  p.theme-provider__label {{ theme }}
+  p.theme-provider__label(
+    data-test-id="theme-label"
+  ) {{ theme }}
   UISwitch(
     :state="themeState"
     @update:state="onUpdateTheme"

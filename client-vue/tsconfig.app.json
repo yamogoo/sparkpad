@@ -20,7 +20,8 @@
       "@/*": ["./src/*"],
       "@utils/*": ["src/utils/*"],
       "@typings/*": ["./src/typings/*"]
-    }
+    },
+    "types": ["gsap/types"]
   },
   "vueCompilerOptions": {
     "plugins": ["@vue/language-plugin-pug"]

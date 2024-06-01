@@ -7,7 +7,7 @@ div.public-layout
 </template>
 
 <script setup lang="ts">
-import UIThemeProvider from "@/components/atoms/base/UIThemeProvider.vue";
+import UIThemeProvider from "@/components/atoms/bars/UIThemeProvider.vue";
 </script>
 
 <style lang="scss">

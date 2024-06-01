@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`UIErrorMessage > should not render description 1`] = `false`;
+
+exports[`UIErrorMessage > should render description 1`] = `true`;
+
+exports[`UIErrorMessage > should show default message value 1`] = `"Error"`;
