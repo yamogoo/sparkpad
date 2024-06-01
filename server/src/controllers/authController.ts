@@ -3,21 +3,15 @@ import { v4 } from "uuid";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
+import config from "@/config/authConfig";
+
 import { db } from "@/models";
 import { Op } from "sequelize";
 
-import config from "@/config/authConfig";
-import { Roles } from "@/models/RoleModel";
+import { RegisterCredentialsRequest } from "@/typings";
 
 const User = db.models.User;
 const Role = db.models.Role;
-
-interface RegisterCredentialsRequest {
-  login: string;
-  email: string;
-  password: string;
-  roles: Roles[];
-}
 
 const register = (
   req: Request<any, any, RegisterCredentialsRequest>,
@@ -36,7 +30,12 @@ const register = (
         Role.findAll({
           where: { name: { [Op.or]: roles } },
         }).then((_roles) => {
-          res.status(200).send(user);
+          res.status(200).send({
+            user: {
+              login: user.login,
+              email: user.email,
+            },
+          });
         });
       } else {
         res.status(400).send({ message: "User roles not been provided" });
@@ -51,9 +50,7 @@ const login = (req: Request, res: Response): void => {
   const { login, password } = req.body;
 
   User.findOne({
-    where: {
-      login,
-    },
+    where: { login },
   }).then((user) => {
     if (!user) return res.status(400).send({ message: "User not found" });
 
@@ -76,7 +73,11 @@ const login = (req: Request, res: Response): void => {
     });
 
     res.status(200).send({
-      user: { ...user, accessToken },
+      user: {
+        login: user.login,
+        email: user.email,
+        accessToken,
+      },
     });
   });
 };

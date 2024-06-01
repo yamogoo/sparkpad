@@ -15,13 +15,13 @@ router.use((req, res, next) => {
 });
 
 // Sign Up
-router.post("/register", authController.register);
+router.post(
+  "/register",
+  [verifyRegister.checkIfEmailOrLoginExists],
+  authController.register
+);
 
 // SignIn
-router.post(
-  "/login",
-  [verifyRegister.checkIfEmailOrLoginExists, verifyRegister.checkIfRoleExists],
-  authController.login
-);
+router.post("/login", authController.login);
 
 export default router;

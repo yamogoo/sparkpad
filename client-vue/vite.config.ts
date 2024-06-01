@@ -24,6 +24,7 @@ export default (opts: { mode: string }) => {
       "import.meta.env.APP_DESCRIPTION": JSON.stringify(
         packageJson.description
       ),
+      "import.meta.env.APP_TITLE": JSON.stringify(packageJson.title),
     },
     resolve: {
       alias: {

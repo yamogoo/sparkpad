@@ -23,7 +23,7 @@ Transition(
           label="Login or email"
           autocomplete="email"
           required
-          v-model:value="modelLogin"
+          v-model:value="model.login"
           @update:value="onUpdateLogin"
         )
       UIFormField
@@ -31,14 +31,14 @@ Transition(
           label="Password"
           autocomplete="current-password"
           required
-          v-model:value="modelPassword"
+          v-model:value="model.password"
           @update:value="onUpdatePassword"
         )
       template(#footer)
         div.form__group-between
           UICheckbox(
             label="Remember me" 
-            v-model:state="isPasswordCached"
+            v-model:state="model.isPasswordCached"
             @update:state="onUpdateRememberPasword"
           )
           UILink(
@@ -57,7 +57,11 @@ Transition(
 
 <script setup lang="ts">
 import { onMounted, ref, Transition } from "vue";
+import { useRouter } from "vue-router";
 import g from "gsap";
+
+import { useAuthStore } from "~/src/stores/auth";
+import type { AuthLoginCredentials } from "~/src/services/authService";
 
 import UIFormProvider from "@/components/atoms/forms/UIFormProvider.vue";
 import UIForm from "@/components/atoms/forms/UIForm.vue";
@@ -66,27 +70,44 @@ import UIInput from "@/components/atoms/base/inputs/UIInput.vue";
 import UIButton from "@/components/atoms/base/buttons/UIButton.vue";
 import UICheckbox from "@/components/atoms/base/switches/UICheckbox.vue";
 import UILink from "@/components/atoms/base/links/UILink.vue";
+
 // import UILoginSocial from "./UILoginSocial.vue";
 
-const modelLogin = ref("");
-const modelPassword = ref("");
-const isPasswordCached = ref(false);
+const router = useRouter();
 
-const onUpdateLogin = (email: string): void => {
-  console.log(email);
+const authStore = useAuthStore();
+
+const model = ref({
+  login: "",
+  password: "",
+  isPasswordCached: false,
+});
+
+const onUpdateLogin = (login: string): void => {
+  model.value.login = login;
 };
 
 const onUpdatePassword = (password: string): void => {
-  console.log(password);
+  model.value.password = password;
 };
 
 const onUpdateRememberPasword = (state: boolean): void => {
-  console.log(state);
-  isPasswordCached.value = state;
+  model.value.isPasswordCached = state;
 };
 
-const onSubmit = (_id: number): void => {
-  console.log(_id);
+const onSubmit = async (_id: number): Promise<void> => {
+  const credentials: AuthLoginCredentials = {
+    login: model.value.login,
+    password: model.value.password,
+  };
+
+  const { accessToken } = await authStore.login(credentials);
+
+  if (accessToken) {
+    router.push({ path: "/private" });
+  }
+
+  return;
 };
 
 const isMounted = ref(false);

@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { useAuthStore } from "../stores/auth";
 
 const routes = [
   /* * * Public * * */
@@ -32,3 +33,10 @@ export const router = createRouter({
   routes,
   history: createWebHistory(import.meta.env.BASE_URL),
 });
+
+// router.beforeEach((to, from) => {
+//   const authStore = useAuthStore();
+//   const accessToken = authStore.getAccessToken;
+
+//   if (accessToken) router.push({ path: "/public" });
+// });

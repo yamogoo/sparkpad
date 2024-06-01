@@ -7,6 +7,7 @@
     "email": "grebennikovmisha@gmail.com"
   },
   "description": "tta17-133",
+  "title": "Ada Panel",
   "type": "module",
   "scripts": {
     "dev": "vite",

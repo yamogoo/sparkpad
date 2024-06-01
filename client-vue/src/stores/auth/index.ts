@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import {
   authService,
   type AuthLoginCredentials,
+  type AuthorizedUser,
   type AuthRegisterCredentials,
   type User,
 } from "~/src/services/authService";
@@ -9,11 +10,11 @@ import { LocalStorageAuthKeys } from "../localStorage";
 
 interface AuthStoreState {
   _isLoggedIn: boolean;
-  _user: User | null;
+  _user: AuthorizedUser | null;
 }
 
 const userData = localStorage.getItem(LocalStorageAuthKeys.USER);
-const user: User | null = userData && JSON.parse(userData);
+const user: AuthorizedUser | null = userData && JSON.parse(userData);
 const isLoggedIn = user !== null;
 
 const defaults = { isLoggedIn, user };
@@ -23,7 +24,14 @@ export const useAuthStore = defineStore("auth", {
     _isLoggedIn: defaults.isLoggedIn,
     _user: defaults.user,
   }),
-  getters: {},
+  getters: {
+    getAccessToken: (state): string | undefined => {
+      if (state._user) {
+        return state._user.accessToken;
+      }
+      return undefined;
+    },
+  },
   actions: {
     async register(credentials: AuthRegisterCredentials) {
       return await authService.register(credentials);
@@ -31,12 +39,13 @@ export const useAuthStore = defineStore("auth", {
 
     async login(credentials: AuthLoginCredentials) {
       const user = await authService.login(credentials);
+
       if (user) {
-        const accessToken = user.accessToken;
-        localStorage.setItem(LocalStorageAuthKeys.USER, accessToken);
+        localStorage.setItem(LocalStorageAuthKeys.USER, JSON.stringify(user));
+        this.setUser(user);
+        return user;
       }
-      // if (!error) this.setUser(user);
-      return user;
+      return;
     },
 
     logout() {
@@ -45,7 +54,7 @@ export const useAuthStore = defineStore("auth", {
       });
     },
 
-    setUser(user: User | null) {
+    setUser(user: AuthorizedUser | null) {
       this._user = user;
       localStorage.setItem(LocalStorageAuthKeys.USER, JSON.stringify(user));
       this._isLoggedIn = true;

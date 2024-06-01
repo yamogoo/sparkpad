@@ -62,6 +62,7 @@ Transition(
 
 <script setup lang="ts">
 import { onMounted, ref, Transition } from "vue";
+import { useRouter } from "vue-router";
 import g from "gsap";
 
 import { useAuthStore } from "~/src/stores/auth";
@@ -72,6 +73,8 @@ import UIFormField from "@/components/atoms/forms/UIFormField.vue";
 import UIInput from "@/components/atoms/base/inputs/UIInput.vue";
 import UIButton from "@/components/atoms/base/buttons/UIButton.vue";
 import UILink from "@/components/atoms/base/links/UILink.vue";
+
+const router = useRouter();
 
 const authStore = useAuthStore();
 
@@ -98,14 +101,16 @@ const onUpdateRepeatPassword = (password: string): void => {
   model.value.password = password;
 };
 
-const onSubmit = (_id: number): void => {
+const onSubmit = async (_id: number): Promise<void> => {
   const credentials = {
     login: model.value.login,
     email: model.value.email,
     password: model.value.password,
   };
 
-  authStore.register(credentials);
+  const user = await authStore.register(credentials);
+
+  if (user) router.push({ path: "/login" });
 };
 
 const isMounted = ref(false);
