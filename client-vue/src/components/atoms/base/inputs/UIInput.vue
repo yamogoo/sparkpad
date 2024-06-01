@@ -1,5 +1,7 @@
 <template lang="pug">
-div.input
+div.input(
+  :class="[{'error': isError}]"
+)
   div.input--container
     label.input__placeholder(v-if="label") {{ label }}
     input(
@@ -12,17 +14,27 @@ div.input
 <script setup lang="ts">
 import { ref } from "vue";
 
-const props = withDefaults(defineProps<Props>(), {});
+const props = withDefaults(defineProps<Props>(), {
+  verificationTimer: 100,
+});
 
 const emits = defineEmits<{
   (e: "update:value", value: string): void;
+  (e: "verify:value"): void;
 }>();
 
 const modelValue = ref(props.value);
 
+let timerId: ReturnType<typeof setTimeout> | undefined = undefined;
+
 const onInput = (e: Event) => {
+  clearTimeout(timerId);
   const value = (e.target as HTMLInputElement).value;
   emits("update:value", value);
+
+  timerId = setTimeout(() => {
+    emits("verify:value");
+  }, props.verificationTimer);
 };
 
 /* * * Animations * * */
@@ -33,6 +45,8 @@ export interface Props {
   label?: string;
   placeholder?: string;
   value: string;
+  verificationTimer?: number;
+  isError: boolean;
 }
 </script>
 
@@ -68,7 +82,6 @@ export interface Props {
     @include themify($themes) {
       color: themed("text", "primary");
       border: 1px solid themed("border", "primary");
-      // outline-color: themed("border", "accent");
       background-color: themed("background", "primary");
     }
   }
@@ -78,8 +91,6 @@ export interface Props {
       @include themify($themes) {
         color: themed("text", "error");
         border: 2px solid themed("border", "error");
-        // outline-color: themed("border", "error");
-        // background-color: themed("background", "error--overlay");
       }
     }
   }

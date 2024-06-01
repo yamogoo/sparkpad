@@ -25,19 +25,21 @@ Transition(
         UIInput(
           label="Login or email"
           autocomplete="email"
-          :class="[{'error' : model.login.error}]"
           required
+          :is-error="model.login.error"
           v-model:value="model.login.value"
           @update:value="onUpdateLogin"
+          @verify:value="onVerifyLogin"
         )
       UIFormField
         UIInput(
           label="Password"
           autocomplete="current-password"
-          :class="[{'error' : model.password.error}]"
           required
+          :is-error="model.password.error"
           v-model:value="model.password.value"
           @update:value="onUpdatePassword"
+          @verify:value="onVerifyPassword"
         )
       template(#footer)
         div.form__group-between
@@ -65,42 +67,48 @@ import { onMounted, ref, type Ref } from "vue";
 import { useRouter } from "vue-router";
 import g from "gsap";
 
-import { useAuthStore } from "~/src/stores/auth";
-import type { AuthLoginCredentials } from "~/src/services/authService";
+import { verifyLogin, verifyPassword } from "@/utils";
+import { useVerifyField } from "@/composables/useVerifyField";
+
+import { useAuthStore } from "@/stores/auth";
+import type { AuthLoginCredentials } from "@/services/authService";
 
 import UIFormProvider from "@/components/atoms/forms/UIFormProvider.vue";
-import UIForm from "@/components/atoms/forms/UIForm.vue";
+import UIForm, {
+  type FormError,
+  type FormInputValue,
+} from "@/components/atoms/forms/UIForm.vue";
 import UIFormField from "@/components/atoms/forms/UIFormField.vue";
 import UIInput from "@/components/atoms/base/inputs/UIInput.vue";
 import UIButton from "@/components/atoms/base/buttons/UIButton.vue";
 import UICheckbox from "@/components/atoms/base/switches/UICheckbox.vue";
 import UILink from "@/components/atoms/base/links/UILink.vue";
+
 // import UILoginSocial from "./UILoginSocial.vue";
+
+enum ErrorMessages {
+  PASSWORD_NOT_VERIFIED = "pasword must be more than 8 characters",
+  LOGIN_NOT_VERIFIED = "login must be more than 4 characters",
+}
 
 const router = useRouter();
 
 const authStore = useAuthStore();
 
-interface FormInputValue {
-  value: string;
-  error: boolean;
-}
+type ModelKeys = "login" | "password";
 
-const model: Ref<Record<"login" | "password", FormInputValue>> = ref({
+const model: Ref<Record<ModelKeys, FormInputValue>> = ref({
   login: {
     value: "",
     error: false,
+    isVerifyed: false,
   },
   password: {
     value: "",
     error: false,
+    isVerifyed: false,
   },
 });
-
-interface FormError {
-  message: string | undefined;
-  status: boolean;
-}
 
 const formError: Ref<FormError> = ref({
   message: undefined,
@@ -113,12 +121,7 @@ const onUpdateShowError = (state: boolean): void => {
   formError.value.status = state;
 };
 
-/* * * Verification * * */
-
-const verifyLogin = (login: string): boolean => {
-  if (login && login.length > 4) return true;
-  return false;
-};
+/* * * Verification Handlers * * */
 
 const onUpdateLogin = (login: string): void => {
   model.value.login.value = login;
@@ -132,35 +135,29 @@ const onUpdateRememberPasword = (state: boolean): void => {
   isPasswordCached.value = state;
 };
 
-const getError = (
-  message: string | undefined = undefined
-): { status: boolean; message: string | undefined } => {
-  const status = message !== "" && !!message;
-  return { message, status };
+/* * * Verifications * * */
+
+const onVerifyLogin = (): void => {
+  useVerifyField<ModelKeys>("login", model, {
+    formError,
+    errorMessage: ErrorMessages.LOGIN_NOT_VERIFIED,
+    isVerifyed: verifyLogin(model.value.login.value),
+  });
 };
 
+const onVerifyPassword = (): void => {
+  useVerifyField<ModelKeys>("password", model, {
+    formError,
+    errorMessage: ErrorMessages.PASSWORD_NOT_VERIFIED,
+    isVerifyed: verifyPassword(model.value.password.value),
+  });
+};
+
+/* * * Submit * * */
+
 const onSubmit = async (_id: number): Promise<void> => {
-  const isLoginVerifyed = verifyLogin(model.value.login.value);
-
-  if (!isLoginVerifyed) {
-    model.value.login.error = true;
-    formError.value = getError("login must be more than 4 characters");
+  if (!(model.value.login.isVerifyed || model.value.password.isVerifyed))
     return;
-  } else {
-    model.value.login.error = false;
-    formError.value = getError(undefined);
-  }
-
-  const isPasswordVerifyed = verifyLogin(model.value.password.value);
-
-  if (!isPasswordVerifyed) {
-    model.value.password.error = true;
-    formError.value = getError("pasword must be more than 8 characters");
-    return;
-  } else {
-    model.value.password.error = false;
-    formError.value = getError(undefined);
-  }
 
   const credentials: AuthLoginCredentials = {
     login: model.value.login.value,

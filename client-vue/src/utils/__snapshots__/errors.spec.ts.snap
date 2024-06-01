@@ -1,0 +1,9 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`errors > getError > function should return message object 1`] = `"message"`;
+
+exports[`errors > getError > function should return status = false 1`] = `"status"`;
+
+exports[`errors > getError > function should return status = true 1`] = `"status"`;
+
+exports[`errors > getError > function should return status object 1`] = `"status"`;

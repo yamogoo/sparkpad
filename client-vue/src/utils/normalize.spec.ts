@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { normalizePort } from "./normalize";
+import { normalizePort } from "@/utils";
 
 describe("normalize", () => {
   describe("normalizePort", () => {
@@ -8,6 +8,7 @@ describe("normalize", () => {
       const normalizedPort = normalizePort(port ?? "0");
 
       expect(normalizedPort).toBe(Number(port));
+      expect(normalizedPort).toMatchSnapshot();
     });
   });
 });

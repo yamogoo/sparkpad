@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`normalize > normalizePort > should return typeof port === number (3000) 1`] = `3000`;
+
+exports[`normalize > normalizePort > should return typeof port === number (5001) 1`] = `5001`;

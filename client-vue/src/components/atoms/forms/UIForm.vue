@@ -30,6 +30,19 @@ withDefaults(defineProps<Props>(), {
 });
 </script>
 
+<script lang="ts">
+export interface FormInputValue {
+  value: string;
+  error: boolean;
+  isVerifyed: boolean;
+}
+
+export interface FormError {
+  message: string | undefined;
+  status: boolean;
+}
+</script>
+
 <style lang="scss">
 .form {
   @include box(100%);

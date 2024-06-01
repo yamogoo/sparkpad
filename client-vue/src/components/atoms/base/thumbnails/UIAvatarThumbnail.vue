@@ -2,18 +2,18 @@
 div.avatar-thumbnail(
   :class="[]"
 )
-    image.avatar-thumbnail__image(
-        data-test-id="avatar-thumbnail-image"
-        v-if="url && useDefaultImage"
-        :alt="description" :src="url"
-    )
-    UISymbol(
-        v-if="!url && useDefaultImage"
-        :name="defaultSymbol"
-    )
-    span(
-        v-if="!(url && useDefaultImage)"
-    ) {{ shortText?.slice(2) }}
+  image.avatar-thumbnail__image(
+    data-test-id="avatar-thumbnail-image"
+    v-if="url && useDefaultImage"
+    :alt="description" :src="url"
+  )
+  UISymbol(
+    v-if="!url && useDefaultImage"
+    :name="defaultSymbol"
+  )
+  span(
+    v-if="!(url && useDefaultImage)"
+  ) {{ shortText?.slice(2) }}
 </template>
 
 <script setup lang="ts">

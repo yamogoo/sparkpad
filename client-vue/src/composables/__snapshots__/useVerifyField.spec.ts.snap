@@ -1,0 +1,11 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`useVerifyField > field should be verified > error status should be false 1`] = `false`;
+
+exports[`useVerifyField > field should be verified > field should be verified 1`] = `true`;
+
+exports[`useVerifyField > field should be write error message 1`] = `"Error Message"`;
+
+exports[`useVerifyField > not be verified > error status should be false 1`] = `false`;
+
+exports[`useVerifyField > not be verified > field should not be verified 1`] = `false`;

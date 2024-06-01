@@ -36,16 +36,18 @@ let timerId: ReturnType<typeof setTimeout> | undefined = undefined;
 /* * * Animations * * */
 
 const onEnterComplete = () => {
-  if (props.autohideTimer)
+  if (props.autohideTimer) {
+    clearTimeout(timerId);
     timerId = setTimeout(() => {
       emits("update:show", false);
     }, props.autohideTimer);
+  }
 };
 
 watch(
   () => props.show,
   () => {
-    if (!props.show && props.autohideTimer) timerId = undefined;
+    if (!props.show && props.autohideTimer) clearTimeout(timerId);
   }
 );
 

@@ -58,7 +58,7 @@ const animationEnter: gsap.TweenVars = {
 const animationLeave: gsap.TweenVars = {
   ...animationBeforeEnter,
   duration: 0.25,
-  ease: "power4.out",
+  ease: "power4.in",
 };
 </script>
 
@@ -77,7 +77,6 @@ export interface ErrorContent {
   left: 0;
   right: 0;
   width: 100%;
-  // @include padding-v(16px);
   @include padding-h(16px);
   z-index: 9999;
   cursor: pointer;
@@ -108,22 +107,5 @@ export interface ErrorContent {
   }
 
   $__border-radius: $border-radius;
-
-  // & {
-  //   // width: fit-content;
-  //   // min-height: 32px;
-  //   // padding: 20px;
-  //   // border-radius: $__border-radius;
-  //   // overflow: hidden;
-
-  //   @include themify($themes) {
-  //     color: themed("text", "error");
-  //     background-color: themed("background", "error-overlay");
-  //   }
-
-  //   * {
-  //     text-align: center;
-  //   }
-  // }
 }
 </style>
