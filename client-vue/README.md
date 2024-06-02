@@ -4,6 +4,10 @@
 
 ```bash
 
+npm run test:ui
+
+# or
+
 npm run test:unit
 ```
 

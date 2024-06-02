@@ -6,7 +6,7 @@ UIRegisterForm(
 
 <script setup lang="ts">
 import { reactive } from "vue";
-import UIRegisterForm from "@/components/moleculas/login/UIRegisterForm.vue";
+import UIRegisterForm from "@/components/moleculas/auth/UIRegisterForm.vue";
 
 import { useAuthStore } from "@/stores/auth";
 

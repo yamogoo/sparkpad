@@ -4,8 +4,8 @@ export const verifyLogin = (login: string): boolean => {
 };
 
 export const verifyEmail = (email: string): boolean => {
-  if (email && email.length >= 8) return true;
-  return false;
+  const pattern = /^[A-Z-a-z-0-9.\-]+@[A-Z-a-z-0-9]+\.+[a-z]+$/;
+  return pattern.test(email);
 };
 
 export const verifyPassword = (password: string): boolean => {

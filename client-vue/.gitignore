@@ -1,4 +1,6 @@
 # Logs
+/src/tests-report
+
 logs
 *.log
 npm-debug.log*

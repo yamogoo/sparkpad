@@ -6,7 +6,7 @@ UILoginForm(
 
 <script setup lang="ts">
 import { reactive } from "vue";
-import UILoginForm from "@/components/moleculas/login/UILoginForm.vue";
+import UILoginForm from "@/components/moleculas/auth/UILoginForm.vue";
 
 import { useAuthStore } from "@/stores/auth";
 

@@ -90,7 +90,7 @@ export interface Props {
     input {
       @include themify($themes) {
         color: themed("text", "error");
-        border: 2px solid themed("border", "error");
+        border: 1px solid themed("border", "error");
       }
     }
   }

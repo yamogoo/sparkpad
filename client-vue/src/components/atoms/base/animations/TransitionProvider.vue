@@ -51,7 +51,7 @@ watch(
   }
 );
 
-const onEnter = (el: Element, done: () => void): void => {
+const onEnter = (el: Element): void => {
   g.fromTo(
     el,
     {

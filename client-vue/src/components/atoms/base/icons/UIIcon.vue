@@ -1,8 +1,6 @@
 <template lang="pug">
 div.icon
-    UISymbol(
-      :name
-    )
+  UISymbol(:name)
 </template>
 
 <script setup lang="ts">
