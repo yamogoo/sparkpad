@@ -11,7 +11,7 @@ div.error-message
 
 <script setup lang="ts">
 interface Props {
-  message: string;
+  message?: string;
   description?: string;
 }
 

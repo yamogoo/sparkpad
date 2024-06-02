@@ -8,7 +8,7 @@ describe("UICheckbox", () => {
 
   test.each([DEFAULT_LABEL])("should render label", (label) => {
     const wrapper = mount(UICheckbox, {
-      props: { label },
+      props: { label, state: false },
     });
 
     const labelEl = wrapper.find('[data-test-id="checkbox-label"]');
@@ -20,7 +20,7 @@ describe("UICheckbox", () => {
 
   test.each([DEFAULT_LABEL])("should render label=%s", (label) => {
     const wrapper = mount(UICheckbox, {
-      props: { label },
+      props: { label, state: false },
     });
 
     const labelEl = wrapper.find('[data-test-id="checkbox-label"]');
@@ -31,7 +31,11 @@ describe("UICheckbox", () => {
   });
 
   test('should emit "update:state" when clicking on the wrapper', async () => {
-    const wrapper = mount(UICheckbox);
+    const wrapper = mount(UICheckbox, {
+      props: {
+        state: false,
+      },
+    });
 
     const inputEl = wrapper.find("input");
     await inputEl.trigger("change");

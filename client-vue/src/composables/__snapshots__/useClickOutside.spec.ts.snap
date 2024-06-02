@@ -1,0 +1,9 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`useClickOutside > should unselect input 1`] = `
+[
+  <input
+    type="text"
+  />,
+]
+`;

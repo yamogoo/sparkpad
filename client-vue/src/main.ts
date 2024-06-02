@@ -5,6 +5,7 @@ import { createPinia } from "pinia";
 import { router } from "@/router";
 
 import "./assets/_fonts.scss";
+import "./assets/styles/_reset-styles.scss";
 
 import { setAppTitle } from "@/utils";
 

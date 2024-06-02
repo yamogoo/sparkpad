@@ -8,6 +8,10 @@ describe("UIFormField", () => {
     "should render default slot (%s)",
     (defaultSlot) => {
       const wrapper = mount(UIFormProvider, {
+        props: {
+          showError: true,
+          errorMessage: "Error",
+        },
         slots: {
           default: defaultSlot,
         },

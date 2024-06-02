@@ -5,19 +5,14 @@ div.app--container(
 )
   div.app--content
     RouterView
-    UITaskBox(
-      style="position: fixed; bottom: 0; left: 0;"
-    )
 </template>
 
 <script setup lang="ts">
 import { computed } from "vue";
 
-import { useConfigStore } from "@/stores/config";
+import { useSettingsStore } from "@/stores/settings";
 
-import UITaskBox from "@/components/atoms/base/task/UITaskBox.vue";
-
-const configStore = useConfigStore();
+const configStore = useSettingsStore();
 
 const theme = computed(() => {
   return configStore.getTheme.theme;

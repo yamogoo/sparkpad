@@ -5,6 +5,7 @@ div.form-provider
     :message="errorMessage"
     @update:show="onUpdateShowError"
   )
+  slot(v-if="$slots.navigation" name="navigation")
   slot
 </template>
 

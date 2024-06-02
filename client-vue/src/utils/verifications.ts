@@ -4,7 +4,7 @@ export const verifyLogin = (login: string): boolean => {
 };
 
 export const verifyEmail = (email: string): boolean => {
-  const pattern = /^[A-Z-a-z-0-9.\-]+@[A-Z-a-z-0-9]+\.+[a-z]+$/;
+  const pattern = /^[A-Z-a-z-0-9.-]+@[A-Z-a-z-0-9]+\.+[a-z]+$/;
   return pattern.test(email);
 };
 
@@ -17,6 +17,5 @@ export const verifyPasswordRepeat = (
   password: string,
   repeat: string
 ): boolean => {
-  if (repeat && repeat.length >= 8) return password === repeat;
-  return false;
+  return password === repeat;
 };

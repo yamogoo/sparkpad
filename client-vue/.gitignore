@@ -1,5 +1,6 @@
 # Logs
 /src/tests-report
+*.not-implemented
 
 logs
 *.log

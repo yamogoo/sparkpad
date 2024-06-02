@@ -1,6 +1,6 @@
 <template lang="pug">
 div.symbol(
-  data-test="symbol"
+  data-test-id="symbol"
 )
   component(
     v-if="!size"
@@ -32,17 +32,22 @@ export { Symbols } from "./Symbols";
 
 <style lang="scss">
 .symbol {
-  fill: inherit;
+  display: flex;
   @extend %transition;
 
   svg {
-    @include box(100%);
-  }
-
-  svg,
-  path,
-  g {
     fill: inherit;
+    stroke: inherit;
+
+    path {
+      fill: inherit;
+      stroke: inherit;
+
+      g {
+        fill: inherit;
+        stroke: inherit;
+      }
+    }
   }
 }
 </style>

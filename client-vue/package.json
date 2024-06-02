@@ -1,31 +1,36 @@
 {
-  "name": "w1t5-todo-admin-client-vue",
+  "name": "note-pad",
   "private": true,
   "version": "0.0.0",
   "author": {
     "name": "Misha Grebennikov",
     "email": "grebennikovmisha@gmail.com"
   },
-  "description": "tta17-133",
-  "title": "Ada Panel",
+  "description": "Simple note editor",
+  "title": "Sparkpad",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "test:unit": "vitest",
+    "test:unit:update": "vitest -u",
     "test:ui": "vitest --ui"
   },
   "dependencies": {
     "pinia": "^2.1.7",
+    "uuid": "^9.0.1",
     "vue": "^3.4.21",
     "vue-router": "^4.3.2"
   },
   "devDependencies": {
+    "@rushstack/eslint-patch": "^1.10.3",
     "@tsconfig/node20": "^20.1.4",
     "@types/gsap": "^3.0.0",
     "@types/jsdom": "^21.1.6",
     "@types/node": "^20.12.12",
+    "@types/uuid": "^9.0.8",
     "@vitejs/plugin-vue": "^5.0.4",
     "@vitest/ui": "^1.6.0",
     "@vue/eslint-config-prettier": "^9.0.0",
@@ -33,6 +38,8 @@
     "@vue/language-plugin-pug": "^2.0.19",
     "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.5.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-vue": "^9.26.0",
     "gsap": "^3.12.5",
     "jsdom": "^24.1.0",
     "pug": "^3.0.3",

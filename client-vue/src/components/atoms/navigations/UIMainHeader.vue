@@ -3,44 +3,44 @@ header.main-header(
   data-test-id="main-header"
 )
   div.main-header__section
-    UILogo
-  div.main-header__section
-    UIThemeProvider
-    UIUserBar(
-      title="user name"
-      description="email"
+    UILogo(
+      @click="onClickLogo"
     )
 </template>
 
 <script setup lang="ts">
+import { useRouter } from "vue-router";
+
 import UILogo from "@/components/atoms/base/logos/UILogo.vue";
-import UIUserBar from "@/components/atoms/bars/UIUserBar.vue";
-import UIThemeProvider from "@/components/atoms/bars/UIThemeProvider.vue";
 
-interface Props {
-  isLoggedin: boolean;
-}
+const router = useRouter();
 
-defineProps<Props>();
+const onClickLogo = () => {
+  router.push({ path: "/private" });
+};
 </script>
 
 <style lang="scss">
 $main-header: (
   height: (
-    sm: 60px,
-    md: 60px,
-    lg: 80px,
+    sm: 44px,
+    md: 64px,
+    lg: 64px,
   ),
 );
 
 .main-header {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  align-items: center;
   width: 100%;
+  height: 48px;
+  padding: 4px 12px;
+  padding-left: 20px;
+
   @extend %transition;
   @include themify($themes) {
     background-color: themed("background", "primary");
+    border-bottom: 1px solid themed("border", "primary");
   }
 
   @include respond-above(lg) {

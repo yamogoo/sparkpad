@@ -207,6 +207,11 @@ const isFormValidated = computed(() => {
 /* * * Submit * * */
 
 const onSubmit = async (_id: number): Promise<void> => {
+  onVerifyLogin();
+  onVerifyEmail();
+  onVerifyPassword();
+  onVerifyRepeatPassword();
+
   if (!isFormValidated.value) return;
 
   const credentials = {

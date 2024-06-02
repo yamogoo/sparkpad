@@ -1,12 +1,12 @@
 import { mount } from "@vue/test-utils";
 import { describe, expect, test } from "vitest";
 
+import { nextTick } from "vue";
 import { createPinia, setActivePinia } from "pinia";
 
-import { Themes, useConfigStore } from "@/stores/config";
+import { Themes, useSettingsStore } from "~/src/stores/settings";
 
 import UIThemeProvider from "./UIThemeProvider.vue";
-import { nextTick } from "vue";
 
 const pinia = createPinia();
 
@@ -33,7 +33,7 @@ describe("UIThemeProvider", () => {
 
     const wrapper = mount(UIThemeProvider);
 
-    const configStore = useConfigStore();
+    const configStore = useSettingsStore();
     configStore.setTheme(isLightTheme);
 
     await nextTick();

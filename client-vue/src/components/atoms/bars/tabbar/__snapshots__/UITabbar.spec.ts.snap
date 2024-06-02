@@ -1,0 +1,35 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`UITabbar > should emit 'open' event 1`] = `
+[
+  [
+    {
+      "name": "First Item",
+      "path": "/first",
+    },
+  ],
+]
+`;
+
+exports[`UITabbar > should emit 'open' event 2`] = `
+[
+  [
+    {
+      "name": "First Item",
+      "path": "/first",
+    },
+  ],
+  [
+    {
+      "name": "Second Item",
+      "path": "/second",
+    },
+  ],
+]
+`;
+
+exports[`UITabbar > should render name 1`] = `2`;
+
+exports[`UITabbar > should render name 2`] = `"First Item"`;
+
+exports[`UITabbar > should render name 3`] = `"Second Item"`;

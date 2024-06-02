@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import { describe, expect, test } from "vitest";
+import { describe, expect, test, vi } from "vitest";
 
 import { nextTick } from "vue";
 import { createPinia, setActivePinia } from "pinia";
@@ -7,6 +7,8 @@ import { createPinia, setActivePinia } from "pinia";
 import UILoginPage from "./UILoginPage.vue";
 
 const pinia = createPinia();
+
+vi.mock("vue-router");
 
 describe("UILoginPage", () => {
   test("should render Login form", async () => {

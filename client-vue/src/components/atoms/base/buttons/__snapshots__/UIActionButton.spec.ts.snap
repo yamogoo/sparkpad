@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`UIActionButton > should emit "press" event when clicking on the root "button" DOM element 1`] = `
+[
+  [
+    0,
+  ],
+]
+`;
+
+exports[`UIActionButton > should have the "disabled" class when button is inactive 1`] = `true`;
+
+exports[`UIActionButton > should render an icon 1`] = `true`;

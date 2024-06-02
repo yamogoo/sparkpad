@@ -1,0 +1,9 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`UIResizableBox > classes > should have the class name "hide" when mouseenter  1`] = `false`;
+
+exports[`UIResizableBox > classes > should have the class name "hide" when mouseleave  1`] = `true`;
+
+exports[`UIResizableBox > classes > should have the class name "show" when mouseenter  1`] = `true`;
+
+exports[`UIResizableBox > classes > should have the class name "show" when mouseleave  1`] = `false`;

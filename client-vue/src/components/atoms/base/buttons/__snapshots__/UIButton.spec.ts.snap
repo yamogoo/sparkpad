@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`UIButton > should have [aria-label] attr with "label" value 1`] = `"Button Label"`;
+
+exports[`UIButton > should have the "disabled" class when button is inactive 1`] = `true`;

@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`UICellOption > should not render description when the "description" prop is specified and the "showDescription" prop is not passed 1`] = `false`;
+
+exports[`UICellOption > should render description when the "showDescription" prop is passed 1`] = `true`;
+
+exports[`UICellOption > should render the Control inside the "default" slot 1`] = `"TitleControl"`;

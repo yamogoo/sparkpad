@@ -13,11 +13,11 @@ div.theme-provider(
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { useConfigStore } from "@/stores/config";
+import { useSettingsStore } from "@/stores/settings";
 
 import UISwitch from "@/components/atoms/base/switches/UISwitch.vue";
 
-const configStore = useConfigStore();
+const configStore = useSettingsStore();
 
 const theme = computed(() => {
   return configStore.getTheme.theme;
@@ -38,7 +38,6 @@ const onUpdateTheme = (state: boolean) => {
   flex-direction: row;
   align-items: center;
   gap: 12px;
-  padding: 40px;
 
   &__label {
     font-size: 14px;

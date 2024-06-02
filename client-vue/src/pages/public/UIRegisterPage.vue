@@ -1,7 +1,5 @@
 <template lang="pug">
-UIRegisterForm(
-  @submit:data="onRegister"
-)
+UIRegisterForm
 </template>
 
 <script setup lang="ts">

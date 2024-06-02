@@ -1,29 +1,32 @@
 <template lang="pug">
 button.button(
   :aria-label="label"
+  :class="[{'disabled': isDisabled}]"
   @click="onClick"
 )
   span.button__label(
     v-if="label"
   ) {{ label }}
-  UIIcon(
+  UISymbol(
     v-if="iconName"
     :name="iconName"
   )
 </template>
 
 <script setup lang="ts">
-import UIIcon from "@/components/atoms/base/icons/UIIcon.vue";
-import type { Symbols } from "@/components/atoms/base/icons/Symbols";
+import UISymbol, { Symbols } from "@/components/atoms/base/icons/UISymbol.vue";
 
 interface Props {
+  // ID for manage multiple buttons
   id?: number;
   label?: string;
   iconName?: Symbols;
+  isDisabled?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   id: 0,
+  isDisabled: false,
 });
 
 const emits = defineEmits<{
@@ -32,6 +35,8 @@ const emits = defineEmits<{
 
 const onClick = (e: MouseEvent | TouchEvent): void => {
   e.preventDefault();
+  e.stopPropagation();
+
   emits("press", props.id);
 };
 </script>

@@ -1,5 +1,6 @@
 import UserModel from "./UserModel";
 import RoleModel from "./RoleModel";
+import NoteModel from "./NoteModel";
 
 import { Dialect, Sequelize } from "sequelize";
 import { config } from "@/config/dbConfig";
@@ -8,10 +9,12 @@ import { v4 } from "uuid";
 export class Models {
   public User;
   public Role;
+  public Note;
 
   constructor(sequlize: Sequelize) {
     this.User = UserModel(sequlize);
     this.Role = RoleModel(sequlize);
+    this.Note = NoteModel(sequlize);
 
     this.init();
   }
@@ -26,6 +29,9 @@ export class Models {
     this.User.belongsToMany(this.Role, {
       through: "user_roles",
     });
+
+    this.User.hasMany(this.Note);
+    this.Note.belongsTo(this.User);
   }
 
   private init() {

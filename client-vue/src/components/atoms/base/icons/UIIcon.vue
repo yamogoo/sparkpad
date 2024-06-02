@@ -1,6 +1,6 @@
 <template lang="pug">
 div.icon
-  UISymbol(:name)
+  UISymbol(:name :size)
 </template>
 
 <script setup lang="ts">
@@ -11,7 +11,13 @@ interface Props extends SymbolProps {
   size?: number | string;
 }
 
-defineProps<Props>();
+withDefaults(defineProps<Props>(), {
+  size: 16,
+});
+</script>
+
+<script lang="ts">
+export { Symbols } from "./Symbols";
 </script>
 
 <style lang="scss">

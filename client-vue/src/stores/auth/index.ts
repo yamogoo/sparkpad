@@ -4,24 +4,23 @@ import {
   type AuthLoginCredentials,
   type AuthorizedUser,
   type AuthRegisterCredentials,
-  type User,
 } from "~/src/services/authService";
 import { LocalStorageAuthKeys } from "../localStorage";
 
 interface AuthStoreState {
-  _isLoggedIn: boolean;
+  _isAuthenticated: boolean;
   _user: AuthorizedUser | null;
 }
 
 const userData = localStorage.getItem(LocalStorageAuthKeys.USER);
 const user: AuthorizedUser | null = userData && JSON.parse(userData);
-const isLoggedIn = user !== null;
+const isAuthenticated = user !== null;
 
-const defaults = { isLoggedIn, user };
+const defaults = { isAuthenticated, user };
 
 export const useAuthStore = defineStore("auth", {
   state: (): AuthStoreState => ({
-    _isLoggedIn: defaults.isLoggedIn,
+    _isAuthenticated: defaults.isAuthenticated,
     _user: defaults.user,
   }),
   getters: {
@@ -31,6 +30,9 @@ export const useAuthStore = defineStore("auth", {
       }
       return undefined;
     },
+
+    isAuthenticated: (state): boolean => state._isAuthenticated,
+    user: (state): AuthorizedUser | null => state._user,
   },
   actions: {
     async register(credentials: AuthRegisterCredentials) {
@@ -56,7 +58,7 @@ export const useAuthStore = defineStore("auth", {
     setUser(user: AuthorizedUser | null) {
       this._user = user;
       localStorage.setItem(LocalStorageAuthKeys.USER, JSON.stringify(user));
-      this._isLoggedIn = true;
+      this._isAuthenticated = true;
     },
   },
 });

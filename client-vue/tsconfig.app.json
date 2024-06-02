@@ -21,7 +21,7 @@
       "@utils/*": ["src/utils/*"],
       "@typings/*": ["./src/typings/*"]
     },
-    "types": ["gsap/types"]
+    "types": ["gsap/types", "vitest/globals"]
   },
   "vueCompilerOptions": {
     "plugins": ["@vue/language-plugin-pug"]
