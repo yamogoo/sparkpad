@@ -8,6 +8,12 @@ export enum Symbols {
   USER_THUMBNAIL = "UserThumbnailIcon",
   MENU = "MenuIcon",
 
+  /* * * Notes Menu * * */
+
+  ADD_FILE = "AddFileIcon",
+  DELETE_ITEM = "BinIcon",
+  SEARCH = "SearchIcon",
+
   /* * * Thumbnails * * */
 
   AVATAR_DEFAULT = "AvatarDefaultIcon",

@@ -1,11 +1,11 @@
 <template lang="pug">
-div.ui-option-picker
-  button.ui-option-picker__value(
+div.option-picker
+  button.option-picker__value(
     @click="onOpenMenu"
   )
     span {{ initOption.label }}
-  ul.ui-option-picker__menu(role="menu")
-    li.ui-option-picker__option(
+  ul.option-picker__menu(role="menu")
+    li.option-picker__option(
       v-for="option, idx in options"
       :key="idx"
       :tabindex="0"

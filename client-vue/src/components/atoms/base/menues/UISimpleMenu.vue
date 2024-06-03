@@ -8,7 +8,7 @@ div.simple-menu
       :key="idx"
       :id="idx"
       :is-active="idx === sid"
-      @on-click="onClick"
+      @open="onClick"
     )
       slot(:item)
 </template>
@@ -28,11 +28,11 @@ withDefaults(defineProps<Props>(), {
 });
 
 const emits = defineEmits<{
-  (e: "onOpen", idx: number): void;
+  (e: "open", idx: number): void;
 }>();
 
 const onClick = (idx: number): void => {
-  emits("onOpen", idx);
+  emits("open", idx);
 };
 </script>
 

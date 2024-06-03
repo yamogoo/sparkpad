@@ -30,7 +30,9 @@ export class Models {
       through: "user_roles",
     });
 
-    this.User.hasMany(this.Note);
+    this.User.hasMany(this.Note, {
+      foreignKey: "userId",
+    });
     this.Note.belongsTo(this.User);
   }
 

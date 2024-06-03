@@ -76,6 +76,8 @@ const onUserPage = (): void => {
     flex-direction: column;
     gap: 20px;
     align-items: center;
+    justify-content: space-between;
+    @include box(100%);
     padding: 10px;
   }
 

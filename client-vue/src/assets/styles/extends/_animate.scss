@@ -1,7 +1,7 @@
 %transition {
   @include transition(
     color background background-color fill stroke,
-    75ms,
+    35ms,
     ease-out
   );
 }

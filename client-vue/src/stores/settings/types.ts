@@ -9,7 +9,13 @@ interface SettingsEditorGeneralContent {
   mode: any;
   font: SettingsEditorGeneralContentFont;
 }
+
+interface SettingsEditorGeneralTabbar {
+  isFocusedOnNewTab: boolean;
+  isFocusedOnFirstTabOnStart: boolean;
+}
 interface SettingsEditorGeneral {
+  tabbar: SettingsEditorGeneralTabbar;
   content: SettingsEditorGeneralContent;
 }
 export interface SettingsEditor {

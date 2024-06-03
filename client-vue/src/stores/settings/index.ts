@@ -20,6 +20,10 @@ export const useSettingsStore = defineStore("settings", {
     },
     editor: {
       general: {
+        tabbar: {
+          isFocusedOnFirstTabOnStart: true,
+          isFocusedOnNewTab: true,
+        },
         content: {
           mode: "add mode",
           font: {
@@ -37,6 +41,15 @@ export const useSettingsStore = defineStore("settings", {
       );
       return { theme: state.app.themes.current, id };
     },
+
+    getIsFocusedOnFirstTabOnStart: (state): boolean => {
+      return state.editor.general.tabbar.isFocusedOnFirstTabOnStart;
+    },
+
+    getIsFocusedOnNewTab: (state): boolean => {
+      return state.editor.general.tabbar.isFocusedOnNewTab;
+    },
+
     getContentFontSizeSid: (state) => {
       const sizes = state.editor.general.content.font.sizes;
       const size = state.editor.general.content.font.size;
@@ -54,6 +67,14 @@ export const useSettingsStore = defineStore("settings", {
     },
 
     /* * * Editor * * */
+
+    setIsFocusedOnFirstTabOnStart(state: boolean): void {
+      this.editor.general.tabbar.isFocusedOnFirstTabOnStart = state;
+    },
+
+    setIsFocusedOnNewTab(state: boolean): void {
+      this.editor.general.tabbar.isFocusedOnNewTab = state;
+    },
 
     setEditorGeneralContentMode(mode: any): void {
       this.editor.general.content.mode = mode;

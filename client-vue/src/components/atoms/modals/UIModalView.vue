@@ -7,6 +7,13 @@ Teleport(to=".app--container")
   )
     div.modal-overlay
       //- Change To Transition Provider
+      //- TransitionProvider(
+      //-   :show
+      //-   :animation-before-enter="animationBeforeEnter"
+      //-   :animation-enter="animationEnter"
+      //-   :animation-leave="animationLeave"
+      //-   @update:show="onUpdateShow"
+      //- )
       Transition(
         :css="false"
         @enter="onModalEnter"
@@ -24,6 +31,8 @@ import { onMounted, ref, Transition, Teleport } from "vue";
 import g from "gsap";
 
 import { useClickOutside } from "@/composables/useClickOutside";
+import TransitionProvider from "@/components/atoms/base/animations/TransitionProvider.vue";
+import { onBeforeRouteLeave } from "vue-router";
 
 interface Props {
   show: boolean;
@@ -50,9 +59,12 @@ useClickOutside(refModalView, () => {
 });
 
 const onClose = (): void => {
-  showModal.value = false;
   emits("close");
 };
+
+onBeforeRouteLeave(() => {
+  showModal.value = false;
+});
 
 /* * * Animations * * */
 
@@ -147,5 +159,3 @@ $__border-radius: $border-radius;
   }
 }
 </style>
-@/renderer/composables/useClickOutside
-@/renderer/src/composables/useClickOutside

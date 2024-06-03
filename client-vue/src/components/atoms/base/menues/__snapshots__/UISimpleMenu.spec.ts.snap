@@ -1,0 +1,21 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`UISimpleMenu > menu should have  1`] = `2`;
+
+exports[`UISimpleMenu > should render slot content (<p>Slot Content</p>) 1`] = `
+"<li class="simple-menu__item active" data-test-id="simple-menu-item">
+  <p>Slot Content</p>
+  <div class="simple-menu__item__chevron">
+    <transition-stub appear="false" persisted="false" css="false">
+      <div class="simple-menu__item__icon">
+        <div class="icon">
+          <div class="symbol" data-test-id="symbol">
+            <!--v-if-->
+            <!---->
+          </div>
+        </div>
+      </div>
+    </transition-stub>
+  </div>
+</li>"
+`;

@@ -4,7 +4,7 @@ import {
   type AuthLoginCredentials,
   type AuthorizedUser,
   type AuthRegisterCredentials,
-} from "~/src/services/authService";
+} from "@/services/auth/authService";
 import { LocalStorageAuthKeys } from "../localStorage";
 
 interface AuthStoreState {

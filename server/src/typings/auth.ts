@@ -6,3 +6,7 @@ export interface RegisterCredentialsRequest {
   password: string;
   roles: Roles[];
 }
+
+export interface BadRequest {
+  message: string;
+}

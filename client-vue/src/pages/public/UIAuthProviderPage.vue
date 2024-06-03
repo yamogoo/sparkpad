@@ -1,40 +1,59 @@
 <template lang="pug">
-Transition(
-  :css="false"
-)
-  UIFormProvider.login-form(
-    v-if="isMounted"
-    :show-error="false"
-    :error-message="''"
-    @update:show-error="onUpdateShowError"
+div.auth-provider
+  Transition(
+    :css="false"
   )
-    template(#navigation)
-      UITabbar(
-        :items="navigationItems"
-        @open="onOpenTabLink"
-      )
+    UIFormProvider.login-form(
+      v-if="isMounted"
+      :show-error="false"
+      :error-message="''"
+      @update:show-error="onUpdateShowError"
+    )
+      template(#navigation)
+        RouterView
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 
 import UIFormProvider from "@/components/atoms/forms/UIFormProvider.vue";
-import UITabbar, {
-  type TabbarItem,
-} from "@/components/atoms/bars/tabbar/UITabbar.vue";
-
-const navigationItems: Array<TabbarItem> = [
-  { name: "Sign in", path: "/public/login" },
-  { name: "Sign out", path: "/public/register" },
-];
 
 const isMounted = ref(false);
 
 onMounted(() => (isMounted.value = true));
 
-const onOpenTabLink = (item: TabbarItem): void => {
-  console.log(item);
-};
-
 const onUpdateShowError = (): void => {};
 </script>
+
+<style lang="scss">
+.auth-provider {
+  position: relative;
+  overflow: hidden;
+  @include transition(all, 125ms, ease-out);
+  // @extend %transition;
+  @include themify($themes) {
+    background-color: themed("background", "primary");
+  }
+
+  @include respond-above(md) {
+    width: 640px !important;
+    @include padding-h(60px);
+    @include padding-v(40px);
+    border-radius: 16px;
+  }
+
+  @include respond-below(md) {
+    width: 100% !important;
+    @include padding-h(20px);
+    border-radius: 0px;
+  }
+
+  // &__header {}
+
+  // &__body {}
+
+  .form-error {
+    height: 44px;
+  }
+}
+</style>

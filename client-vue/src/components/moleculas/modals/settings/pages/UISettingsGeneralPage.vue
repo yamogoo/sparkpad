@@ -1,19 +1,14 @@
 <template lang="pug">
 UISheet
     UICellOption(
-        title="Adaptive theme"
-        description="Depending on the time of day, a light or dark theme is automatically activated"
+        :title="`Theme (${themeName})`"
+        description="Selecting the application color theme"
         :show-description="true"
     )
         UISwitch(
-            :state="isAdaptiveTheme"
+            :state="isLightTheme"
             @update:state="onToggleTheme"
         )
-    UICellOption(
-        v-if="!isAdaptiveTheme"
-        title="Default theme"
-        :show-description="true"
-    )
 </template>
 
 <script setup lang="ts">
@@ -26,7 +21,9 @@ import UISwitch from "@/components/atoms/base/switches/UISwitch.vue";
 
 const settingsStore = useSettingsStore();
 
-const isAdaptiveTheme = computed(() => !!settingsStore.getTheme.id);
+const isLightTheme = computed(() => !!settingsStore.getTheme.id);
+
+const themeName = computed(() => settingsStore.getTheme.theme);
 
 const onToggleTheme = (state: boolean): void => {
   settingsStore.setTheme(state);

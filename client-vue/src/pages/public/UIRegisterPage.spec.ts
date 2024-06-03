@@ -8,7 +8,7 @@ import UIRegisterPage from "./UIRegisterPage.vue";
 
 const pinia = createPinia();
 
-vi.mock("vue-router");
+// vi.mock("vue-router");
 
 describe("UIRegisterPage", () => {
   test("should render Register form", async () => {

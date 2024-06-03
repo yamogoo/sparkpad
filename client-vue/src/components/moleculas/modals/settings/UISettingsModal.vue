@@ -1,20 +1,20 @@
 <template lang="pug">
 div.settings-view
   UISettingsMenu
-    div.settings-view__content
-      UISettingsAboutPage(
-        v-if="route.path === '/about'"
-      )
-      UISettingsGeneralPage(
-        v-if="route.path === '/general'"
-      )
-      UISettingsEditorPage(
-        v-if="route.path === '/editor'"
-      )
+  div.settings-view__content
+    UISettingsAboutPage(
+      v-if="route.path === Routes.ABOUT"
+    )
+    UISettingsGeneralPage(
+      v-if="route.path === Routes.GENERAL"
+    )
+    UISettingsEditorPage(
+      v-if="route.path === Routes.EDITOR"
+    )
 </template>
 
 <script setup lang="ts">
-import { useSettingsRoute } from "./settingsRouter";
+import { useSettingsRoute, Routes } from "./settingsRouter";
 
 import UISettingsMenu from "@/components/moleculas/modals/settings/UISettingsMenu.vue";
 import UISettingsAboutPage from "./pages/UISettingsAboutPage.vue";

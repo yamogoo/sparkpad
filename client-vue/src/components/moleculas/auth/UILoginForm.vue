@@ -18,7 +18,7 @@ Transition(
       template(#header)
         UILink.md(
           label="Sign Up"
-          :to="'/register'"
+          :to="PublicRoutes.REGISTER"
           style="position: absolute; right: 0; top: 10px;"
         )
       UIFormField
@@ -72,6 +72,8 @@ import { useVerifyField } from "@/composables/useVerifyField";
 
 import { useAuthStore } from "@/stores/auth";
 import type { AuthLoginCredentials } from "@/services/authService";
+
+import { PrivateRoutes, PublicRoutes } from "@/router";
 
 import UIFormProvider from "@/components/atoms/forms/UIFormProvider.vue";
 import UIForm, {
@@ -171,7 +173,7 @@ const onSubmit = async (_id: number): Promise<void> => {
 
   const { accessToken } = await authStore.login(credentials);
 
-  if (accessToken) router.push({ path: "/private" });
+  if (accessToken) router.push({ path: PrivateRoutes.EDITOR });
   return;
 };
 

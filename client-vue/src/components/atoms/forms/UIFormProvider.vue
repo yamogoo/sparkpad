@@ -34,21 +34,22 @@ const onUpdateShowError = (state: boolean): void => {
 .form-provider {
   position: relative;
   overflow: hidden;
+  height: max-content;
   @extend %transition;
   @include themify($themes) {
     background-color: themed("background", "primary");
   }
 
   @include respond-above(md) {
-    width: 640px !important;
-    @include padding-h(60px);
-    @include padding-v(40px);
+    // width: 640px !important;
+    // @include padding-h(60px);
+    // @include padding-v(40px);
     border-radius: 16px;
   }
 
   @include respond-below(md) {
-    width: 100% !important;
-    @include padding-h(20px);
+    // width: 100% !important;
+    // @include padding-h(20px);
     border-radius: 0px;
   }
 

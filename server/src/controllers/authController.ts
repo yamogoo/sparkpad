@@ -13,6 +13,8 @@ import { RegisterCredentialsRequest } from "@/typings";
 const User = db.models.User;
 const Role = db.models.Role;
 
+const { secretKey } = config;
+
 const register = (
   req: Request<any, any, RegisterCredentialsRequest>,
   res: Response
@@ -59,8 +61,6 @@ const login = (req: Request, res: Response): void => {
     if (!isPasswordValid)
       return res.status(400).send({ message: "Invalid password" });
 
-    const { secretKey } = config;
-
     if (!secretKey)
       return res
         .status(500)
@@ -71,6 +71,9 @@ const login = (req: Request, res: Response): void => {
       allowInsecureKeySizes: true,
       expiresIn: 86400,
     });
+
+    // const userData = { login: user.login, email: user.email };
+    // res.cookie("token", accessToken, { httpOnly: true }).json(userData);
 
     res.status(200).send({
       user: {

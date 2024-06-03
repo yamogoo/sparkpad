@@ -12,6 +12,7 @@ label.switch(
     span.switch__knob(
       ref="refKnob"
     )
+  span.switch__label(v-if="label") {{ label }}
 </template>
 
 <script setup lang="ts">
@@ -26,6 +27,7 @@ useAttrs();
 
 interface Props {
   state: boolean;
+  label?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {});
@@ -122,6 +124,14 @@ $__knob-size: 16px;
       @include themify($themes) {
         background-color: themed("background", "secondary--disabled");
       }
+    }
+  }
+
+  &__label {
+    font-size: 12px;
+
+    @include themify($themes) {
+      color: themed("text", "secondary");
     }
   }
 }

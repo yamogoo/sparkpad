@@ -30,6 +30,10 @@ export class IndexedRouter {
     return this.#route.value;
   }
 
+  public getRoutes(): Array<IndexedRoute> {
+    return this.routes;
+  }
+
   public push(route: IndexedRoute): void {
     this.routes.push(route);
     this.route = route;

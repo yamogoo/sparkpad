@@ -8,7 +8,7 @@ import UILoginPage from "./UILoginPage.vue";
 
 const pinia = createPinia();
 
-vi.mock("vue-router");
+// vi.mock("vue-router");
 
 describe("UILoginPage", () => {
   test("should render Login form", async () => {

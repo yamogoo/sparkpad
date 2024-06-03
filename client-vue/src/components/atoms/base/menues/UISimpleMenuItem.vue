@@ -1,6 +1,7 @@
 <template lang="pug">
 li.simple-menu__item(
   :class="[{'active': isActive}]"
+  data-test-id="simple-menu-item"
   @click="onClick"
 )
   slot
@@ -65,4 +66,12 @@ const onEnter = (el: Element, done: () => void): void => {
     }
   );
 };
+</script>
+
+<script lang="ts">
+export interface SimpleMenuItem {
+  id?: string | number;
+  name: string;
+  path: string;
+}
 </script>

@@ -1,5 +1,5 @@
-export const verifyLogin = (login: string): boolean => {
-  if (login && login.length >= 4) return true;
+export const verifyLogin = (login: string, length = 4): boolean => {
+  if (login && login.length >= length) return true;
   return false;
 };
 
@@ -8,8 +8,8 @@ export const verifyEmail = (email: string): boolean => {
   return pattern.test(email);
 };
 
-export const verifyPassword = (password: string): boolean => {
-  if (password && password.length >= 8) return true;
+export const verifyPassword = (password: string, length = 6): boolean => {
+  if (password && password.length >= length) return true;
   return false;
 };
 

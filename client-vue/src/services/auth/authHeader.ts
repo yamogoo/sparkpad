@@ -1,7 +1,7 @@
 import { LocalStorageAuthKeys } from "@/stores/localStorage";
 import type { AuthorizedUser } from "./authService";
 
-export default () => {
+export default (): { "x-access-token": string } | {} => {
   const usrStr = localStorage.getItem(LocalStorageAuthKeys.USER);
 
   if (usrStr) {

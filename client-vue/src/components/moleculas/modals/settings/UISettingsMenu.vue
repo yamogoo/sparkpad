@@ -20,7 +20,7 @@ div.settings-menu
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import { useAuthStore } from "@/stores/auth";
-import { useSettingsRouter } from "./settingsRouter";
+import { Routes, useSettingsRouter } from "./settingsRouter";
 
 import { Symbols } from "@/components/atoms/base/icons/Symbols";
 
@@ -38,9 +38,9 @@ const isAuthenticated = computed(() => authStore.isAuthenticated);
 const user = computed(() => authStore.user);
 
 const items = ref([
-  { name: "About", path: "/about" },
-  { name: "General", path: "/general" },
-  { name: "Editor", path: "/editor" },
+  { name: "About", path: Routes.ABOUT },
+  { name: "General", path: Routes.GENERAL },
+  { name: "Editor", path: Routes.EDITOR },
 ]);
 
 const onOpen = (idx: number) => {
@@ -50,7 +50,7 @@ const onOpen = (idx: number) => {
 
 const onLogin = () => {
   menuSid.value = -1;
-  router.push({ path: "/user" });
+  router.push({ path: Routes.USER });
 };
 </script>
 

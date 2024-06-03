@@ -1,12 +1,20 @@
+import type { ApiMethod } from "../types";
+
 const HOST = import.meta.env.VITE_SERVER_HOST;
 const PORT = import.meta.env.VITE_SERVER_PORT;
 const VERSION = import.meta.env.VITE_SERVER_API_VERSION;
 
 const BASE_URL = `http://${HOST}:${PORT}/${VERSION}`;
 
-export const api = {
-  login: `${BASE_URL}/auth/login`,
-  register: `${BASE_URL}/auth/register`,
+export const api: Record<"login" | "register", ApiMethod> = {
+  login: {
+    path: `${BASE_URL}/auth/login`,
+    method: "POST",
+  },
+  register: {
+    path: `${BASE_URL}/auth/register`,
+    method: "POST",
+  },
 };
 
 export enum Roles {
@@ -43,8 +51,8 @@ export class AuthService {
   public async register(credentials: AuthRegisterCredentials) {
     const { login, email, password } = credentials;
 
-    const RequestInit = {
-      method: "POST",
+    const InitRequest = {
+      method: api.register.method,
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         login,
@@ -54,7 +62,7 @@ export class AuthService {
       }),
     };
 
-    const res = await fetch(api.register, RequestInit);
+    const res = await fetch(api.register.path, InitRequest);
     const data = await res.json();
     console.log(data);
     return data;
@@ -67,8 +75,8 @@ export class AuthService {
   ): Promise<AuthorizedUser> {
     const { login, password } = credentials;
 
-    const RequestInit = {
-      method: "POST",
+    const InitRequest = {
+      method: api.login.method,
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         login,
@@ -76,7 +84,7 @@ export class AuthService {
       }),
     };
 
-    const res = await fetch(api.login, RequestInit);
+    const res = await fetch(api.login.path, InitRequest);
 
     if (res.status === 400) {
       console.log("error");

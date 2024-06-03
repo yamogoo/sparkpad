@@ -23,6 +23,7 @@ export default (sequelize: Sequelize): typeof User => {
       id: {
         type: DataTypes.STRING,
         primaryKey: true,
+        allowNull: false,
       },
       login: {
         type: DataTypes.STRING,

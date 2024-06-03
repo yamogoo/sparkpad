@@ -5,6 +5,8 @@ import cookieParser from "cookie-parser";
 // Routes
 import indexRouter from "@/routes/index";
 import authRouter from "@/routes/auth";
+import noteRouter from "@/routes/notes";
+
 import { db } from "./models";
 
 class App {
@@ -32,6 +34,7 @@ class App {
   private setupRouter() {
     this.app.use("/v1", indexRouter);
     this.app.use("/v1/auth", authRouter);
+    this.app.use("/v1/notes", noteRouter);
   }
 }
 
