@@ -8,7 +8,7 @@ router.get("/", [auth.verifyAuthentication, noteController.getAllNotes]);
 
 router.post("/", [auth.verifyAuthentication, noteController.createNote]);
 
-// router.delete("/", noteController.deleteNote);
+router.delete("/:id", [auth.verifyAuthentication, noteController.deleteNote]);
 
 // router.put("/", noteController.updateNote);
 

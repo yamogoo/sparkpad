@@ -30,7 +30,10 @@ div.user-menu(
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { useSettingsRouter } from "@/components/moleculas/modals/settings/settingsRouter";
+import {
+  Routes,
+  useSettingsRouter,
+} from "@/components/moleculas/modals/settings/settingsRouter";
 
 import { Symbols } from "@/components/atoms/base/icons/UIIcon.vue";
 
@@ -50,11 +53,11 @@ const onOpenSettings = (): void => {
 
 const onSettingsClose = (): void => {
   isSettingsOpen.value = false;
-  settingsRouter.push({ path: "/about" });
+  settingsRouter.push({ path: Routes.ABOUT });
 };
 
 const onUserPage = (): void => {
-  settingsRouter.push({ path: "/user" });
+  settingsRouter.push({ path: Routes.USER });
   isSettingsOpen.value = true;
 };
 </script>

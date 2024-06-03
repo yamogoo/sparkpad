@@ -1,12 +1,22 @@
 <template lang="pug">
 UISheet
   UICellOption(
-    :title="`Open first note on startup`"
+    :title="`Always place new note at the end`"
+    :description="placedNoteNextDuringCreationDescription"
     :show-description="true"
   )
     UISwitch(
-      :state="isFocusedOnFirstTabOnStart"
-      @update:state="onFocusedOnFirstTabOnStart"
+      :state="isPlacedNoteNextDuringCreation"
+      @update:state="onPlaceNoteToTheEndDuringCreation"
+    )
+  UICellOption(
+    :title="`Always open first note on startup`"
+    :description="focusOnFirstNoteOnStartup"
+    :show-description="true"
+  )
+    UISwitch(
+      :state="isFocusedOnFirstNoteOnStart"
+      @update:state="onFocusedOnFirstNoteOnStart"
     )
   UICellOption(
     :title="`Always open a new note after creation`"
@@ -26,11 +36,60 @@ import UICellOption from "@/components/atoms/base/cells/UICellOption.vue";
 import UISheet from "@/components/atoms/views/UISheet.vue";
 import UISwitch from "@/components/atoms/base/switches/UISwitch.vue";
 
+const content = {
+  placedNoteNextDuringCreation: {
+    true: {
+      description:
+        "The new note will be placed next to the previous selected note in the navigation list once created.",
+    },
+    false: {
+      description:
+        "The new note will be placed at the end of the navigation list once created.",
+    },
+  },
+  focusOnFirstNoteOnStartup: {
+    true: {
+      description: "When the application starts, the first tab will open.",
+    },
+    false: {
+      description: "When the application starts, no tab will be open.",
+    },
+  },
+};
+
 const settingsStore = useSettingsStore();
 
-const isFocusedOnFirstTabOnStart = computed(
-  () => settingsStore.getIsFocusedOnFirstTabOnStart
-);
+/* * * Menu * * */
+
+const isPlacedNoteNextDuringCreation = computed(() => {
+  return settingsStore.getIsPlacedNoteNextDuringCreation;
+});
+
+const placedNoteNextDuringCreationDescription = computed(() => {
+  return isPlacedNoteNextDuringCreation.value
+    ? content.placedNoteNextDuringCreation.true.description
+    : content.placedNoteNextDuringCreation.false.description;
+});
+
+const onPlaceNoteToTheEndDuringCreation = (state: boolean): void => {
+  settingsStore.seiIsPlacedNoteNextDuringCreation(state);
+};
+
+const isFocusedOnFirstNoteOnStart = computed(() => {
+  return settingsStore.getIsFocusedOnFirstNoteOnStart;
+});
+
+const focusOnFirstNoteOnStartup = computed(() => {
+  return isFocusedOnFirstNoteOnStart.value
+    ? content.focusOnFirstNoteOnStartup.true.description
+    : content.focusOnFirstNoteOnStartup.false.description;
+});
+
+const onFocusedOnFirstNoteOnStart = (state: boolean): void => {
+  settingsStore.setIsFocusedOnFirstNoteOnStart(state);
+};
+
+/* * * Tabbar * * */
 
 const isFocusedOnNewTab = computed(() => settingsStore.getIsFocusedOnNewTab);
 
@@ -40,10 +99,6 @@ const isFocusedOnNewTab = computed(() => settingsStore.getIsFocusedOnNewTab);
 // const contentFontSizeSid = computed(() => settingsStore.getContentFontSizeSid);
 
 /* * * Handlers * * */
-
-const onFocusedOnFirstTabOnStart = (state: boolean): void => {
-  settingsStore.setIsFocusedOnFirstTabOnStart(state);
-};
 
 const onFocusedOnNewTab = (state: boolean): void => {
   settingsStore.setIsFocusedOnNewTab(state);

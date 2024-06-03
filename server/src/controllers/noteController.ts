@@ -44,21 +44,22 @@ const createNote = (req: Request, res: Response) => {
     .catch((err) => {
       console.log(err);
     });
-
-  //   const { userName } = req.payload;
-
-  //   console.log("userName: ", userName);
-
-  // Find User:
-
-  //   Note.create({
-  //     name, content
-  //   })
 };
 
 const deleteNote = (req: Request, res: Response, next: NextFunction) => {
-  const { params } = req.params;
-  console.log(params);
+  const { id } = req.params;
+  const { userId } = req.body;
+
+  Note.destroy({
+    where: {
+      id,
+      userId,
+    },
+  }).then((status) => {
+    if (status === 0) res.status(400).send({ message: "Note deleted" });
+
+    res.status(200).send({ message: "Note deleted" });
+  });
 };
 
 const deleteAllNote = (req: Request, res: Response, next: NextFunction) => {};

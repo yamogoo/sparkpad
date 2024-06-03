@@ -10,12 +10,17 @@ interface SettingsEditorGeneralContent {
   font: SettingsEditorGeneralContentFont;
 }
 
+interface SettingsEditorGenearlMenu {
+  isPlacedNoteNextDuringCreation: boolean;
+  isFocusedOnFirstNoteOnStart: boolean;
+}
+
 interface SettingsEditorGeneralTabbar {
   isFocusedOnNewTab: boolean;
-  isFocusedOnFirstTabOnStart: boolean;
 }
 interface SettingsEditorGeneral {
   tabbar: SettingsEditorGeneralTabbar;
+  menu: SettingsEditorGenearlMenu;
   content: SettingsEditorGeneralContent;
 }
 export interface SettingsEditor {

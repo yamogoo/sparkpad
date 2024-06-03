@@ -55,6 +55,7 @@ export enum CellOptionControllers {
   position: relative;
   display: flex;
   flex-direction: row;
+  gap: 32px;
   @include box(100%, auto);
   @include padding-v(20px);
 

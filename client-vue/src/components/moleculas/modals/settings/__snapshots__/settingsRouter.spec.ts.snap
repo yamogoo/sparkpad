@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`settingsRouter > "route" should watching for current route value (new) 1`] = `
+{
+  "path": "new",
+}
+`;

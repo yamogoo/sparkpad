@@ -5,7 +5,7 @@ div.notes-list__item(
   @click="e => onClick(e)"
 )
   div.notes-list__item--container
-    h5 {{ name ? name : 'Empty' }}
+    h5 {{ name ? name : 'Empty' }} {{ id }}
     p(v-if="description") {{ description }}
 </template>
 

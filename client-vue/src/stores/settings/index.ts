@@ -20,8 +20,11 @@ export const useSettingsStore = defineStore("settings", {
     },
     editor: {
       general: {
+        menu: {
+          isPlacedNoteNextDuringCreation: true,
+          isFocusedOnFirstNoteOnStart: false,
+        },
         tabbar: {
-          isFocusedOnFirstTabOnStart: true,
           isFocusedOnNewTab: true,
         },
         content: {
@@ -42,9 +45,17 @@ export const useSettingsStore = defineStore("settings", {
       return { theme: state.app.themes.current, id };
     },
 
-    getIsFocusedOnFirstTabOnStart: (state): boolean => {
-      return state.editor.general.tabbar.isFocusedOnFirstTabOnStart;
+    /* * * Menu * * */
+
+    getIsPlacedNoteNextDuringCreation: (state): boolean => {
+      return state.editor.general.menu.isPlacedNoteNextDuringCreation;
     },
+
+    getIsFocusedOnFirstNoteOnStart: (state): boolean => {
+      return state.editor.general.menu.isFocusedOnFirstNoteOnStart;
+    },
+
+    /* * * Tabbar * * */
 
     getIsFocusedOnNewTab: (state): boolean => {
       return state.editor.general.tabbar.isFocusedOnNewTab;
@@ -66,20 +77,32 @@ export const useSettingsStore = defineStore("settings", {
       localStorage.setItem("theme", theme);
     },
 
-    /* * * Editor * * */
-
-    setIsFocusedOnFirstTabOnStart(state: boolean): void {
-      this.editor.general.tabbar.isFocusedOnFirstTabOnStart = state;
+    /* * * Menu * * */
+    // ++
+    seiIsPlacedNoteNextDuringCreation(state: boolean): void {
+      this.editor.general.menu.isPlacedNoteNextDuringCreation = state;
     },
 
+    // ++
+    setIsFocusedOnFirstNoteOnStart(state: boolean): void {
+      this.editor.general.menu.isFocusedOnFirstNoteOnStart = state;
+    },
+
+    /* * * Tabbar * * */
+
+    // --
     setIsFocusedOnNewTab(state: boolean): void {
       this.editor.general.tabbar.isFocusedOnNewTab = state;
     },
 
+    /* * * Editor * * */
+
+    // --
     setEditorGeneralContentMode(mode: any): void {
       this.editor.general.content.mode = mode;
     },
 
+    // --
     setEditorGeneralContentFontSize(size: number): void {
       this.editor.general.content.font.size = size;
     },

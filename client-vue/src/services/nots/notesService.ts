@@ -23,11 +23,11 @@ export const api: Record<
     method: `POST`,
   },
   updateNote: {
-    path: `${BASE_URL}/notes/:id`,
+    path: `${BASE_URL}/notes`,
     method: "PUT",
   },
   deleteNote: {
-    path: `${BASE_URL}/notes/:id`,
+    path: `${BASE_URL}/notes`,
     method: "DELETE",
   },
   deleteAllNotes: {
@@ -36,7 +36,7 @@ export const api: Record<
   },
 };
 
-export class AuthService {
+export class NotesService {
   public async createNote({ id, name, content }: Partial<Note>) {
     const InitRequest = {
       method: api.createNote.method,
@@ -49,6 +49,19 @@ export class AuthService {
     };
 
     const res = await fetch(api.createNote.path, InitRequest);
+    const json = await res.json();
+    console.log(json);
+  }
+
+  public async deleteNote(id: string) {
+    console.log(id);
+    const InitRequest = {
+      method: api.deleteNote.method,
+      headers: { "Content-Type": "application/json", ...authHeader() },
+      // body: JSON.stringify(id),
+    };
+
+    const res = await fetch(`${api.deleteNote.path}/${id}`, InitRequest);
     const json = await res.json();
     console.log(json);
   }
@@ -71,4 +84,4 @@ export class AuthService {
 //   return (note && 'name' in note && 'content' in note)
 // }
 
-export const notesService = new AuthService();
+export const notesService = new NotesService();

@@ -30,7 +30,7 @@ const notesStore = useNotesStore();
 
 const notes = computed(() => notesStore.getAllNotes);
 
-const _sid = computed(() => notesStore.getSid);
+const _sid = computed(() => notesStore.getSid ?? -1);
 
 onMounted(async () => {
   notesStore.fetchAllNotes();
@@ -40,12 +40,16 @@ const onSelectNote = (_id: number): void => {
   notesStore.selectCurrentNoteById(_id);
 };
 
+let i = 0;
+
 const onCreateNote = (): void => {
-  const defaultNote = createNote("New");
+  const defaultNote = createNote(`${i++}`);
   notesStore.createNote(defaultNote);
 };
 
-const onDeleteNote = (): void => {};
+const onDeleteNote = (): void => {
+  notesStore.deleteNote(_sid.value);
+};
 
 const onSearchNote = (): void => {};
 </script>

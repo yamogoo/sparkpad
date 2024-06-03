@@ -50,7 +50,7 @@ $__border-radius: $border-radius;
   border-radius: calc($__border-radius / 2);
   overflow: hidden;
 
-  .icon {
+  .symbol {
     @include themify($themes) {
       fill: themed("text", "primary");
     }
