@@ -1,5 +1,7 @@
 <template lang="pug">
-div.settings-menu
+div.settings-menu(
+  data-test-id="settings-menu"
+)
   UICellButton(
     :title="isAuthenticated ? user?.login : 'login'"
     :description="user?.email"

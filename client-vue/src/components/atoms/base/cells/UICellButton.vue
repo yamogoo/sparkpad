@@ -1,5 +1,6 @@
 <template lang="pug">
 button.cell-button(
+  data-test-id="cell-button"
   @click="onClick"
 )
   div.cell-button__image(

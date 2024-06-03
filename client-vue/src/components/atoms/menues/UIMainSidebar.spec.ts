@@ -7,18 +7,26 @@ import UIMainSidebar from "./UIMainSidebar.vue";
 
 const pinia = createPinia();
 
+const components = [
+  ["UserMenu", '[data-test-id="user-menu"]'],
+  ["Notes", '[data-test-id="notes"]'],
+];
+
 describe("UIMainSidebar", () => {
-  test("should render UserMenu", async () => {
-    setActivePinia(pinia);
+  test.each(components)(
+    "should render (%s) component",
+    async (_name, component) => {
+      setActivePinia(pinia);
 
-    const wrapper = mount(UIMainSidebar);
+      const wrapper = mount(UIMainSidebar);
 
-    await vi.dynamicImportSettled();
+      await vi.dynamicImportSettled();
 
-    const userMenu = wrapper.find('[data-test-id="user-menu"]');
-    const isUserMenuExists = userMenu.exists();
+      const el = wrapper.find(component);
+      const isElExists = el.exists();
 
-    expect(isUserMenuExists).toBe(true);
-    expect(isUserMenuExists).toMatchSnapshot();
-  });
+      expect(isElExists).toBe(true);
+      expect(isElExists).toMatchSnapshot();
+    }
+  );
 });

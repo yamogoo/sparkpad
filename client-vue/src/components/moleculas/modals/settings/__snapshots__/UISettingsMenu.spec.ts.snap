@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`UISettingsMenu > should render SimpleMenu DOM element 1`] = `true`;
+
+exports[`UISettingsMenu > should render UserButton (CellButton) DOM element 1`] = `true`;

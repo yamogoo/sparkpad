@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`UISettingsEditorPage > should render "open first note on startup (Control)" option 1`] = `true`;
+
+exports[`UISettingsEditorPage > should render "open first note on startup" option 1`] = `true`;
+
+exports[`UISettingsEditorPage > should render "open new on creation (Control)" option 1`] = `true`;
+
+exports[`UISettingsEditorPage > should render "open new on creation" option 1`] = `true`;
+
+exports[`UISettingsEditorPage > should render "place new note at the end (Control)" option 1`] = `true`;
+
+exports[`UISettingsEditorPage > should render "place new note at the end" option 1`] = `true`;

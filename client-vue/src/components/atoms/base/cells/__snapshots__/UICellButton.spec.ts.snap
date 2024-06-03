@@ -4,6 +4,12 @@ exports[`UICellButton > description > should render description 1`] = `true`;
 
 exports[`UICellButton > image > should render image 1`] = `true`;
 
+exports[`UICellButton > should emit "open" event when clicking on the root "button" DOM element 1`] = `
+[
+  [],
+]
+`;
+
 exports[`UICellButton > title > should render title 1`] = `true`;
 
 exports[`UICellButton > title > should render title without the showTitle prop 1`] = `true`;

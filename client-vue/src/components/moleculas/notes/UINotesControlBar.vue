@@ -1,5 +1,7 @@
 <template lang="pug">
-div.notes-control-bar
+div.notes-control-bar(
+  data-test-id="notes-control-bar"
+)
   div.notes-control-bar__section
     UIActionButton(
       :icon-name="Symbols.SEARCH"
@@ -48,9 +50,11 @@ const onSearch = () => {
   flex-direction: row;
   justify-content: space-between;
   gap: 12px;
+  height: 60px;
+  @include padding-h(8px);
 
   @include themify($themes) {
-    border-bottom: 1px solid themed("border", "primary");
+    // border-bottom: 1px solid themed("border", "primary");
   }
 
   &__section {

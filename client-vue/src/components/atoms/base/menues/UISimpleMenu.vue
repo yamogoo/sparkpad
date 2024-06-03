@@ -1,5 +1,7 @@
 <template lang="pug">
-div.simple-menu
+div.simple-menu(
+  data-test-id="simple-menu"
+)
   div.simple-menu__header(v-if="title && showTitle")
     h5 {{ title }}
   ul.simple-menu__list
@@ -103,7 +105,7 @@ $__item-padding-h: 12px;
         background-color: themed("background", "primary");
       }
 
-      .icon {
+      .symbol {
         @include themify($themes) {
           fill: themed("icon", "primary");
         }

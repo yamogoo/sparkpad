@@ -1,29 +1,32 @@
 <template lang="pug">
-Teleport(to=".app--container")
-  Transition(
-    :css="false"
-    @enter="onOverlayEnter"
-    @leave="onOverlayLeave"
-  )
-    div.modal-overlay
-      //- Change To Transition Provider
-      //- TransitionProvider(
-      //-   :show
-      //-   :animation-before-enter="animationBeforeEnter"
-      //-   :animation-enter="animationEnter"
-      //-   :animation-leave="animationLeave"
-      //-   @update:show="onUpdateShow"
-      //- )
-      Transition(
-        :css="false"
-        @enter="onModalEnter"
-        @leave="onModalLeave"
+template(data-test-id="settings-modal-view")
+  Teleport(to=".app--container")
+    Transition(
+      :css="false"
+      @enter="onOverlayEnter"
+      @leave="onOverlayLeave"
+    )
+      div.modal-overlay(
+        v-bind="$attrs"
       )
-        div.modal-view(
-          v-if="showModal"
-          ref="refModalView"
+        //- Change To Transition Provider
+        //- TransitionProvider(
+        //-   :show
+        //-   :animation-before-enter="animationBeforeEnter"
+        //-   :animation-enter="animationEnter"
+        //-   :animation-leave="animationLeave"
+        //-   @update:show="onUpdateShow"
+        //- )
+        Transition(
+          :css="false"
+          @enter="onModalEnter"
+          @leave="onModalLeave"
         )
-          slot
+          div.modal-view(
+            v-if="showModal"
+            ref="refModalView"
+          )
+            slot
 </template>
 
 <script setup lang="ts">
@@ -31,7 +34,7 @@ import { onMounted, ref, Transition, Teleport } from "vue";
 import g from "gsap";
 
 import { useClickOutside } from "@/composables/useClickOutside";
-import TransitionProvider from "@/components/atoms/base/animations/TransitionProvider.vue";
+// import TransitionProvider from "@/components/atoms/base/animations/TransitionProvider.vue";
 import { onBeforeRouteLeave } from "vue-router";
 
 interface Props {
@@ -39,6 +42,10 @@ interface Props {
 }
 
 defineProps<Props>();
+
+defineOptions({
+  inheritAttrs: false,
+});
 
 const emits = defineEmits<{
   (e: "close"): void;

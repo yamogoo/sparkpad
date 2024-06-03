@@ -1,5 +1,7 @@
 <template lang="pug">
-div.notes-list
+div.notes-list(
+  data-test-id="notes-list"
+)
   UINoteListItem(
     v-for="{name, content}, idx in notes"
     :key="idx"
@@ -12,8 +14,6 @@ div.notes-list
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
-
 import type { Note } from "@/stores/notes/types";
 
 import UINoteListItem from "./UINoteListItem.vue";
@@ -24,12 +24,6 @@ interface Props {
 }
 
 defineProps<Props>();
-
-const refItem = ref<HTMLDivElement | null>(null);
-
-onMounted(() => {
-  console.log(refItem.value);
-});
 
 const emits = defineEmits<{
   (e: "select:note", id: number): void;

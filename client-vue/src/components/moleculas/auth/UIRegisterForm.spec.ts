@@ -1,4 +1,4 @@
-import { describe, expect, test, vi } from "vitest";
+import { describe, expect, test } from "vitest";
 import { mount } from "@vue/test-utils";
 
 import { nextTick } from "vue";
@@ -7,8 +7,6 @@ import { createPinia, setActivePinia } from "pinia";
 import UIRegisterForm from "./UIRegisterForm.vue";
 
 const pinia = createPinia();
-
-// vi.mock("vue-router");
 
 describe("UIRegisterForm", () => {
   test("should render Register form", async () => {

@@ -1,5 +1,7 @@
 <template lang="pug">
-div.notes
+div.notes(
+  data-test-id="notes"
+)
   UINotesControlBar(
     @create:note="onCreateNote"
     @delete:note="onDeleteNote"
@@ -7,11 +9,13 @@ div.notes
   )
   div.notes--container
     UINotesList(
+      v-if="isNoteListMode"
       :sid="_sid"
       :notes
       @select:note="onSelectNote"
     )
     UINotesThumbnailList(
+      v-if="!isNoteListMode"
       :sid="_sid"
       :notes
       @select:note="onSelectNote"
@@ -22,6 +26,8 @@ div.notes
 import { computed, onMounted } from "vue";
 import { useNotesStore, createNote } from "@/stores/notes";
 
+import { useSettingsStore } from "~/src/stores/settings";
+
 import UINotesControlBar from "./UINotesControlBar.vue";
 import UINotesList from "./UINotesList.vue";
 import UINotesThumbnailList from "./UINotesThumbnailList.vue";
@@ -31,6 +37,12 @@ const notesStore = useNotesStore();
 const notes = computed(() => notesStore.getAllNotes);
 
 const _sid = computed(() => notesStore.getSid ?? -1);
+
+/* * * Mode * * */
+
+const settingsStore = useSettingsStore();
+
+const isNoteListMode = computed(() => settingsStore.getIsNoteListMode);
 
 onMounted(async () => {
   notesStore.fetchAllNotes();
@@ -61,6 +73,7 @@ const onSearchNote = (): void => {};
   &--container {
     position: relative;
     @include box(100%);
+    overflow: hidden;
   }
 }
 </style>

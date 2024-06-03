@@ -1,3 +1,35 @@
+/* * * App * * */
+
+interface SettingsApp {
+  themes: SettingsStoreThemes;
+}
+
+interface SettingsStoreThemes {
+  themes: Array<string>;
+  current: string;
+}
+
+/* * * Menu * * */
+
+export type SettingsEditorGenerallMenuNotesListModes = "list" | "card";
+interface SettingsEditorGenerallMenuNotesListMode {
+  mode: SettingsEditorGenerallMenuNotesListModes;
+  modes: Array<SettingsEditorGenerallMenuNotesListModes>;
+}
+interface SettingsEditorGenerallMenu {
+  notesListMode: SettingsEditorGenerallMenuNotesListMode;
+  isPlacedNoteNextDuringCreation: boolean;
+  isFocusedOnFirstNoteOnStart: boolean;
+}
+
+/* * * Tabbar * * */
+
+interface SettingsEditorGeneralTabbar {
+  isFocusedOnNewTab: boolean;
+}
+
+/* * * Content * * */
+
 interface OptionSize {
   sizes: Array<number>;
   size: number;
@@ -10,30 +42,15 @@ interface SettingsEditorGeneralContent {
   font: SettingsEditorGeneralContentFont;
 }
 
-interface SettingsEditorGenearlMenu {
-  isPlacedNoteNextDuringCreation: boolean;
-  isFocusedOnFirstNoteOnStart: boolean;
-}
+/* * * Store * * */
 
-interface SettingsEditorGeneralTabbar {
-  isFocusedOnNewTab: boolean;
-}
 interface SettingsEditorGeneral {
   tabbar: SettingsEditorGeneralTabbar;
-  menu: SettingsEditorGenearlMenu;
+  menu: SettingsEditorGenerallMenu;
   content: SettingsEditorGeneralContent;
 }
-export interface SettingsEditor {
+interface SettingsEditor {
   general: SettingsEditorGeneral;
-}
-
-interface SettingsApp {
-  themes: SettingsStoreThemes;
-}
-
-interface SettingsStoreThemes {
-  themes: Array<string>;
-  current: string;
 }
 
 export interface SettingsStoreState {

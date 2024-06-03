@@ -1,12 +1,17 @@
 <template lang="pug">
 div.notes-list__item(
+  data-test-id="notes-list-item"
   ref="refItem"
   :class="[isActive ? 'active' : 'normal', {'focused': isFocused}]"
   @click="e => onClick(e)"
 )
   div.notes-list__item--container
-    h5 {{ name ? name : 'Empty' }} {{ id }}
-    p(v-if="description") {{ description }}
+    div.notes-list__item--content
+      h5 {{ name }}
+      p(
+        v-if="description"
+        data-test-id="notes-list-item-description"
+      ) {{ description }}
 </template>
 
 <script setup lang="ts">
@@ -58,14 +63,23 @@ const onClick = (e: MouseEvent | TouchEvent): void => {
 </script>
 
 <style lang="scss">
+$__border-radius: calc($border-radius / 2);
+
 .notes-list__item {
   width: 100%;
-  @include padding-h(24px);
+  padding: 4px 8px;
   cursor: pointer;
   @extend %transition;
+  user-select: none;
 
   &--container {
     @include padding-v(16px);
+    transition: inherit;
+    border-radius: $__border-radius;
+  }
+
+  &--content {
+    @include padding-h(16px);
     transition: inherit;
   }
 
@@ -93,22 +107,28 @@ const onClick = (e: MouseEvent | TouchEvent): void => {
   }
 
   &.normal {
-    @include themify($themes) {
-      border-bottom: 1px solid rgba(themed("border", "primary"), 0.35);
+    .notes-list__item--container {
+      @include themify($themes) {
+        border-bottom: 1px solid rgba(themed("border", "primary"), 0.35);
+      }
     }
   }
 
   &.focused {
-    @include themify($themes) {
-      background-color: themed("button", "focus");
-      border-bottom: 1px solid transparent;
+    .notes-list__item--container {
+      @include themify($themes) {
+        background-color: themed("button", "focus");
+        border-bottom: 1px solid transparent;
+      }
     }
   }
 
   &.active {
-    @include themify($themes) {
-      background-color: themed("button", "hover");
-      border-bottom: 1px solid transparent;
+    .notes-list__item--container {
+      @include themify($themes) {
+        background-color: themed("button", "hover");
+        border-bottom: 1px solid transparent;
+      }
     }
   }
 }

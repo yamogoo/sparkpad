@@ -1,11 +1,13 @@
 <template lang="pug">
 UISheet
     UICellOption(
+        data-test-id="settings-theme"
         :title="`Theme (${themeName})`"
         description="Selecting the application color theme"
         :show-description="true"
     )
         UISwitch(
+            data-test-id="settings-theme-control"
             :state="isLightTheme"
             @update:state="onToggleTheme"
         )

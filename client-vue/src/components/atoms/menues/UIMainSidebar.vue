@@ -17,6 +17,7 @@ import UIUserMenu from "./UIUserMenu.vue";
   display: flex;
   flex-direction: row;
   @include box(100%);
+  overflow: hidden;
 
   &--content {
     position: relative;

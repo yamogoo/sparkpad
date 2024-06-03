@@ -4,6 +4,7 @@ div.user-menu(
 )
   div.user-menu__body
     UIActionButton(
+      data-test-id="menu-button"
       :icon-name="Symbols.MENU"
       aria-label="toggle navigator"
       @click="onToggleMenu"
@@ -17,11 +18,13 @@ div.user-menu(
           
         UISettingsModal
       UIActionButton(
+        data-test-id="user-button"
         :icon-name="Symbols.USER_THUMBNAIL"
         aria-label="user settings"
         @click="onUserPage"
       )
       UIActionButton(
+        data-test-id="settings-button"
         :icon-name="Symbols.SETTINGS"
         aria-label="settings"
         @click="onOpenSettings"

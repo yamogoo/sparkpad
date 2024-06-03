@@ -1,5 +1,8 @@
 import { defineStore } from "pinia";
-import type { SettingsStoreState } from "./types";
+import type {
+  SettingsEditorGenerallMenuNotesListModes,
+  SettingsStoreState,
+} from "./types";
 
 export enum Themes {
   DARK = "dark",
@@ -21,6 +24,10 @@ export const useSettingsStore = defineStore("settings", {
     editor: {
       general: {
         menu: {
+          notesListMode: {
+            mode: "list",
+            modes: ["list", "card"],
+          },
           isPlacedNoteNextDuringCreation: true,
           isFocusedOnFirstNoteOnStart: false,
         },
@@ -53,6 +60,11 @@ export const useSettingsStore = defineStore("settings", {
 
     getIsFocusedOnFirstNoteOnStart: (state): boolean => {
       return state.editor.general.menu.isFocusedOnFirstNoteOnStart;
+    },
+
+    getIsNoteListMode: (state): boolean => {
+      const mode = state.editor.general.menu.notesListMode.mode;
+      return mode === "list";
     },
 
     /* * * Tabbar * * */

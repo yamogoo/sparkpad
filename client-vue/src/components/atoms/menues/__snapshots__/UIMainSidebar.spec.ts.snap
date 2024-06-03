@@ -1,3 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`UIMainSidebar > should render UserMenu 1`] = `true`;
+exports[`UIMainSidebar > should render (Notes) component 1`] = `true`;
+
+exports[`UIMainSidebar > should render (UserMenu) component 1`] = `true`;

@@ -1,0 +1,19 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`UINoteListItem > should emit "open" event 1`] = `
+[
+  [
+    1,
+  ],
+]
+`;
+
+exports[`UINoteListItem > should have the active class name 1`] = `true`;
+
+exports[`UINoteListItem > should have the focused class name 1`] = `true`;
+
+exports[`UINoteListItem > should have the normal class name 1`] = `true`;
+
+exports[`UINoteListItem > should not have the focused class name 1`] = `false`;
+
+exports[`UINoteListItem > should render description Description Content 1`] = `"Description Content"`;

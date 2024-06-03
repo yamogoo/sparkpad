@@ -84,5 +84,6 @@ describe("UICellButton", () => {
 
     expect(wrapper.emitted("open")).toHaveLength(1);
     expect(wrapper.emitted()).toHaveProperty("open");
+    expect(wrapper.emitted("open")).toMatchSnapshot();
   });
 });
