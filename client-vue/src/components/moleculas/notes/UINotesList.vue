@@ -3,13 +3,13 @@ div.notes-list(
   data-test-id="notes-list"
 )
   UINoteListItem(
-    v-for="{name, content}, idx in notes"
+    v-for="note, idx in notes"
     :key="idx"
     :id="idx"
-    :name
-    :description="content"
-    :is-active="sid===idx"
-    @open="onClick"
+    :name="note.data.name"
+    :description="note.data.content"
+    :is-active="sid===note.data.id"
+    @open="e => onClick(idx, note.data)"
   )
 </template>
 
@@ -17,20 +17,21 @@ div.notes-list(
 import type { Note } from "@/stores/notes/types";
 
 import UINoteListItem from "./UINoteListItem.vue";
+import type { HierarchyRootNode } from "~/src/stores/notes/utils";
 
 interface Props {
-  sid: number;
-  notes: Array<Note>;
+  sid: string;
+  notes: HierarchyRootNode<Note>;
 }
 
 defineProps<Props>();
 
 const emits = defineEmits<{
-  (e: "select:note", id: number): void;
+  (e: "select:note", idx: number, note: Note): void;
 }>();
 
-const onClick = (id: number): void => {
-  emits("select:note", id);
+const onClick = (idx: number, note: Note): void => {
+  emits("select:note", idx, note);
 };
 </script>
 

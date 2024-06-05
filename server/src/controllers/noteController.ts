@@ -9,7 +9,7 @@ const getAllNotes = (req: Request, res: Response) => {
   const { userId } = req.body;
 
   User.findOne({ where: { id: userId } }).then((user) => {
-    if (!user) res.status(401).send("User not exists");
+    if (!user) res.status(401).send({ message: "User not exists" });
   });
 
   Note.findAll({
@@ -20,16 +20,17 @@ const getAllNotes = (req: Request, res: Response) => {
     .then((notes) => {
       res.status(200).send({ notes });
     })
-    .catch((err) => {
-      res.status(500).send("Error when finding notes");
+    .catch((_err) => {
+      res.status(500).send({ message: "Error when finding notes" });
     });
 };
 
 const createNote = (req: Request, res: Response) => {
-  const { userId, id, name, content } = req.body;
+  const { userId, id, path, name, content } = req.body;
 
   Note.create({
     id,
+    path,
     name,
     content,
     userId,
@@ -46,7 +47,7 @@ const createNote = (req: Request, res: Response) => {
     });
 };
 
-const deleteNote = (req: Request, res: Response, next: NextFunction) => {
+const deleteNote = (req: Request, res: Response) => {
   const { id } = req.params;
   const { userId } = req.body;
 
@@ -62,14 +63,14 @@ const deleteNote = (req: Request, res: Response, next: NextFunction) => {
   });
 };
 
-const deleteAllNote = (req: Request, res: Response, next: NextFunction) => {};
+// const deleteAllNote = (req: Request, res: Response, next: NextFunction) => {};
 
-const updateNote = (req: Request, res: Response, next: NextFunction) => {};
+// const updateNote = (req: Request, res: Response, next: NextFunction) => {};
 
 export const noteController = {
   getAllNotes,
   createNote,
   deleteNote,
-  deleteAllNote,
-  updateNote,
+  // deleteAllNote,
+  // updateNote,
 };

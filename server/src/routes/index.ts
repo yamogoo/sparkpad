@@ -1,8 +1,8 @@
-import express from "express";
+import express, { Request } from "express";
 
 const router = express.Router();
 
-router.get("/", (req, res, next) => {
+router.get("/", (_req: Request, res) => {
   res.send(200).send({ message: "ok" });
 });
 

@@ -10,14 +10,12 @@ const pinia = createPinia();
 vi.mock("vue-router");
 
 describe("UIPrivateLayout", () => {
-  test("should render MainHeader", () => {
+  test("should render MainHeader", async () => {
     setActivePinia(pinia);
 
-    const wrapper = mount(UIPrivateLayout, {
-      global: {
-        components: { RouterView: h("div") },
-      },
-    });
+    const wrapper = mount(UIPrivateLayout);
+
+    await vi.dynamicImportSettled();
 
     const header = wrapper.find('[data-test-id="main-header"]');
     const isHeaderExists = header.exists();

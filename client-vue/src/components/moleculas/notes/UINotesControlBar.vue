@@ -15,6 +15,11 @@ div.notes-control-bar(
       @press="onDeleteItem"
     )
     UIActionButton(
+      :icon-name="Symbols.ADD_DIR"
+      aria-label="new directory"
+      @press="onCreateDir"
+    )
+    UIActionButton(
       :icon-name="Symbols.ADD_FILE"
       aria-label="new file"
       @press="onCreateFile"
@@ -27,12 +32,17 @@ import UIActionButton from "@/components/atoms/base/buttons/UIActionButton.vue";
 
 const emits = defineEmits<{
   (e: "create:note"): void;
+  (e: "create:dir"): void;
   (e: "delete:note"): void;
   (e: "search:note"): void;
 }>();
 
 const onCreateFile = () => {
   emits("create:note");
+};
+
+const onCreateDir = () => {
+  emits("create:dir");
 };
 
 const onDeleteItem = () => {

@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response, NextFunction } from "express";
 
 import { authController } from "@/controllers/authController";
 import { verifyRegister } from "@/middleware/verifyRegister";
@@ -6,7 +6,7 @@ import { verifyRegister } from "@/middleware/verifyRegister";
 const router = express.Router();
 
 // Set headers
-router.use((req, res, next) => {
+router.use((_req: Request, res: Response, next: NextFunction) => {
   res.header(
     "Access-Control-Allow-Headers",
     "x-access-token, Origin, Content-Type, Accept"

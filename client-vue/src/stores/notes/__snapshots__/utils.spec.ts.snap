@@ -1,0 +1,107 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`utils > createNodesTree 1`] = `
+[
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [],
+                "data": {
+                  "id": "ewdwer24rfwrewdqw",
+                  "path": "0/0/0/0",
+                },
+              },
+            ],
+            "data": {
+              "id": "deewdewdqwedewewdwed",
+              "path": "0/0/0",
+            },
+          },
+        ],
+        "data": {
+          "id": "wedlkpow23ioedjlkwed",
+          "path": "0/0",
+        },
+      },
+    ],
+    "data": {
+      "id": "qwdefw23e23edwdewded",
+      "path": "0",
+    },
+  },
+]
+`;
+
+exports[`utils > decodePath > should add node (increment last node) to path ([ +0, +0, 3 ]) 1`] = `
+[
+  0,
+  0,
+  4,
+]
+`;
+
+exports[`utils > decodePath > should change last node in path ([ +0, +0, 1 ]) on (12) 1`] = `
+[
+  0,
+  0,
+  12,
+]
+`;
+
+exports[`utils > decodePath > should check if path is Decoded (%) [ +0, +0, 3 ] 1`] = `true`;
+
+exports[`utils > decodePath > should increment last id in DecodedPath ([ +0, +0, 3 ]) 1`] = `
+[
+  0,
+  0,
+  4,
+]
+`;
+
+exports[`utils > decodePath > should remove node (decrement last node) from path ([ +0, +0, +0 ]) 1`] = `
+[
+  0,
+  0,
+]
+`;
+
+exports[`utils > decodePath > should remove node (decrement last node) from path ([ +0, +0, 3 ]) 1`] = `
+[
+  0,
+  0,
+  2,
+]
+`;
+
+exports[`utils > decodePath > should return parsed path array of levels (/) 1`] = `[]`;
+
+exports[`utils > decodePath > should return parsed path array of levels (0) 1`] = `
+[
+  0,
+]
+`;
+
+exports[`utils > decodePath > should return parsed path array of levels (0/0/0/1) 1`] = `
+[
+  0,
+  0,
+  0,
+  1,
+]
+`;
+
+exports[`utils > decodePath > should return parsed path array of levels (1/) 1`] = `
+[
+  1,
+]
+`;
+
+exports[`utils > encodePath > should return encoded path string ([ +0 ]) 1`] = `"0"`;
+
+exports[`utils > encodePath > should return encoded path string ([ +0, +0, +0, 1 ]) 1`] = `"0/0/0/1"`;
+
+exports[`utils > encodePath > should return encoded path string ([ 1 ]) 1`] = `"1"`;

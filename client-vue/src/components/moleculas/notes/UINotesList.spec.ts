@@ -4,6 +4,8 @@ import { mount } from "@vue/test-utils";
 import { createPinia, setActivePinia } from "pinia";
 
 import UINotesList from "./UINotesList.vue";
+import { createHierarchyTree } from "~/src/stores/notes/utils";
+import type { Notes } from "~/src/stores/notes";
 
 const pinia = createPinia();
 
@@ -11,20 +13,28 @@ enum Emits {
   SELECT_NOTE = "select:note",
 }
 
-const notes: Array<any> = [
+const data: Notes = [
   {
-    id: 1,
+    id: "1",
+    path: "0",
     name: "First Note",
+    content: "",
   },
   {
-    id: 1,
-    name: "First Note",
+    id: "2",
+    path: "2",
+    name: "Second Note",
+    content: "",
   },
   {
-    id: 1,
-    name: "First Note",
+    id: "3",
+    path: "3",
+    name: "Third Note",
+    content: "",
   },
 ];
+
+const notes = createHierarchyTree(data);
 
 describe("UINotesList", () => {
   test(`should contain ${notes.length} items`, () => {
@@ -32,7 +42,7 @@ describe("UINotesList", () => {
 
     const wrapper = mount(UINotesList, {
       props: {
-        sid: 0,
+        sid: "0",
         notes,
       },
     });
@@ -47,7 +57,7 @@ describe("UINotesList", () => {
   test(`should emit "select:note" event`, async () => {
     const wrapper = mount(UINotesList, {
       props: {
-        sid: 0,
+        sid: "0",
         notes,
       },
     });

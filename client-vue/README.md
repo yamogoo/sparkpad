@@ -1,4 +1,4 @@
-# ADA Panel
+# Sparkpad (client)
 
 ##### Unit tests:
 

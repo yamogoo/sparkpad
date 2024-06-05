@@ -4,66 +4,89 @@ div.notes(
 )
   UINotesControlBar(
     @create:note="onCreateNote"
+    @create:dir="onCreateDir"
     @delete:note="onDeleteNote"
     @search:note="onSearchNote"
   )
   div.notes--container
     UINotesList(
       v-if="isNoteListMode"
-      :sid="_sid"
+      :sid="currentId"
       :notes
       @select:note="onSelectNote"
     )
-    UINotesThumbnailList(
-      v-if="!isNoteListMode"
-      :sid="_sid"
-      :notes
-      @select:note="onSelectNote"
-    )
+    //- UINotesThumbnailList(
+    //-   v-if="!isNoteListMode"
+    //-   :sid="_sid"
+    //-   :notes
+    //-   @select:note="onSelectNote"
+    //- )
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from "vue";
-import { useNotesStore, createNote } from "@/stores/notes";
+import { onMounted, computed, type Ref, ref } from "vue";
+import { v4 } from "uuid";
 
-import { useSettingsStore } from "~/src/stores/settings";
+import { useSettingsStore } from "@/stores/settings";
+import { createHierarchyTree } from "@/stores/notes/utils";
+
+import { useNotesStore, type Note } from "@/stores/notes";
 
 import UINotesControlBar from "./UINotesControlBar.vue";
 import UINotesList from "./UINotesList.vue";
-import UINotesThumbnailList from "./UINotesThumbnailList.vue";
+
+/* * * Stores * * */
 
 const notesStore = useNotesStore();
+const settingsStore = useSettingsStore();
 
-const notes = computed(() => notesStore.getAllNotes);
+/* * * Notes * * */
 
-const _sid = computed(() => notesStore.getSid ?? -1);
+const sid: Ref<number | null> = ref(null);
+
+const notes = computed(() => {
+  const notes = notesStore.allNotes;
+  return createHierarchyTree(notes);
+});
+
+const currentId = computed(() => notesStore.currentNoteId ?? "");
 
 /* * * Mode * * */
 
-const settingsStore = useSettingsStore();
-
 const isNoteListMode = computed(() => settingsStore.getIsNoteListMode);
 
-onMounted(async () => {
-  notesStore.fetchAllNotes();
-});
+const onSelectNote = (idx: number, note: Note): void => {
+  const { id } = note;
 
-const onSelectNote = (_id: number): void => {
-  notesStore.selectCurrentNoteById(_id);
+  sid.value = idx;
+  console.log(sid.value);
+
+  // gen usePath
+
+  notesStore.selectCurrentNoteById(id);
 };
 
-let i = 0;
+const onCreateDir = (): void => {};
 
 const onCreateNote = (): void => {
-  const defaultNote = createNote(`${i++}`);
-  notesStore.createNote(defaultNote);
+  const initNote: Note = {
+    id: v4(),
+    path: `${notesStore.notesLength}`,
+    name: `New ${(Math.random() * 100_000).toFixed(0)}`,
+    content: "",
+  };
+  notesStore.createNote(initNote);
 };
 
 const onDeleteNote = (): void => {
-  notesStore.deleteNote(_sid.value);
+  notesStore.deleteNoteById(currentId.value);
 };
 
 const onSearchNote = (): void => {};
+
+/* * * Init * * */
+
+onMounted(() => notesStore.fetchAllNotes());
 </script>
 
 <style lang="scss">

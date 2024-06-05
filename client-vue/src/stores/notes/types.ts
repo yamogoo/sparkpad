@@ -1,16 +1,17 @@
-export interface Note {
-  _id: number;
-  id: string;
-  name: string;
-  content: string;
-  // createdAt: string;
-  // updatedAt: string;
-}
-
-export type Notes = Array<Note> | [];
+import type { EncodedNodePath } from "./utils";
+import { History } from "./history";
 
 export interface NotestStoreState {
-  notes: Array<Note>;
-  sid: number;
-  currentNote: Note | undefined;
+  _notes: Array<Note>;
+  _history: History;
+  _currentNote: Note | null;
 }
+
+export interface Note {
+  id: string;
+  path: EncodedNodePath;
+  name: string;
+  content: string;
+}
+
+export type Notes = Array<Note>;

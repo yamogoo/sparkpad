@@ -2,7 +2,6 @@ import type { Note } from "@/stores/notes";
 import type { ApiMethod } from "../types";
 
 import authHeader from "@/services/auth/authHeader";
-import type { NoteResponse } from "./types";
 
 const HOST = import.meta.env.VITE_SERVER_HOST;
 const PORT = import.meta.env.VITE_SERVER_PORT;
@@ -37,12 +36,13 @@ export const api: Record<
 };
 
 export class NotesService {
-  public async createNote({ id, name, content }: Partial<Note>) {
+  public async createNote({ id, path, name, content }: Partial<Note>) {
     const InitRequest = {
       method: api.createNote.method,
       headers: { "Content-Type": "application/json", ...authHeader() },
       body: JSON.stringify({
         id,
+        path,
         name,
         content,
       }),
@@ -76,6 +76,7 @@ export class NotesService {
     const json: any = await res.json();
 
     // !!! FIX
+    console.log(json);
     const { notes } = json;
     return notes;
   }

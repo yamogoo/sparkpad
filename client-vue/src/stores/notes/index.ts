@@ -1,120 +1,98 @@
 import { defineStore } from "pinia";
+
 import type { Note, NotestStoreState } from "./types";
+import { History } from "./history";
+
 import { notesService } from "@/services/nots/notesService";
-import { v4 } from "uuid";
-import { useSettingsStore } from "../settings";
+
+const _history = new History(16);
 
 export const useNotesStore = defineStore("notes", {
   state: (): NotestStoreState => ({
-    notes: [],
-    sid: -1,
-    currentNote: undefined,
+    _notes: [],
+    _history,
+    _currentNote: null,
   }),
   getters: {
     /* * * Client * * */
 
-    getAllNotes: (state) => {
-      return state.notes;
+    allNotes: (state) => {
+      return state._notes;
     },
-    getCurrentNote: (state) => {
-      return state.currentNote;
+    currentNote: (state) => {
+      return state._currentNote;
     },
-    getSid: (state) => state.sid,
+    sid: (state) => {
+      const id = state._currentNote?.id;
+      return state._notes.findIndex((note) => note.id === id);
+    },
 
-    getLastId: (state) => state.notes.length - 1,
+    currentNotePath: (state) => state._currentNote?.path,
 
-    getLength: (state) => state.notes.length,
+    currentNoteId: (state) => state._currentNote?.id,
+
+    lastNoteId: (state) => state._notes.length - 1,
+
+    notesLength: (state) => state._notes.length,
   },
   actions: {
     async fetchAllNotes() {
       const notes = await notesService.getAllNotes();
-      this.notes = notes;
+      this._notes = notes;
 
       // SETTINGS: Selecting first node
       // if <isFocusedOnFirstNoteOnStart> is true
-      const settingsStore = useSettingsStore();
-      const isFocusFirestNodeOnStart =
-        settingsStore.getIsFocusedOnFirstNoteOnStart;
-      if (isFocusFirestNodeOnStart) this.selectFirstNode();
+      // const settingsStore = useSettingsStore();
+      // const isFocusFirestNodeOnStart =
+      //   settingsStore.getIsFocusedOnFirstNoteOnStart;
+      // if (isFocusFirestNodeOnStart) this.selectFirstNode();
 
       return notes;
     },
 
     async createNote(note: Note) {
-      const id = v4();
-      this.notes.push({ ...note, id });
+      const { id } = note;
+
+      this._notes.push(note);
+      this._history.add(id);
 
       // SETTINGS: Selecting new node
       // next to the previous if
       // <IsPlacedNoteNextDuringCreation> is true
-      const settingsStore = useSettingsStore();
-      const isPlaceToNext = settingsStore.getIsPlacedNoteNextDuringCreation;
+      // const settingsStore = useSettingsStore();
+      // const isPlaceToNext = settingsStore.getIsPlacedNoteNextDuringCreation;
 
-      if (isPlaceToNext) this.selectNextNode();
-      else this.selectLastNode();
+      // if (isPlaceToNext) this.selectNextNode();
+      // else this.selectLastNode();
 
       /* * * Post Sync with DataBase * * */
 
-      const { name, content } = note;
-      await notesService.createNote({ id, name, content });
+      await notesService.createNote(note);
     },
 
-    async deleteNote(_id: number) {
-      if (this.getLength <= 0 || !this.currentNote) return;
+    async deleteNoteById(id: string) {
+      if (this.notesLength <= 0 || !this.createNote) return;
 
-      const id = this.getCurrentNote?.id;
-
-      this.notes.splice(_id, 1);
-      this.selectPreviousNode();
+      // Remove note
+      const idx = this._notes.findIndex((note) => note.id === id);
+      this._notes.splice(idx, 1);
+      this._history.remove(id);
 
       /* * * Post Sync with DataBase * * */
 
       if (id) await notesService.deleteNote(id);
-      else throw Error("Invalid Note ID");
     },
 
     /* * * Client * * */
 
-    setSid(id: number): void {
-      this.sid = id;
-    },
-
-    selectCurrentNoteById(_id: number): void {
-      this.currentNote = this.notes[_id];
-      this.setSid(_id);
+    selectCurrentNoteById(id: string): void {
+      const idx = this._notes.findIndex((el) => el.id === id);
+      this._currentNote = this._notes[idx];
+      this._history.add(id);
     },
 
     /* * * Current Note * * */
-
-    selectPreviousNode(): void {
-      const sid = this.sid;
-
-      if (sid !== 0) {
-        this.selectCurrentNoteById(this.sid - 1);
-      } else this.selectCurrentNoteById(this.sid);
-    },
-
-    selectNextNode(): void {
-      const sid = this.sid;
-      const lastSid = this.getLastId;
-
-      if ((sid !== 0 && sid !== lastSid) || (sid === 0 && sid < lastSid))
-        this.selectCurrentNoteById(this.sid + 1);
-      else if (sid === lastSid && lastSid !== 0) {
-        this.selectCurrentNoteById(this.sid - 1);
-      }
-    },
-
-    selectFirstNode(): void {
-      this.selectCurrentNoteById(0);
-    },
-
-    selectLastNode(): void {
-      const lastId = this.getLastId;
-      this.selectCurrentNoteById(lastId);
-    },
   },
 });
 
 export * from "./types";
-export * from "./utils";

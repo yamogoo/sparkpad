@@ -10,6 +10,7 @@ export enum Symbols {
 
   /* * * Notes Menu * * */
 
+  ADD_DIR = "AddDirIcon",
   ADD_FILE = "AddFileIcon",
   DELETE_ITEM = "BinIcon",
   SEARCH = "SearchIcon",

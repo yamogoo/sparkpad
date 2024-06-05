@@ -21,6 +21,8 @@ exports[`UISymbol > icon should have a custom size = 100% (with === height) 1`] 
 }
 `;
 
+exports[`UISymbol > should render AddDirIcon icon from "Symbols" data set 1`] = `true`;
+
 exports[`UISymbol > should render AddFileIcon icon from "Symbols" data set 1`] = `true`;
 
 exports[`UISymbol > should render ArrorRightIcon icon from "Symbols" data set 1`] = `true`;
