@@ -11,7 +11,7 @@ div.notes(
   div.notes--container
     UINotesList(
       v-if="isNoteListMode"
-      :sid="currentId"
+      :sid="currentUID"
       :notes
       @select:note="onSelectNote"
     )
@@ -24,11 +24,11 @@ div.notes(
 </template>
 
 <script setup lang="ts">
-import { onMounted, computed, type Ref, ref } from "vue";
+import { onMounted, computed, type Ref, ref, watchEffect } from "vue";
 import { v4 } from "uuid";
 
 import { useSettingsStore } from "@/stores/settings";
-import { createHierarchyTree } from "@/stores/notes/utils";
+import { HierarchyTree } from "@/stores/notes/hierarchyTree";
 
 import { useNotesStore, type Note } from "@/stores/notes";
 
@@ -45,33 +45,46 @@ const settingsStore = useSettingsStore();
 const sid: Ref<number | null> = ref(null);
 
 const notes = computed(() => {
-  const notes = notesStore.allNotes;
-  return createHierarchyTree(notes);
+  return HierarchyTree.createHierarchyTree(notesStore.allNotes);
 });
 
-const currentId = computed(() => notesStore.currentNoteId ?? "");
+watchEffect(() => {
+  console.log(notes.value);
+});
+
+const currentUID = computed(() => notesStore.currentNoteUID ?? "");
 
 /* * * Mode * * */
 
 const isNoteListMode = computed(() => settingsStore.getIsNoteListMode);
 
 const onSelectNote = (idx: number, note: Note): void => {
-  const { id } = note;
+  const { uid } = note;
 
   sid.value = idx;
   console.log(sid.value);
 
   // gen usePath
 
-  notesStore.selectCurrentNoteById(id);
+  notesStore.selectCurrentNoteByUID(uid);
 };
 
-const onCreateDir = (): void => {};
+const onCreateDir = (): void => {
+  const initNote: Note = {
+    id: 0,
+    uid: v4(),
+    path: `${notesStore.notesLength}/`,
+    name: `New Dir ${(Math.random() * 100_000).toFixed(0)}`,
+    content: "",
+  };
+  notesStore.createNote(initNote);
+};
 
 const onCreateNote = (): void => {
   const initNote: Note = {
-    id: v4(),
-    path: `${notesStore.notesLength}`,
+    id: 0,
+    uid: v4(),
+    path: `0/${notesStore.notesLength}`,
     name: `New ${(Math.random() * 100_000).toFixed(0)}`,
     content: "",
   };
@@ -79,7 +92,7 @@ const onCreateNote = (): void => {
 };
 
 const onDeleteNote = (): void => {
-  notesStore.deleteNoteById(currentId.value);
+  notesStore.deleteNoteByUID(currentUID.value);
 };
 
 const onSearchNote = (): void => {};

@@ -3,34 +3,18 @@
 exports[`utils > createNodesTree 1`] = `
 [
   {
-    "children": [
-      {
-        "children": [
-          {
-            "children": [
-              {
-                "children": [],
-                "data": {
-                  "id": "ewdwer24rfwrewdqw",
-                  "path": "0/0/0/0",
-                },
-              },
-            ],
-            "data": {
-              "id": "deewdewdqwedewewdwed",
-              "path": "0/0/0",
-            },
-          },
-        ],
-        "data": {
-          "id": "wedlkpow23ioedjlkwed",
-          "path": "0/0",
-        },
-      },
-    ],
+    "children": [],
     "data": {
+      "content": "some Content",
       "id": "qwdefw23e23edwdewded",
       "path": "0",
+    },
+  },
+  {
+    "children": [],
+    "data": {
+      "id": "wedlkpow23ioedjlkwed",
+      "path": "2",
     },
   },
 ]

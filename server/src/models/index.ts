@@ -1,6 +1,7 @@
 import UserModel from "./UserModel";
 import RoleModel from "./RoleModel";
 import NoteModel from "./NoteModel";
+import NoteGroup from "./NoteGroup";
 
 import { Dialect, Sequelize } from "sequelize";
 import { config } from "@/config/dbConfig";
@@ -9,11 +10,15 @@ import { v4 } from "uuid";
 export class Models {
   public User;
   public Role;
+
+  public NoteGroup;
   public Note;
 
   constructor(sequlize: Sequelize) {
     this.User = UserModel(sequlize);
     this.Role = RoleModel(sequlize);
+
+    this.NoteGroup = NoteGroup(sequlize);
     this.Note = NoteModel(sequlize);
 
     this.init();
@@ -30,10 +35,24 @@ export class Models {
       through: "user_roles",
     });
 
-    this.User.hasMany(this.Note, {
+    // Note Group
+
+    this.User.hasMany(this.NoteGroup, {
       foreignKey: "userId",
     });
-    this.Note.belongsTo(this.User);
+    this.NoteGroup.belongsTo(this.User, {
+      foreignKey: "userId",
+    });
+
+    // Note
+
+    this.NoteGroup.hasMany(this.Note, {
+      foreignKey: "noteGroupId",
+    });
+
+    this.Note.belongsTo(this.NoteGroup, {
+      foreignKey: "noteGroupId",
+    });
   }
 
   private init() {

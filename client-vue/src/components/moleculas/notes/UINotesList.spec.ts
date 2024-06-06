@@ -4,8 +4,8 @@ import { mount } from "@vue/test-utils";
 import { createPinia, setActivePinia } from "pinia";
 
 import UINotesList from "./UINotesList.vue";
-import { createHierarchyTree } from "~/src/stores/notes/utils";
-import type { Notes } from "~/src/stores/notes";
+import { HierarchyTree } from "@/stores/notes/hierarchyTree";
+import type { Notes } from "@/stores/notes";
 
 const pinia = createPinia();
 
@@ -34,7 +34,7 @@ const data: Notes = [
   },
 ];
 
-const notes = createHierarchyTree(data);
+const notes = HierarchyTree.createHierarchyTree(data);
 
 describe("UINotesList", () => {
   test(`should contain ${notes.length} items`, () => {

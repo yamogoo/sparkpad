@@ -38,6 +38,7 @@ export default (sequelize: Sequelize): typeof User => {
     {
       sequelize,
       modelName: "user",
+      tableName: "users",
     }
   );
 

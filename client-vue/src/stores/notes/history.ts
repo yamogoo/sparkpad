@@ -51,6 +51,7 @@ export class History {
         return this._queue;
       }
     }
-    throw Error("Error: Item already exist in history");
+    return this._queue;
+    // throw Error("Error: Item already exist in history");
   }
 }

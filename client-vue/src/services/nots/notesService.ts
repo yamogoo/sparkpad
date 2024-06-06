@@ -1,4 +1,4 @@
-import type { Note } from "@/stores/notes";
+import type { Note, NoteGroup } from "@/stores/notes";
 import type { ApiMethod } from "../types";
 
 import authHeader from "@/services/auth/authHeader";
@@ -9,10 +9,43 @@ const VERSION = import.meta.env.VITE_SERVER_API_VERSION;
 
 const BASE_URL = `http://${HOST}:${PORT}/${VERSION}`;
 
-export const api: Record<
-  "getNotes" | "createNote" | "updateNote" | "deleteNote" | "deleteAllNotes",
-  ApiMethod
-> = {
+type APIKeys =
+  // Groups
+  | "getNoteGroups"
+  | "createNoteGroup"
+  | "updateNoteGroup"
+  | "deleteNoteGroup"
+  | "deleteAllNoteGroups"
+  // Notes
+  | "getNotes"
+  | "createNote"
+  | "updateNote"
+  | "deleteNote"
+  | "deleteAllNotes";
+
+export const api: Record<APIKeys, ApiMethod> = {
+  // Groups
+  getNoteGroups: {
+    path: `${BASE_URL}/note-groups`,
+    method: "GET",
+  },
+  createNoteGroup: {
+    path: `${BASE_URL}/note-groups`,
+    method: "POST",
+  },
+  deleteNoteGroup: {
+    path: `${BASE_URL}/note-groups`,
+    method: "DELETE",
+  },
+  updateNoteGroup: {
+    path: `${BASE_URL}/note-groups`,
+    method: "PUT",
+  },
+  deleteAllNoteGroups: {
+    path: `${BASE_URL}/note-groups`,
+    method: "DELETE",
+  },
+  // Notes
   getNotes: {
     path: `${BASE_URL}/notes`,
     method: "GET",
@@ -36,12 +69,37 @@ export const api: Record<
 };
 
 export class NotesService {
-  public async createNote({ id, path, name, content }: Partial<Note>) {
+  public async createGroup({
+    id,
+    uid,
+    path,
+    name,
+    description,
+  }: Partial<NoteGroup>) {
+    const InitRequest = {
+      method: api.createNoteGroup.method,
+      headers: { "Content-Type": "application/json", ...authHeader() },
+      body: JSON.stringify({
+        id,
+        uid,
+        path,
+        name,
+        description,
+      }),
+    };
+
+    const res = await fetch(api.createNote.path, InitRequest);
+    const json = await res.json();
+    console.log(json);
+  }
+
+  public async createNote({ id, uid, path, name, content }: Partial<Note>) {
     const InitRequest = {
       method: api.createNote.method,
       headers: { "Content-Type": "application/json", ...authHeader() },
       body: JSON.stringify({
         id,
+        uid,
         path,
         name,
         content,
@@ -53,15 +111,14 @@ export class NotesService {
     console.log(json);
   }
 
-  public async deleteNote(id: string) {
-    console.log(id);
+  public async deleteNote(uid: string) {
+    console.log(uid);
     const InitRequest = {
       method: api.deleteNote.method,
       headers: { "Content-Type": "application/json", ...authHeader() },
-      // body: JSON.stringify(id),
     };
 
-    const res = await fetch(`${api.deleteNote.path}/${id}`, InitRequest);
+    const res = await fetch(`${api.deleteNote.path}/${uid}`, InitRequest);
     const json = await res.json();
     console.log(json);
   }

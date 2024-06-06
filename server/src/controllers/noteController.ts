@@ -26,13 +26,15 @@ const getAllNotes = (req: Request, res: Response) => {
 };
 
 const createNote = (req: Request, res: Response) => {
-  const { userId, id, path, name, content } = req.body;
+  const { userId, noteGroupId, id, uid, path, name, content } = req.body;
 
   Note.create({
     id,
+    uid,
     path,
     name,
     content,
+    noteGroupId,
     userId,
   })
     .then((note) => {

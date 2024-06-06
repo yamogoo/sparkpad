@@ -33,6 +33,8 @@ export default (sequelize: Sequelize): typeof Role => {
     {
       sequelize,
       modelName: "role",
+      tableName: "roles",
+      timestamps: false,
     }
   );
   return Role;

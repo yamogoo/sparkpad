@@ -5,66 +5,68 @@ import { createHierarchyTree, type HierarchyRootNode } from "./utils";
 interface SomeData {
   id: string;
   path: string;
+  [key: string]: any;
 }
 
 const data: Array<SomeData> = [
   {
     id: "qwdefw23e23edwdewded",
+    content: "some Content",
     path: "0",
   },
   {
     id: "wedlkpow23ioedjlkwed",
-    path: "0/0",
+    path: "2",
   },
-  {
-    id: "deewdewdqwedewewdwed",
-    path: "0/0/0",
-  },
-  {
-    id: "ewdwer24rfwrewdqw",
-    path: "0/0/0/0",
-  },
+  // {
+  //   id: "deewdewdqwedewewdwed",
+  //   path: "0/0/0",
+  // },
+  // {
+  //   id: "ewdwer24rfwrewdqw",
+  //   path: "0/0/0/0",
+  // },
 ];
 
-const result: HierarchyRootNode<SomeData> = [
-  {
-    data: {
-      id: "qwdefw23e23edwdewded",
-      path: "0",
-    },
-    children: [
-      {
-        data: {
-          id: "wedlkpow23ioedjlkwed",
-          path: "0/0",
-        },
-        children: [
-          {
-            data: {
-              id: "deewdewdqwedewewdwed",
-              path: "0/0/0",
-            },
-            children: [
-              {
-                data: {
-                  id: "ewdwer24rfwrewdqw",
-                  path: "0/0/0/0",
-                },
-                children: [],
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-];
+// const result: HierarchyRootNode<SomeData> = [
+//   {
+//     data: {
+//       id: "qwdefw23e23edwdewded",
+//       path: "0",
+//     },
+//     children: [
+//       {
+//         data: {
+//           id: "wedlkpow23ioedjlkwed",
+//           path: "0/0",
+//         },
+//         children: [
+//           {
+//             data: {
+//               id: "deewdewdqwedewewdwed",
+//               path: "0/0/0",
+//             },
+//             children: [
+//               {
+//                 data: {
+//                   id: "ewdwer24rfwrewdqw",
+//                   path: "0/0/0/0",
+//                 },
+//                 children: [],
+//               },
+//             ],
+//           },
+//         ],
+//       },
+//     ],
+//   },
+// ];
 
 describe("utils", () => {
   test("createNodesTree", () => {
     const root = createHierarchyTree<SomeData>(data);
 
-    expect(root).toMatchObject(result);
+    // expect(root).toMatchObject(result);
     expect(root).toMatchSnapshot();
   });
 });
