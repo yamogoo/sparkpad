@@ -1,26 +1,26 @@
 <template lang="pug">
-div.editor-view
-  //- UIEditorTabbar
-  //- div.editor-view__tools
-  //-   UIEditorMenu
-  div.editor-view__content
+div.main-viewport
+  UIMainViewportTabbar
+  //- div.main-viewport__tools
+  //-   UIMainMenu
+  div.main-viewport__content
     RouterView
 </template>
 
 <script setup lang="ts">
 import { RouterView } from "vue-router";
 
-import UIEditorTabbar from "./tabbar/UIEditorTabbar.vue";
+import UIMainViewportTabbar from "./tabbar/UIMainViewportTabbar.vue";
 // import UIEditorMenu from "./tabbar/content-menu/UIEditorMenu.vue";
 </script>
 
 <style lang="scss">
-.editor-view {
+.main-viewport {
   display: flex;
   flex-direction: column;
   @include box(100%);
 
-  .editor-tabbar {
+  &-tabbar {
     flex-grow: 1;
   }
 

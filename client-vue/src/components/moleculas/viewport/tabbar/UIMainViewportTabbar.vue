@@ -1,14 +1,14 @@
 <template lang="pug">
-div.editor-tabbar
-  //- UIEditorTabbarTab(
-  //-   v-for="tab in history"
-  //-   :key="String(tab)"
-  //-   :id="tab"
-  //-   :title="tab.label"
-  //-   :is-active="tab.id === sid"
-  //-   @open="onOpen(tab.id)"
-  //-   @close="onClose(tab.id)"
-  //- )
+div.main-viewport__tabbar
+  UIMainViewportTabbarTab(
+    v-for="tab, idx in history"
+    :key="String(tab)"
+    :id="idx"
+    :title="tab.data.name"
+    :is-active="idx === sid"
+    @open="onOpen(tab.uid)"
+    @close="onClose(tab.uid)"
+  )
 </template>
 
 <script setup lang="ts">
@@ -17,12 +17,12 @@ import { useRouter } from "vue-router";
 
 import { useNotesStore } from "@/stores/notes";
 
-// import UIEditorTabbarTab from "@/components/moleculas/editor/tabbar/UIEditorTabbar.vue";
+import UIMainViewportTabbarTab from "@/components/moleculas/viewport/tabbar/UIMainViewportTabbarTab.vue";
 
 const router = useRouter();
 const notesStore = useNotesStore();
 
-const sid = computed(() => notesStore._history.peek);
+const sid = computed(() => notesStore._history.sid);
 const history = computed(() => notesStore._history.all);
 
 const onOpen = (id: string): void => {
@@ -35,7 +35,7 @@ const onClose = (id: string): void => {
 </script>
 
 <style lang="scss">
-.editor-tabbar {
+.main-viewport__tabbar {
   display: flex;
   flex-direction: row;
   align-items: end;
@@ -47,7 +47,7 @@ const onClose = (id: string): void => {
   padding-right: 8px;
 
   @include themify($themes) {
-    background-color: themed("background", "accent");
+    background-color: themed("background", "secondary");
   }
 }
 </style>

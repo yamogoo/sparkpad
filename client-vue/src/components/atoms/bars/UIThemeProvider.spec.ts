@@ -10,8 +10,8 @@ import UIThemeProvider from "./UIThemeProvider.vue";
 
 const pinia = createPinia();
 
-const THEME_PREFIX = "theme-";
-const pattern = new RegExp(`^${THEME_PREFIX}`);
+// const THEME_PREFIX = "theme-";
+// const pattern = new RegExp(`^${THEME_PREFIX}`);
 
 describe("UIThemeProvider", () => {
   test("should render theme name", () => {
@@ -21,7 +21,7 @@ describe("UIThemeProvider", () => {
 
     const themeLabel = wrapper.find('[data-test-id="theme-label"]');
 
-    expect(themeLabel.text()).toBe(Themes.LIGHT);
+    expect(themeLabel.text()).toBe(Themes.DARK);
     expect(themeLabel.text()).toMatchSnapshot();
   });
 

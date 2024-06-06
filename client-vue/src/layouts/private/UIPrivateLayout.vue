@@ -11,7 +11,7 @@ div.main-layout
         UIMainSidebar
   div.main-layout__content-view
     div.main-layout__content-view--container
-      UIEditor
+      UIMainViewport
 </template>
 
 <script setup lang="ts">
@@ -19,7 +19,7 @@ import UIMainHeader from "@/components/atoms/navigations/UIMainHeader.vue";
 // import UIMainFooter from "@/components/atoms/navigations/UIMainFooter.vue";
 import UIExpandableBox from "@/components/atoms/base/boundings/UIResizableBox.vue";
 import UIMainSidebar from "@/components/atoms/menues/UIMainSidebar.vue";
-import UIEditor from "@/components/moleculas/editor/UIEditor.vue";
+import UIMainViewport from "@/components/moleculas/viewport/UIMainViewport.vue";
 </script>
 
 <style lang="scss">

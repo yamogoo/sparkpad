@@ -1,6 +1,6 @@
 <template>
-  <div class="editor-tabbar-tab__shape__side">
-    <div class="editor-tabbar-tab__shape__side--body"></div>
+  <div class="mian-viewport__tabbar-tab__shape__side">
+    <div class="mian-viewport__tabbar-tab__shape__side--body"></div>
     <svg
       width="24"
       height="36"
@@ -24,7 +24,7 @@
 <style lang="scss">
 $__body-width: 12px;
 
-.editor-tabbar-tab__shape__side {
+.mian-viewport__tabbar-tab__shape__side {
   display: flex;
   flex-direction: column;
   fill: inherit;

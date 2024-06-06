@@ -1,19 +1,19 @@
 <template lang="pug">
-div.editor-tabbar-tab__shape
-  EditorTabbarTabShapeSide(
+div.main-viewport__tabbar-tab__shape
+  UIMainViewportTabbarTabShapeSide(
     style="transform: scaleX(-1);"
   )
-  div.editor-tabbar-tab__shape--center
+  div.main-viewport__tabbar-tab__shape--center
     slot
-  EditorTabbarTabShapeSide
+  UIMainViewportTabbarTabShapeSide
 </template>
 
 <script setup lang="ts">
-import EditorTabbarTabShapeSide from "./EditorTabbarTabShapeSide.vue";
+import UIMainViewportTabbarTabShapeSide from "./UIMainViewportTabbarTabShapeSide.vue";
 </script>
 
 <style lang="scss">
-.editor-tabbar-tab__shape {
+.main-viewport__tabbar-tab__shape {
   display: flex;
   @include box(100%);
 

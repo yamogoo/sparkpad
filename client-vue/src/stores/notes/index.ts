@@ -1,11 +1,16 @@
 import { defineStore } from "pinia";
 
-import type { Note, NoteGroup, NotestStoreState } from "./types";
+import type {
+  Note,
+  NoteGroup,
+  NoteHistoryItem,
+  NotestStoreState,
+} from "./types";
 import { History } from "./history";
 
 import { notesService } from "@/services/nots/notesService";
 
-const _history = new History(16);
+const _history = new History<NoteHistoryItem>(16);
 
 export const useNotesStore = defineStore("notes", {
   state: (): NotestStoreState => ({
@@ -56,10 +61,9 @@ export const useNotesStore = defineStore("notes", {
     },
 
     async createNote(note: Note) {
-      const { uid } = note;
-
       this._notes.push(note);
-      this._history.add(uid);
+
+      this.addHistoryItem(note);
 
       // SETTINGS: Selecting new node
       // next to the previous if
@@ -93,10 +97,19 @@ export const useNotesStore = defineStore("notes", {
     selectCurrentNoteByUID(uid: string): void {
       const idx = this._notes.findIndex((el) => el.uid === uid);
       this._currentNote = this._notes[idx];
-      this._history.add(uid);
     },
 
-    /* * * Current Note * * */
+    /* * * History * * */
+
+    addHistoryItem(note: Note): void {
+      if (!note) return;
+
+      const { uid, path, name } = note;
+      this._history.add({
+        uid,
+        data: { uid, path, name },
+      });
+    },
   },
 });
 

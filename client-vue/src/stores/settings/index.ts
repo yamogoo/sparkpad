@@ -10,7 +10,7 @@ export enum Themes {
 }
 
 const defaults = {
-  theme: localStorage.getItem("theme") ?? Themes.LIGHT,
+  theme: localStorage.getItem("theme") ?? Themes.DARK,
 };
 
 export const useSettingsStore = defineStore("settings", {

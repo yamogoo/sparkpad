@@ -8,7 +8,7 @@
   >
     <path
       d="M11.9897 0V0C11.9897 6.62742 17.3635 12 23.9909 12V12H0.00174713L0 0H11.9897Z"
-      fill="white"
+      fill="inherit"
     />
   </svg>
 </template>

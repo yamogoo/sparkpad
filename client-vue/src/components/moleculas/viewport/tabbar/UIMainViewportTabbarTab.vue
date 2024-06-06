@@ -1,10 +1,10 @@
 <template lang="pug">
-div.editor-tabbar-tab(
+div.main-viewport__tabbar-tab(
   :class="[{'active': isActive}]"
   @click="onClick"
 )
   EditorTabbarTabShape
-    span.editor-tabbar-tab__label {{ title.length > 15 ? `${title.slice(0, 15)}...` : title }}
+    span.main-viewport__tabbar-tab__label {{ title.length > 15 ? `${title.slice(0, 15)}...` : title }}
     UIIcon(
       v-if="isActive"
       :name="Symbols.CROSS"
@@ -13,7 +13,7 @@ div.editor-tabbar-tab(
 </template>
 
 <script setup lang="ts">
-import EditorTabbarTabShape from "./shapes/EditorTabbarTabShape.vue";
+import EditorTabbarTabShape from "./shapes/UIMainViewportTabbarTabShape.vue";
 import UIIcon, { Symbols } from "@/components/atoms/base/icons/UIIcon.vue";
 
 interface Props {
@@ -45,7 +45,7 @@ const onClose = (e: MouseEvent): void => {
 </script>
 
 <style lang="scss">
-.editor-tabbar-tab {
+.main-viewport__tabbar-tab {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -67,7 +67,7 @@ const onClose = (e: MouseEvent): void => {
     opacity: 0.75;
   }
 
-  .ui-icon {
+  .symbol {
     position: absolute;
     right: 20px;
     @include box(12px);
@@ -81,32 +81,32 @@ const onClose = (e: MouseEvent): void => {
     }
   }
 
-  .editor-tabbar-tab__shape {
+  .main-viewport__tabbar-tab__shape {
     @include themify($themes) {
       fill: none;
     }
   }
 
-  .editor-tabbar-tab__shape--center {
+  .main-viewport__tabbar-tab__shape--center {
     @include themify($themes) {
       background-color: none;
     }
   }
 
   &.active {
-    .editor-tabbar-tab__shape {
+    .main-viewport__tabbar-tab__shape {
       @include themify($themes) {
         fill: themed("background", "primary");
       }
     }
 
-    .editor-tabbar-tab__shape--center {
+    .main-viewport__tabbar-tab__shape--center {
       @include themify($themes) {
         background-color: themed("background", "primary");
       }
     }
 
-    .editor-tabbar-tab__label {
+    .main-viewport__tabbar-tab__label {
       opacity: 1;
     }
   }
@@ -117,7 +117,7 @@ const onClose = (e: MouseEvent): void => {
       fill: themed("background", "primary");
     }
 
-    .editor-tabbar-tab__label {
+    .main-viewport__tabbar-tab__label {
       opacity: 1;
     }
   }
