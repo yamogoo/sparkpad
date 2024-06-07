@@ -23,7 +23,7 @@ describe("UINoteListItem", () => {
     });
 
     const descriptionEl = wrapper.find(
-      '[data-test-id="notes-list-item-description"]'
+      '[data-testid="notes-list-item-description"]'
     );
     const description = descriptionEl.text();
 
@@ -41,7 +41,7 @@ describe("UINoteListItem", () => {
     });
 
     const descriptionEl = wrapper.find(
-      '[data-test-id="notes-list-item-description"]'
+      '[data-testid="notes-list-item-description"]'
     );
     await descriptionEl.trigger("click");
 
@@ -92,7 +92,7 @@ describe("UINoteListItem", () => {
       },
     });
 
-    const itemEl = wrapper.find('[data-test-id="notes-list-item"]');
+    const itemEl = wrapper.find('[data-testid="notes-list-item"]');
     await itemEl.trigger("mouseenter");
 
     const className = wrapper.classes(ClassNames.FOCUSED);
@@ -111,7 +111,7 @@ describe("UINoteListItem", () => {
       },
     });
 
-    const itemEl = wrapper.find('[data-test-id="notes-list-item"]');
+    const itemEl = wrapper.find('[data-testid="notes-list-item"]');
     await itemEl.trigger("mouseenter");
     await itemEl.trigger("mouseleave");
 

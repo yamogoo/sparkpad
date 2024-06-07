@@ -8,8 +8,8 @@ import UIMainSidebar from "./UIMainSidebar.vue";
 const pinia = createPinia();
 
 const components = [
-  ["UserMenu", '[data-test-id="user-menu"]'],
-  ["Notes", '[data-test-id="notes"]'],
+  ["UserMenu", '[data-testid="user-menu"]'],
+  ["Notes", '[data-testid="notes"]'],
 ];
 
 describe("UIMainSidebar", () => {

@@ -1,11 +1,11 @@
 <template lang="pug">
 button.cell-button(
-  data-test-id="cell-button"
+  data-testid="cell-button"
   @click="onClick"
 )
   div.cell-button__image(
     v-if="showImage"
-    data-test-id="cell-button-image"
+    data-testid="cell-button-image"
   )
     UIImageThumbnail(
       :url="imageUrl"
@@ -14,11 +14,11 @@ button.cell-button(
   div.cell-button__content
     h5.cell-button__title(
       v-if="showTitle && title"
-      data-test-id="cell-button-title"
+      data-testid="cell-button-title"
     ) {{ title }}
     p.cell-button__description(
       v-if="showDescription && description"
-      data-test-id="cell-button-description"
+      data-testid="cell-button-description"
     ) {{ description }}
 </template>
 

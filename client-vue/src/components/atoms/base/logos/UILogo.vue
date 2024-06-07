@@ -1,6 +1,6 @@
 <template lang="pug">
 UIIcon.logo--sm(
-  data-test-id="logo"
+  data-testid="logo"
   :name="Symbols.LOGO_WITH_DESCRIPTOR_SM"
   style="cursor: pointer;"
   size="120"

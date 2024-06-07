@@ -1,9 +1,9 @@
 <template lang="pug">
 div.theme-provider(
-  data-test-id="theme-provider"
+  data-testid="theme-provider"
 )
   p.theme-provider__label(
-    data-test-id="theme-label"
+    data-testid="theme-label"
   ) {{ theme }}
   UISwitch(
     :state="themeState"

@@ -1,6 +1,6 @@
 <template lang="pug">
 div.app--container(
-  data-test-id="app-container"
+  data-testid="app-container"
   :class="[`theme-${theme}`]"
 )
   div.app--content

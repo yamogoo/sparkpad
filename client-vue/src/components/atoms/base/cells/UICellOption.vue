@@ -2,20 +2,20 @@
 div.cell-option
   div.cell-option__content
     h5.cell-option__title(
-      data-test-id="cell-option-title"
+      data-testid="cell-option-title"
     ) {{ title }}
     p.cell-option__description(
       v-if="description && showDescription"
-      data-test-id="cell-option-description"
+      data-testid="cell-option-description"
     ) {{ description }}
   div.cell-option__control(
     v-if="$slots.default"
-    data-test-id="cell-option__control"
+    data-testid="cell-option__control"
   )
     slot
   div.cell-option__chevron(
     v-if="showChevron"
-    data-test-id="cell-option__chevron"
+    data-testid="cell-option__chevron"
   )
     UISymbol(
       :name="chevronIconName"

@@ -18,7 +18,7 @@ describe("UIRegisterPage", () => {
 
     await nextTick();
 
-    const registerForm = wrapper.find('[data-test-id="register-form"]');
+    const registerForm = wrapper.find('[data-testid="register-form"]');
     const isRegisterFormExists = registerForm.exists();
 
     expect(isRegisterFormExists).toBe(true);

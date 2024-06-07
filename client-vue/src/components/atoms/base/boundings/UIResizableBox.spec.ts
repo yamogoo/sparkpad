@@ -25,7 +25,7 @@ describe("UIResizableBox", () => {
         });
 
         const splitter = wrapper.find(
-          '[data-test-id="resizaable-box-pane-splitter"]'
+          '[data-testid="resizaable-box-pane-splitter"]'
         );
 
         await nextTick();
@@ -43,7 +43,7 @@ describe("UIResizableBox", () => {
         const wrapper = mount(UIResizableBox, { props: { ...DEFAULT_PROPS } });
 
         const splitter = wrapper.find(
-          '[data-test-id="resizaable-box-pane-splitter"]'
+          '[data-testid="resizaable-box-pane-splitter"]'
         );
 
         await nextTick();

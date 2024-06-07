@@ -8,8 +8,8 @@ import UISettingsGeneralPage from "./UISettingsGeneralPage.vue";
 const pinia = createPinia();
 
 const options = [
-  ["settings theme", '[data-test-id="settings-theme"]'],
-  ["settings theme (Control)", '[data-test-id="settings-theme-control"]'],
+  ["settings theme", '[data-testid="settings-theme"]'],
+  ["settings theme (Control)", '[data-testid="settings-theme-control"]'],
 ];
 
 describe("UISettingsGeneralPage", () => {

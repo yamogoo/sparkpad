@@ -8,19 +8,19 @@ import UISettingsEditorPage from "./UISettingsEditorPage.vue";
 const pinia = createPinia();
 
 const options = [
-  ["place new note at the end", '[data-test-id="place-note-next"]'],
-  ["place new note at the end (Control)", '[data-test-id="place-note-next"]'],
+  ["place new note at the end", '[data-testid="place-note-next"]'],
+  ["place new note at the end (Control)", '[data-testid="place-note-next"]'],
 
-  ["open first note on startup", '[data-test-id="open-first-on-startup"]'],
+  ["open first note on startup", '[data-testid="open-first-on-startup"]'],
   [
     "open first note on startup (Control)",
-    '[data-test-id="open-first-on-startup-control"]',
+    '[data-testid="open-first-on-startup-control"]',
   ],
 
-  ["open new on creation", '[data-test-id="open-new-on-creation"]'],
+  ["open new on creation", '[data-testid="open-new-on-creation"]'],
   [
     "open new on creation (Control)",
-    '[data-test-id="open-new-on-creation-control"]',
+    '[data-testid="open-new-on-creation-control"]',
   ],
 ];
 

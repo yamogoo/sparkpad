@@ -4,11 +4,11 @@ div.tabbar
     li.tabbar__item(
       v-for="item, idx in items"
       :key="idx"
-      data-test-id="tabbar-item"
+      data-testid="tabbar-item"
       @click="e => onClick(e, item)"
     )
       span.tabbar__item__name(
-        data-test-id="tabbar-item-name"
+        data-testid="tabbar-item-name"
       ) {{ item.name }}
 </template>
 

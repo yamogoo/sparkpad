@@ -30,7 +30,7 @@ describe("UITaskBox", () => {
         },
       });
 
-      const content = wrapper.find('[data-test-id="task-box-content"]');
+      const content = wrapper.find('[data-testid="task-box-content"]');
 
       defaultArrOfProps.forEach((prop) => {
         expect(content.html()).toContain(prop.toUpperCase());
@@ -52,7 +52,7 @@ describe("UITaskBox", () => {
         },
       });
 
-      const content = wrapper.find('[data-test-id="task-box-content"]');
+      const content = wrapper.find('[data-testid="task-box-content"]');
 
       ArrOfProps.forEach((prop) => {
         expect(content.html()).toContain(prop);
@@ -75,10 +75,10 @@ describe("UITaskBox", () => {
     type Data = "author" | "name" | "description" | "version";
 
     const props: Record<Data, DOMWrapper<Element>> = {
-      author: wrapper.find('[data-test-id="task-box-author"]'),
-      name: wrapper.find('[data-test-id="task-box-name"]'),
-      description: wrapper.find('[data-test-id="task-box-description"]'),
-      version: wrapper.find('[data-test-id="task-box-version"]'),
+      author: wrapper.find('[data-testid="task-box-author"]'),
+      name: wrapper.find('[data-testid="task-box-name"]'),
+      description: wrapper.find('[data-testid="task-box-description"]'),
+      version: wrapper.find('[data-testid="task-box-version"]'),
     };
 
     for (const [k, v] of Object.entries(props)) {

@@ -1,19 +1,19 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`UITaskBox > should show custom props (from package.json) 1`] = `
-"<div class="task-box--container" data-test-id="task-box-content">
-  <p class="task-box__author" data-test-id="task-box-author">APP_AUTHOR</p>
-  <p class="task-box__description" data-test-id="task-box-description">APP_DESCRIPTION</p>
-  <p class="task-box__name" data-test-id="task-box-name">APP_NAME</p>
-  <p class="task-box__version" data-test-id="task-box-version">vAPP_VERSION</p>
+"<div class="task-box--container" data-testid="task-box-content">
+  <p class="task-box__author" data-testid="task-box-author">APP_AUTHOR</p>
+  <p class="task-box__description" data-testid="task-box-description">APP_DESCRIPTION</p>
+  <p class="task-box__name" data-testid="task-box-name">APP_NAME</p>
+  <p class="task-box__version" data-testid="task-box-version">vAPP_VERSION</p>
 </div>"
 `;
 
 exports[`UITaskBox > should show default [ 'Misha Grebennikov', 'note-pad', 'Simple note editor', '0.0.0' ] props (from package.json) 1`] = `
-"<div class="task-box--container" data-test-id="task-box-content">
-  <p class="task-box__author" data-test-id="task-box-author">MISHA GREBENNIKOV</p>
-  <p class="task-box__description" data-test-id="task-box-description">SIMPLE NOTE EDITOR</p>
-  <p class="task-box__name" data-test-id="task-box-name">NOTE-PAD</p>
-  <p class="task-box__version" data-test-id="task-box-version">v0.0.0</p>
+"<div class="task-box--container" data-testid="task-box-content">
+  <p class="task-box__author" data-testid="task-box-author">MISHA GREBENNIKOV</p>
+  <p class="task-box__description" data-testid="task-box-description">SIMPLE NOTE EDITOR</p>
+  <p class="task-box__name" data-testid="task-box-name">NOTE-PAD</p>
+  <p class="task-box__version" data-testid="task-box-version">v0.0.0</p>
 </div>"
 `;

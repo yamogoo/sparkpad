@@ -1,6 +1,6 @@
 <template lang="pug">
 div.notes-control-bar(
-  data-test-id="notes-control-bar"
+  data-testid="notes-control-bar"
 )
   div.notes-control-bar__section
     UIActionButton(

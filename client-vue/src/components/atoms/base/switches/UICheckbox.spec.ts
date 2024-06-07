@@ -11,7 +11,7 @@ describe("UICheckbox", () => {
       props: { label, state: false },
     });
 
-    const labelEl = wrapper.find('[data-test-id="checkbox-label"]');
+    const labelEl = wrapper.find('[data-testid="checkbox-label"]');
     const isLabelExists = labelEl.exists();
 
     expect(isLabelExists).toBe(true);
@@ -23,7 +23,7 @@ describe("UICheckbox", () => {
       props: { label, state: false },
     });
 
-    const labelEl = wrapper.find('[data-test-id="checkbox-label"]');
+    const labelEl = wrapper.find('[data-testid="checkbox-label"]');
     const text = labelEl.text();
 
     expect(text).toBe(label);

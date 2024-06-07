@@ -1,6 +1,6 @@
 <template lang="pug">
 footer.main-footer(
-    data-test-id="main-footer"
+    data-testid="main-footer"
 )
 </template>
 

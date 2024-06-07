@@ -3,7 +3,7 @@ div.avatar-thumbnail(
   :class="[]"
 )
   image.avatar-thumbnail__image(
-    data-test-id="avatar-thumbnail-image"
+    data-testid="avatar-thumbnail-image"
     v-if="url && useDefaultImage"
     :alt="description" :src="url"
   )

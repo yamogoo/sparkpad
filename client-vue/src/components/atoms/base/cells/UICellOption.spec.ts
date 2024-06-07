@@ -11,7 +11,7 @@ describe("UICellOption", () => {
       },
     });
 
-    const titleEl = wrapper.find('[data-test-id="cell-option-title"]');
+    const titleEl = wrapper.find('[data-testid="cell-option-title"]');
     const title = titleEl.text();
 
     expect(title).toContain("Title");
@@ -27,7 +27,7 @@ describe("UICellOption", () => {
     });
 
     const text = wrapper.text();
-    const description = wrapper.find('[data-test-id="cell-option-description"');
+    const description = wrapper.find('[data-testid="cell-option-description"');
     const isDescriptionExists = description.exists();
 
     expect(text).toContain("Title");
@@ -46,7 +46,7 @@ describe("UICellOption", () => {
     });
 
     const text = wrapper.text();
-    const description = wrapper.find('[data-test-id="cell-option-description"');
+    const description = wrapper.find('[data-testid="cell-option-description"');
     const isDescriptionExists = description.exists();
 
     expect(text).toContain("Title");
@@ -64,7 +64,7 @@ describe("UICellOption", () => {
 
     await vi.dynamicImportSettled();
 
-    const chevron = wrapper.find('[data-test-id="cell-option__chevron"]');
+    const chevron = wrapper.find('[data-testid="cell-option__chevron"]');
     const isChevronExists = chevron.exists();
 
     expect(isChevronExists).toBe(true);

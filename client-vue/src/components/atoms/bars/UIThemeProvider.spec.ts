@@ -19,7 +19,7 @@ describe("UIThemeProvider", () => {
 
     const wrapper = mount(UIThemeProvider);
 
-    const themeLabel = wrapper.find('[data-test-id="theme-label"]');
+    const themeLabel = wrapper.find('[data-testid="theme-label"]');
 
     expect(themeLabel.text()).toBe(Themes.DARK);
     expect(themeLabel.text()).toMatchSnapshot();
@@ -38,7 +38,7 @@ describe("UIThemeProvider", () => {
 
     await nextTick();
 
-    const themeLabel = wrapper.find('[data-test-id="theme-label"]');
+    const themeLabel = wrapper.find('[data-testid="theme-label"]');
     const theme = themeLabel.text();
 
     expect(theme).toBe(themeName);

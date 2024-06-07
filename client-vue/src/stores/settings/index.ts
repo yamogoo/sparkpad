@@ -1,8 +1,5 @@
 import { defineStore } from "pinia";
-import type {
-  SettingsEditorGenerallMenuNotesListModes,
-  SettingsStoreState,
-} from "./types";
+import type { SettingsStoreState } from "./types";
 
 export enum Themes {
   DARK = "dark",
@@ -32,6 +29,7 @@ export const useSettingsStore = defineStore("settings", {
           isFocusedOnFirstNoteOnStart: false,
         },
         tabbar: {
+          maxOpenedTabs: 6,
           isFocusedOnNewTab: true,
         },
         content: {
@@ -68,6 +66,10 @@ export const useSettingsStore = defineStore("settings", {
     },
 
     /* * * Tabbar * * */
+
+    getMaxOpenedTabs: (state): number => {
+      return state.editor.general.tabbar.maxOpenedTabs;
+    },
 
     getIsFocusedOnNewTab: (state): boolean => {
       return state.editor.general.tabbar.isFocusedOnNewTab;

@@ -14,7 +14,7 @@ describe("UITabbar", () => {
   });
 
   test("should render name", () => {
-    const itemEls = wrapper.findAll('[data-test-id="tabbar-item"]');
+    const itemEls = wrapper.findAll('[data-testid="tabbar-item"]');
     const length = itemEls.length;
 
     expect(length).toBe(items.length);
@@ -22,7 +22,7 @@ describe("UITabbar", () => {
   });
 
   test("should render name", () => {
-    const itemEls = wrapper.findAll('[data-test-id="tabbar-item"]');
+    const itemEls = wrapper.findAll('[data-testid="tabbar-item"]');
 
     itemEls.forEach((el, idx) => {
       const text = el.text();
@@ -33,7 +33,7 @@ describe("UITabbar", () => {
   });
 
   test("should emit 'open' event", () => {
-    const itemEls = wrapper.findAll('[data-test-id="tabbar-item"]');
+    const itemEls = wrapper.findAll('[data-testid="tabbar-item"]');
 
     itemEls.forEach((el) => {
       el.trigger("click");

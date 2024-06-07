@@ -1,34 +1,34 @@
 <template lang="pug">
 UISheet
   UICellOption(
-    data-test-id="place-note-next"
+    data-testid="place-note-next"
     :title="`Always place new note at the end`"
     :description="placedNoteNextDuringCreationDescription"
     :show-description="true"
   )
     UISwitch(
-      data-test-id="place-note-next-control"
+      data-testid="place-note-next-control"
       :state="isPlacedNoteNextDuringCreation"
       @update:state="onPlaceNoteToTheEndDuringCreation"
     )
   UICellOption(
-    data-test-id="open-first-on-startup"
+    data-testid="open-first-on-startup"
     :title="`Always open first note on startup`"
     :description="focusOnFirstNoteOnStartup"
     :show-description="true"
   )
     UISwitch(
-      data-test-id="open-first-on-startup-control"
+      data-testid="open-first-on-startup-control"
       :state="isFocusedOnFirstNoteOnStart"
       @update:state="onFocusedOnFirstNoteOnStart"
     )
   UICellOption(
-    data-test-id="open-new-on-creation"
+    data-testid="open-new-on-creation"
     :title="`Always open a new note after creation`"
     :show-description="true"
   )
     UISwitch(
-      data-test-id="open-new-on-creation-control"
+      data-testid="open-new-on-creation-control"
       :state="isFocusedOnNewTab"
       @update:state="onFocusedOnNewTab"
     )

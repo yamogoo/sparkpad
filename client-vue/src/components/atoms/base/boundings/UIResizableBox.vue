@@ -8,7 +8,7 @@ div.resizaable-box(
   div.resizaable-box__pane
     div.resizaable-box__pane__splitter(
       ref="refPane"
-      data-test-id="resizaable-box-pane-splitter"
+      data-testid="resizaable-box-pane-splitter"
       :class="[isSplitterShown ? 'show' : 'hide']"
     )
 </template>

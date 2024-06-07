@@ -31,7 +31,7 @@ describe("UISimpleMenu", () => {
       },
     });
 
-    const menuItems = wrapper.findAll('[data-test-id="simple-menu-item"]');
+    const menuItems = wrapper.findAll('[data-testid="simple-menu-item"]');
     const itemsLength = menuItems.length;
 
     expect(itemsLength).toBe(items.length);
@@ -56,7 +56,7 @@ describe("UISimpleMenu", () => {
         },
       });
 
-      const menuItems = wrapper.findAll('[data-test-id="simple-menu-item"]');
+      const menuItems = wrapper.findAll('[data-testid="simple-menu-item"]');
       const html = menuItems[0].html();
 
       expect(html).toContain(slot);

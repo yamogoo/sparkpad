@@ -9,7 +9,7 @@ describe("UILoginSocial", () => {
 
     await vi.dynamicImportSettled();
 
-    const buttons = wrapper.findAll('[data-test-id="form-social-button"]');
+    const buttons = wrapper.findAll('[data-testid="form-social-button"]');
     const length = buttons.length;
 
     expect(length).toBe(2);

@@ -45,7 +45,7 @@ describe("UIActionButton", () => {
       },
     });
 
-    const button = wrapper.find('[data-test-id="action-button"]');
+    const button = wrapper.find('[data-testid="action-button"]');
 
     await button.trigger("click");
 

@@ -1,6 +1,5 @@
 import { mount } from "@vue/test-utils";
 import { describe, expect, test, vi } from "vitest";
-import { h } from "vue";
 
 import { createPinia, setActivePinia } from "pinia";
 import UIPrivateLayout from "./UIPrivateLayout.vue";
@@ -17,7 +16,7 @@ describe("UIPrivateLayout", () => {
 
     await vi.dynamicImportSettled();
 
-    const header = wrapper.find('[data-test-id="main-header"]');
+    const header = wrapper.find('[data-testid="main-header"]');
     const isHeaderExists = header.exists();
 
     expect(isHeaderExists).toBe(true);
@@ -29,7 +28,7 @@ describe("UIPrivateLayout", () => {
 
   //   const wrapper = mount(UIPrivateLayout);
 
-  //   const footer = wrapper.find('[data-test-id="main-footer"]');
+  //   const footer = wrapper.find('[data-testid="main-footer"]');
   //   const isFooterExists = footer.exists();
 
   //   expect(isFooterExists).toBe(true);

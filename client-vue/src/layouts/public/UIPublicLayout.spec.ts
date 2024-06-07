@@ -20,7 +20,7 @@ describe("UIPublicLayout", () => {
       },
     });
 
-    const themeProvider = wrapper.find('[data-test-id="theme-provider"]');
+    const themeProvider = wrapper.find('[data-testid="theme-provider"]');
     const isThemeProviderExists = themeProvider.exists();
 
     expect(isThemeProviderExists).toBe(true);

@@ -1,11 +1,11 @@
 <template lang="pug">
 div.error-message
     div.error-message__title(
-        data-test-id="error-message-title"
+        data-testid="error-message-title"
     ) {{ message }}
     div.error-message__description(
         v-if="description"
-        data-test-id="error-message-description"
+        data-testid="error-message-description"
     ) {{ description }}
 </template>
 

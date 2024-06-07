@@ -1,15 +1,18 @@
 <template lang="pug">
 div.main-viewport__tabbar-tab(
-  :class="[{'active': isActive}]"
   @click="onClick"
+  :class="[{'active': isActive}]"
 )
-  EditorTabbarTabShape
-    span.main-viewport__tabbar-tab__label {{ title.length > 15 ? `${title.slice(0, 15)}...` : title }}
-    UIIcon(
-      v-if="isActive"
-      :name="Symbols.CROSS"
-      @click="onClose"
-    )
+  div.main-viewport__tabbar-tab--container(
+    ref="refRoot"
+  )
+    EditorTabbarTabShape
+      span.main-viewport__tabbar-tab__label {{ title.length > 15 ? `${title.slice(0, 15)}...` : title }}
+      UIIcon(
+        v-if="isActive"
+        :name="Symbols.CROSS"
+        @click="onClose"
+      )
 </template>
 
 <script setup lang="ts">
@@ -52,19 +55,26 @@ const onClose = (e: MouseEvent): void => {
   align-items: center;
   justify-content: center;
   gap: 0px;
-  width: 136px;
-  min-width: 180px;
+  width: 100%;
+  max-width: 180px;
   height: auto;
+  user-select: none;
   cursor: pointer;
 
-  @include themify($themes) {
-    color: themed("text", "primary");
+  &--container {
+    @include box(100%);
+    overflow: hidden;
+
+    @include themify($themes) {
+      color: themed("text", "primary");
+    }
   }
 
   &__label {
     font-size: 13px;
     color: inherit;
     opacity: 0.75;
+    white-space: nowrap;
   }
 
   .symbol {

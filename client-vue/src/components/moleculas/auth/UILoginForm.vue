@@ -11,7 +11,7 @@ Transition(
   )
     UIForm(
       id="login"
-      data-test-id="login-form"
+      data-testid="login-form"
       type="submit"
       title="Sign In"
     )

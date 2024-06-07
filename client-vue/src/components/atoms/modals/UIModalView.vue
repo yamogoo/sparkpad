@@ -1,5 +1,5 @@
 <template lang="pug">
-template(data-test-id="settings-modal-view")
+template(data-testid="settings-modal-view")
   Teleport(to=".app--container")
     Transition(
       :css="false"

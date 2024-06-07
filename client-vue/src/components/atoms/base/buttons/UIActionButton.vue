@@ -1,7 +1,7 @@
 <template lang="pug">
 button.action-button(
   :class="[{'disabled': isDisabled}]"
-  data-test-id="action-button"
+  data-testid="action-button"
   @click="onClick"
 )
   UISymbol(

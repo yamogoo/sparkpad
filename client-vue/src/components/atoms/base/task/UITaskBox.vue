@@ -1,16 +1,16 @@
 <template lang="pug">
 div.task-box
-  div.task-box--container(data-test-id="task-box-content")
+  div.task-box--container(data-testid="task-box-content")
     p.task-box__author(
-      v-if="author" data-test-id="task-box-author") {{ author.toUpperCase() }}
+      v-if="author" data-testid="task-box-author") {{ author.toUpperCase() }}
     p.task-box__description(
       v-if="description"
-     data-test-id="task-box-description") {{ description.toUpperCase() }}
+     data-testid="task-box-description") {{ description.toUpperCase() }}
     p.task-box__name(
       v-if="name"
-      data-test-id="task-box-name") {{ name.toUpperCase() }}
+      data-testid="task-box-name") {{ name.toUpperCase() }}
     p.task-box__version(
-      v-if="version" data-test-id="task-box-version") v{{ version.toUpperCase() }}
+      v-if="version" data-testid="task-box-version") v{{ version.toUpperCase() }}
 </template>
 
 <script setup lang="ts">

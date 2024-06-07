@@ -5,10 +5,10 @@ div.range-slider
         div.range-slider__track-progress
         div.range-slider__rangebar(
             v-if="showRangebar"
-            data-test-id="range-slider__rangebar"
+            data-testid="range-slider__rangebar"
         )
           div.range-slider__rangebar-dot(
-                data-test-id="range-slider__rangebar-dot"
+                data-testid="range-slider__rangebar-dot"
                 v-for="idx in (max - (min || 0))"
                 :key="idx"
           )

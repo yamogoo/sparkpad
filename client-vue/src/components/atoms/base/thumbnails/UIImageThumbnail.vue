@@ -1,6 +1,6 @@
 <template lang="pug">
 div.image-thumbnail(
-  data-test-id="image-thumbnail"
+  data-testid="image-thumbnail"
 )
   img(
     v-if="url"

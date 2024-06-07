@@ -1,5 +1,3 @@
-import { computed, type ComputedRef } from "vue";
-
 export enum HierarchyNodeTypes {
   DIR = 0x00,
   FILE = 0x01,
@@ -14,7 +12,7 @@ export interface HierarchyNode<T> {
 export type HierarchyNodeChildren<T> = Array<HierarchyNode<T>>;
 export type HierarchyRootNode<T> = HierarchyNodeChildren<T>;
 
-interface RawNodeElement {
+export interface RawNodeElement {
   [key: string]: any;
   path: string;
 }
@@ -121,3 +119,9 @@ export class HierarchyTree {
     return root;
   }
 }
+
+export const useHierarchyTree = <T extends RawNodeElement>(
+  data: Array<T>
+): HierarchyRootNode<T> => {
+  return HierarchyTree.createHierarchyTree(data);
+};

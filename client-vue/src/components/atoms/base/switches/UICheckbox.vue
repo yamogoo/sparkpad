@@ -13,7 +13,7 @@ label.checkbox(
     div.checkbox__flag
   span.checkbox__label(
     v-if="label"
-    data-test-id="checkbox-label"
+    data-testid="checkbox-label"
   ) {{ label }}
 </template>
 

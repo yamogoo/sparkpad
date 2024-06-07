@@ -9,7 +9,7 @@ describe("UIErrorMessage", () => {
   test("should show default message value", () => {
     const wrapper = mount(UIErrorMessage);
 
-    const message = wrapper.find('[data-test-id="error-message-title"]').text();
+    const message = wrapper.find('[data-testid="error-message-title"]').text();
 
     expect(message).toBe(DEFAULT_MESSAGE);
     expect(message).toMatchSnapshot();
@@ -23,7 +23,7 @@ describe("UIErrorMessage", () => {
     });
 
     const description = wrapper.find(
-      '[data-test-id="error-message-description"]'
+      '[data-testid="error-message-description"]'
     );
 
     const isDescriptionsExists = description.exists();
@@ -36,7 +36,7 @@ describe("UIErrorMessage", () => {
     const wrapper = mount(UIErrorMessage);
 
     const description = wrapper.find(
-      '[data-test-id="error-message-description"]'
+      '[data-testid="error-message-description"]'
     );
 
     const isDescriptionsExists = description.exists();

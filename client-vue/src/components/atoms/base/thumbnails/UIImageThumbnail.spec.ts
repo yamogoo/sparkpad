@@ -15,7 +15,7 @@ describe("UIImageThumbnail", () => {
       });
 
       expect(wrapper.getComponent({ name: "UISymbol" }));
-      expect(wrapper.find('[data-test-id="symbol"]').exists()).toBe(true);
+      expect(wrapper.find('[data-testid="symbol"]').exists()).toBe(true);
     });
   });
 });

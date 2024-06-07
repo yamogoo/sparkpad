@@ -1,6 +1,6 @@
 <template>
   <svg
-    data-test-id="ui-not-default-symbol"
+    data-testid="ui-not-default-symbol"
     width="17"
     height="20"
     viewBox="0 0 17 20"

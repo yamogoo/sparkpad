@@ -1,27 +1,19 @@
 import { defineStore } from "pinia";
 
-import type {
-  Note,
-  NoteGroup,
-  NoteHistoryItem,
-  NotestStoreState,
-} from "./types";
-import { History } from "./history";
+import type { Note, NoteGroup, Notes, NotestStoreState } from "./types";
 
 import { notesService } from "@/services/nots/notesService";
-
-const _history = new History<NoteHistoryItem>(16);
+import { useNotesHistoryStore } from "../notesHistory";
 
 export const useNotesStore = defineStore("notes", {
   state: (): NotestStoreState => ({
     _notes: [],
-    _history,
     _currentNote: null,
   }),
   getters: {
     /* * * Client * * */
 
-    allNotes: (state) => {
+    allNotes: (state): Notes => {
       return state._notes;
     },
     currentNote: (state) => {
@@ -42,8 +34,7 @@ export const useNotesStore = defineStore("notes", {
   },
   actions: {
     async createNoteGroup(noteGroup: NoteGroup) {
-      const { uid } = noteGroup;
-
+      // const { uid } = noteGroup;
       // this._notes.push(noteGroup);
     },
     async fetchAllNotes() {
@@ -85,7 +76,9 @@ export const useNotesStore = defineStore("notes", {
       // Remove note
       const idx = this._notes.findIndex((note) => note.uid === uid);
       this._notes.splice(idx, 1);
-      this._history.remove(uid);
+
+      const historyStore = useNotesHistoryStore();
+      historyStore.remove(idx);
 
       /* * * Post Sync with DataBase * * */
 
@@ -97,6 +90,11 @@ export const useNotesStore = defineStore("notes", {
     selectCurrentNoteByUID(uid: string): void {
       const idx = this._notes.findIndex((el) => el.uid === uid);
       this._currentNote = this._notes[idx];
+
+      // this.addHistoryItem(this._currentNote);
+
+      const historyStore = useNotesHistoryStore();
+      historyStore.add(uid);
     },
 
     /* * * History * * */
@@ -104,11 +102,9 @@ export const useNotesStore = defineStore("notes", {
     addHistoryItem(note: Note): void {
       if (!note) return;
 
-      const { uid, path, name } = note;
-      this._history.add({
-        uid,
-        data: { uid, path, name },
-      });
+      const { uid } = note;
+      const historyStore = useNotesHistoryStore();
+      historyStore.add(uid);
     },
   },
 });

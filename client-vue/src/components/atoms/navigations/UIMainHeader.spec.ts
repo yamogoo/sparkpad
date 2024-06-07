@@ -11,7 +11,7 @@ describe("UIMainHeader", () => {
 
     await vi.dynamicImportSettled();
 
-    const logo = wrapper.find('[data-test-id="logo"]');
+    const logo = wrapper.find('[data-testid="logo"]');
     const isLogoExists = logo.exists();
 
     expect(isLogoExists).toBe(true);

@@ -1,6 +1,6 @@
 <template lang="pug">
 div.symbol(
-  data-test-id="symbol"
+  data-testid="symbol"
 )
   component(
     v-if="!size"

@@ -13,11 +13,11 @@ TransitionProvider(
       v-bind="$attrs"
     )
       h6.form-error__title(
-        data-test-id="form-error-message-title"
+        data-testid="form-error-message-title"
       ) {{ message }}
       p.form-error__description(
         v-if="description"
-        data-test-id="form-error-message-description"
+        data-testid="form-error-message-description"
       ) {{ description }}
 </template>
 <script setup lang="ts">

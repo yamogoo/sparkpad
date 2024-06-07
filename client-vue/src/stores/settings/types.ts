@@ -25,6 +25,7 @@ interface SettingsEditorGenerallMenu {
 /* * * Tabbar * * */
 
 interface SettingsEditorGeneralTabbar {
+  maxOpenedTabs: number;
   isFocusedOnNewTab: boolean;
 }
 

@@ -17,7 +17,7 @@ describe("UILoginForm", () => {
     // after first tick (after isMounted token)
     await nextTick();
 
-    const loginForm = wrapper.find('[data-test-id="login-form"]');
+    const loginForm = wrapper.find('[data-testid="login-form"]');
     const isLoginFormExists = loginForm.exists();
 
     expect(isLoginFormExists).toBe(true);

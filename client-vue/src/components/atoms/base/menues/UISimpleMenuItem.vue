@@ -1,7 +1,7 @@
 <template lang="pug">
 li.simple-menu__item(
   :class="[{'active': isActive}]"
-  data-test-id="simple-menu-item"
+  data-testid="simple-menu-item"
   @click="onClick"
 )
   slot

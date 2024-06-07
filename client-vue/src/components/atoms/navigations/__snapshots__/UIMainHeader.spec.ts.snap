@@ -5,12 +5,12 @@ DOMWrapper {
   "isDisabled": [Function],
   "wrapperElement": <div
     class="icon logo--sm"
-    data-test-id="logo"
+    data-testid="logo"
     style="cursor: pointer;"
   >
     <div
       class="symbol"
-      data-test-id="symbol"
+      data-testid="symbol"
     >
       <!--v-if-->
       <svg

@@ -8,9 +8,9 @@ import UIUserMenu from "./UIUserMenu.vue";
 const pinia = createPinia();
 
 const components = [
-  ["menu button", '[data-test-id="menu-button"]'],
-  ["user button", '[data-test-id="user-button"]'],
-  ["settings button", '[data-test-id="settings-button"]'],
+  ["menu button", '[data-testid="menu-button"]'],
+  ["user button", '[data-testid="user-button"]'],
+  ["settings button", '[data-testid="settings-button"]'],
 ];
 
 describe("UIMainSidebar", () => {
@@ -38,11 +38,11 @@ describe("UIMainSidebar", () => {
 
     await vi.dynamicImportSettled();
 
-    const settingsButton = wrapper.find('[data-test-id="settings-button"]');
+    const settingsButton = wrapper.find('[data-testid="settings-button"]');
     await settingsButton.trigger("click");
 
     const settingsModalView = wrapper.find(
-      '[data-test-id="settings-modal-view"]'
+      '[data-testid="settings-modal-view"]'
     );
     const isSettingsModalViewExists = settingsModalView.exists();
 

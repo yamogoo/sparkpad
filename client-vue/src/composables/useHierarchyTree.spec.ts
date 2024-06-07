@@ -4,7 +4,7 @@ import {
   HierarchyNodeTypes,
   HierarchyTree,
   type HierarchyRootNode,
-} from "./hierarchyTree";
+} from "./useHierarchyTree";
 
 interface SomeData {
   id: string;

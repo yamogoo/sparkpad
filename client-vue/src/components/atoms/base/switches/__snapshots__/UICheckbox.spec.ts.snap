@@ -17,7 +17,7 @@ DOMWrapper {
   "isDisabled": [Function],
   "wrapperElement": <span
     class="checkbox__label"
-    data-test-id="checkbox-label"
+    data-testid="checkbox-label"
   >
     Checkbox Label
   </span>,

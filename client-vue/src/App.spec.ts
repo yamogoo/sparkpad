@@ -25,7 +25,7 @@ describe("App", () => {
       },
     });
 
-    const classes = wrapper.find('[data-test-id="app-container"]').classes();
+    const classes = wrapper.find('[data-testid="app-container"]').classes();
 
     const expectTheme = (theme: Themes) => {
       expect(theme).toBe(theme);
@@ -67,7 +67,7 @@ describe("App", () => {
 
       await nextTick();
 
-      const classes = wrapper.find('[data-test-id="app-container"]').classes();
+      const classes = wrapper.find('[data-testid="app-container"]').classes();
 
       let theme;
       classes.forEach((className) => {

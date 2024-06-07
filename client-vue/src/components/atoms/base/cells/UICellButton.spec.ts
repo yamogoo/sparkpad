@@ -13,7 +13,7 @@ describe("UICellButton", () => {
       });
 
       const text = wrapper.text();
-      const title = wrapper.find('[data-test-id="cell-button-title"]');
+      const title = wrapper.find('[data-testid="cell-button-title"]');
       const isTitleExists = title.exists();
 
       expect(text).toContain("Title");
@@ -29,7 +29,7 @@ describe("UICellButton", () => {
         },
       });
 
-      const title = wrapper.find('[data-test-id="cell-button-title"]');
+      const title = wrapper.find('[data-testid="cell-button-title"]');
       const isTitleExists = title.exists();
 
       expect(wrapper.text()).toContain("Title");
@@ -48,7 +48,7 @@ describe("UICellButton", () => {
       });
 
       const description = wrapper.find(
-        '[data-test-id="cell-button-description"]'
+        '[data-testid="cell-button-description"]'
       );
       const isDescriptionExists = description.exists();
 
@@ -68,7 +68,7 @@ describe("UICellButton", () => {
 
       await vi.dynamicImportSettled();
 
-      const image = wrapper.find('[data-test-id="image-thumbnail"]');
+      const image = wrapper.find('[data-testid="image-thumbnail"]');
       const isImageExists = image.exists();
 
       expect(isImageExists).toBe(true);

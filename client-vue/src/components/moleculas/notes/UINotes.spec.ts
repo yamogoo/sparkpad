@@ -3,8 +3,8 @@ import { describe, expect, test } from "vitest";
 
 import { createPinia, setActivePinia } from "pinia";
 
-import UINotes from "./UINotes.vue";
 import { nextTick } from "vue";
+import UINotes from "./UINotes.vue";
 
 const pinia = createPinia();
 
@@ -16,7 +16,7 @@ describe("UINotes", () => {
 
     await nextTick();
 
-    const list = wrapper.find('[data-test-id="notes-list"]');
+    const list = wrapper.find('[data-testid="notes-list"]');
     const isListExists = list.exists();
 
     expect(isListExists).toBe(true);
@@ -30,7 +30,7 @@ describe("UINotes", () => {
 
     await nextTick();
 
-    const controlBar = wrapper.find('[data-test-id="notes-control-bar"]');
+    const controlBar = wrapper.find('[data-testid="notes-control-bar"]');
     const isControlBarExists = controlBar.exists();
 
     expect(isControlBarExists).toBe(true);

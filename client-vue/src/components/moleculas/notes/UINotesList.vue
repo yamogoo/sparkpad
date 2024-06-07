@@ -1,6 +1,6 @@
 <template lang="pug">
 div.notes-list(
-  data-test-id="notes-list"
+  data-testid="notes-list"
 )
   UINoteListItem(
     v-for="note, idx in notes"
@@ -8,7 +8,7 @@ div.notes-list(
     :id="idx"
     :name="note.data.name"
     :description="note.data.content"
-    :is-active="sid===note.data.id"
+    :is-active="sid===note.data.uid"
     @open="e => onClick(idx, note.data)"
   )
 </template>

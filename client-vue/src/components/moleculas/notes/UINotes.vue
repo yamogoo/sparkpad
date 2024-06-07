@@ -1,6 +1,6 @@
 <template lang="pug">
 div.notes(
-  data-test-id="notes"
+  data-testid="notes"
 )
   UINotesControlBar(
     @create:note="onCreateNote"
@@ -24,33 +24,27 @@ div.notes(
 </template>
 
 <script setup lang="ts">
-import { onMounted, computed, type Ref, ref, watchEffect } from "vue";
+import { onMounted, computed, type Ref, ref } from "vue";
 import { v4 } from "uuid";
 
 import { useSettingsStore } from "@/stores/settings";
-import { HierarchyTree } from "@/stores/notes/hierarchyTree";
-
 import { useNotesStore, type Note } from "@/stores/notes";
 
 import UINotesControlBar from "./UINotesControlBar.vue";
 import UINotesList from "./UINotesList.vue";
+import { useNotesTree } from "~/src/composables/useNotesTree";
 
 /* * * Stores * * */
 
 const notesStore = useNotesStore();
+
 const settingsStore = useSettingsStore();
 
 /* * * Notes * * */
 
 const sid: Ref<number | null> = ref(null);
 
-const notes = computed(() => {
-  return HierarchyTree.createHierarchyTree(notesStore.allNotes);
-});
-
-watchEffect(() => {
-  console.log(notes.value);
-});
+const notes = computed(() => useNotesTree());
 
 const currentUID = computed(() => notesStore.currentNoteUID ?? "");
 
@@ -60,9 +54,7 @@ const isNoteListMode = computed(() => settingsStore.getIsNoteListMode);
 
 const onSelectNote = (idx: number, note: Note): void => {
   const { uid } = note;
-
   sid.value = idx;
-  console.log(sid.value);
 
   // gen usePath
 

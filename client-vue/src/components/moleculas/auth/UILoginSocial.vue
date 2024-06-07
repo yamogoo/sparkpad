@@ -5,7 +5,7 @@ div.social-logos
   div.social-logos__body
     UISocialLogo.social-logo(
       v-for="button in buttons"
-      data-test-id="form-social-button"
+      data-testid="form-social-button"
       :key="button.id"
       :name="button.symbol"
       style="width: 28px; height: 28px;"

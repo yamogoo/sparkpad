@@ -1,6 +1,6 @@
 <template lang="pug">
 div.notes-list__item(
-  data-test-id="notes-list-item"
+  data-testid="notes-list-item"
   ref="refItem"
   :class="[isActive ? 'active' : 'normal', {'focused': isFocused}]"
   @click="e => onClick(e)"
@@ -10,7 +10,7 @@ div.notes-list__item(
       h5 {{ name }}
       p(
         v-if="description"
-        data-test-id="notes-list-item-description"
+        data-testid="notes-list-item-description"
       ) {{ description }}
 </template>
 

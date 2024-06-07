@@ -26,7 +26,7 @@ describe("UIForm", () => {
       },
     });
 
-    const title = wrapper.find('[data-test-id="form-title"]').text();
+    const title = wrapper.find('[data-testid="form-title"]').text();
     expect(title).toBe(TITLE);
     expect(title).toMatchSnapshot();
   });
@@ -34,7 +34,7 @@ describe("UIForm", () => {
   test("should not render a title into header DOM if title is not set", () => {
     const wrapper = mount(UIForm);
 
-    const title = wrapper.find('[data-test-id="form-title"]');
+    const title = wrapper.find('[data-testid="form-title"]');
     const isTitleExists = title.exists();
 
     expect(isTitleExists).toBe(false);
@@ -48,7 +48,7 @@ describe("UIForm", () => {
       },
     });
 
-    const header = wrapper.find('[data-test-id="form-header"]');
+    const header = wrapper.find('[data-testid="form-header"]');
     const isHeaderExists = header.exists();
     expect(isHeaderExists).toBe(false);
     expect(isHeaderExists).toMatchSnapshot();

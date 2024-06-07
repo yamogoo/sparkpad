@@ -13,7 +13,7 @@ describe("UISettingsModal", () => {
 
     const wrapper = mount(UISettingsModal);
 
-    const menu = wrapper.find('[data-test-id="settings-menu"]');
+    const menu = wrapper.find('[data-testid="settings-menu"]');
     const isMenuExists = menu.exists();
 
     expect(isMenuExists).toBe(true);

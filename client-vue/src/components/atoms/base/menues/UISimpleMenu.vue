@@ -1,6 +1,6 @@
 <template lang="pug">
 div.simple-menu(
-  data-test-id="simple-menu"
+  data-testid="simple-menu"
 )
   div.simple-menu__header(v-if="title && showTitle")
     h5 {{ title }}

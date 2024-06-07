@@ -13,7 +13,7 @@ describe("UIRangeSlider", () => {
       },
     });
 
-    const rangebar = wrapper.find('[data-test-id="range-slider__rangebar"]');
+    const rangebar = wrapper.find('[data-testid="range-slider__rangebar"]');
     const isRangebarShow = rangebar.exists();
 
     expect(isRangebarShow).toBe(true);
@@ -35,7 +35,7 @@ describe("UIRangeSlider", () => {
       },
     });
 
-    const dots = wrapper.findAll('[data-test-id="range-slider__rangebar-dot"]');
+    const dots = wrapper.findAll('[data-testid="range-slider__rangebar-dot"]');
     const length = dots.length;
 
     const expectedDotsCount = max - min;

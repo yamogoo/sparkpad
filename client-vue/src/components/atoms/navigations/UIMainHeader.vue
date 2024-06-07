@@ -1,6 +1,6 @@
 <template lang="pug">
 header.main-header(
-  data-test-id="main-header"
+  data-testid="main-header"
 )
   div.main-header__section
     UILogo(
