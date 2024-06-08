@@ -1,11 +1,14 @@
-import { useNotesHistoryStore } from "@/stores/notesHistory";
-import { useNotesStore, type Note } from "@/stores/notes";
 import { computed } from "vue";
+
+import type { Note } from "@/typings";
+
+import { useNotesHistoryStore } from "@/stores/notesHistory";
+import { useNotesStore } from "@/stores/notes";
 
 const notesHistoryStore = useNotesHistoryStore();
 const notesStore = useNotesStore();
 
-export type NoteHistoryTab = Pick<Note, "uid" | "name">;
+export type NoteHistoryTab = Pick<Note, "uid" | "title">;
 export type NoteHistoryTabs = Array<NoteHistoryTab>;
 
 const notes = computed(() => notesStore.allNotes);
@@ -17,8 +20,8 @@ export const useNotesHistory = (): NoteHistoryTabs => {
   tabs.value.forEach((key) => {
     notes.value.forEach((note) => {
       if (note.uid === key) {
-        const { uid, name } = note;
-        history.push({ uid, name });
+        const { uid, title } = note;
+        history.push({ uid, title });
       }
     });
   });

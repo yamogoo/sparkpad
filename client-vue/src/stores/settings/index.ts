@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+
 import type { SettingsStoreState } from "./types";
 
 export enum Themes {

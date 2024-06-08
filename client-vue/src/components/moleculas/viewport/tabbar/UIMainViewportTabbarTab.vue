@@ -1,11 +1,10 @@
 <template lang="pug">
 div.main-viewport__tabbar-tab(
+  ref="refRoot"
   @click="onClick"
   :class="[{'active': isActive}]"
 )
-  div.main-viewport__tabbar-tab--container(
-    ref="refRoot"
-  )
+  div.main-viewport__tabbar-tab--container
     EditorTabbarTabShape
       span.main-viewport__tabbar-tab__label {{ title.length > 15 ? `${title.slice(0, 15)}...` : title }}
       UIIcon(
@@ -16,6 +15,9 @@ div.main-viewport__tabbar-tab(
 </template>
 
 <script setup lang="ts">
+import { onMounted, ref } from "vue";
+import g from "gsap";
+
 import EditorTabbarTabShape from "./shapes/UIMainViewportTabbarTabShape.vue";
 import UIIcon, { Symbols } from "@/components/atoms/base/icons/UIIcon.vue";
 
@@ -32,6 +34,7 @@ const props = withDefaults(defineProps<Props>(), {
 const emits = defineEmits<{
   (e: "open", id: number): void;
   (e: "close", id: number): void;
+  (e: "update:idx", newIdx: number, oldIdx: number): void;
 }>();
 
 const onClick = (e: MouseEvent): void => {
@@ -44,6 +47,65 @@ const onClose = (e: MouseEvent): void => {
   e.preventDefault();
   e.stopPropagation();
   emits("close", props.id);
+};
+
+/* * * Draggable * * */
+
+const refRoot = ref<HTMLDivElement | null>(null);
+
+onMounted(() => {
+  if (refRoot.value) refRoot.value.addEventListener("pointerdown", onDragStart);
+});
+
+let startPosX = 0;
+let currentPosX = 0;
+let offsetPosX = 0;
+let prevIdx = props.id;
+
+const onDragStart = (e: PointerEvent): void => {
+  emits("open", props.id);
+
+  const el = e.currentTarget as HTMLDivElement;
+  startPosX = e.clientX;
+  offsetPosX = e.offsetX;
+
+  const width = el.clientWidth;
+
+  const onMove = (e: PointerEvent): void => {
+    if (el) {
+      currentPosX = e.clientX;
+      const deltaPosX = currentPosX - startPosX;
+
+      el.style.transform = `translateX(${deltaPosX}px)`;
+      el.style.zIndex = "1";
+
+      const newIdx = Math.round(deltaPosX / width);
+
+      if (prevIdx !== newIdx) emits("update:idx", newIdx, props.id);
+      prevIdx = newIdx;
+    }
+  };
+
+  const onDragEnd = (): void => {
+    if (el) {
+      g.to(el, {
+        x: 0,
+        duration: 0.25,
+        ease: "power4.out",
+        onComplete: () => {
+          el.style.zIndex = "0";
+        },
+      });
+    }
+
+    el.removeEventListener("pointermove", onMove);
+    el.removeEventListener("pointerup", onDragEnd);
+    el.removeEventListener("pointerleave", onDragEnd);
+  };
+
+  el.addEventListener("pointermove", onMove);
+  el.addEventListener("pointerup", onDragEnd);
+  el.addEventListener("pointerleave", onDragEnd);
 };
 </script>
 

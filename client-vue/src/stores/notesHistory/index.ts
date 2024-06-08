@@ -72,5 +72,9 @@ export const useNotesHistoryStore = defineStore("history", {
         this.setSidByIdx(this.sid + 1);
       }
     },
+
+    changePosition(newIdx: number, oldIdx: number): void {
+      // this._queue.splice(oldIdx, 0, this._queue.splice(newIdx, 1)[0]);
+    },
   },
 });

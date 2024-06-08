@@ -6,6 +6,7 @@ div.notes(
     @create:note="onCreateNote"
     @create:dir="onCreateDir"
     @delete:note="onDeleteNote"
+    @delete:all="onDeleteAll"
     @search:note="onSearchNote"
   )
   div.notes--container
@@ -28,7 +29,8 @@ import { onMounted, computed, type Ref, ref } from "vue";
 import { v4 } from "uuid";
 
 import { useSettingsStore } from "@/stores/settings";
-import { useNotesStore, type Note } from "@/stores/notes";
+import { useNotesStore } from "@/stores/notes";
+import type { Note, NoteCreation } from "@/typings";
 
 import UINotesControlBar from "./UINotesControlBar.vue";
 import UINotesList from "./UINotesList.vue";
@@ -62,29 +64,35 @@ const onSelectNote = (idx: number, note: Note): void => {
 };
 
 const onCreateDir = (): void => {
-  const initNote: Note = {
+  const initNote: NoteCreation = {
     id: 0,
     uid: v4(),
     path: `${notesStore.notesLength}/`,
-    name: `New Dir ${(Math.random() * 100_000).toFixed(0)}`,
+    title: `New Dir ${(Math.random() * 100_000).toFixed(0)}`,
     content: "",
+    noteGroupId: 0,
   };
   notesStore.createNote(initNote);
 };
 
 const onCreateNote = (): void => {
-  const initNote: Note = {
+  const initNote: NoteCreation = {
     id: 0,
     uid: v4(),
     path: `0/${notesStore.notesLength}`,
-    name: `New ${(Math.random() * 100_000).toFixed(0)}`,
+    title: `New ${(Math.random() * 100_000).toFixed(0)}`,
     content: "",
+    noteGroupId: 0,
   };
   notesStore.createNote(initNote);
 };
 
 const onDeleteNote = (): void => {
   notesStore.deleteNoteByUID(currentUID.value);
+};
+
+const onDeleteAll = (): void => {
+  notesStore.deleteAll();
 };
 
 const onSearchNote = (): void => {};

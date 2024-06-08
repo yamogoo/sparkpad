@@ -1,10 +1,8 @@
 import { describe, expect, test } from "vitest";
 
-import {
-  HierarchyNodeTypes,
-  HierarchyTree,
-  type HierarchyRootNode,
-} from "./useHierarchyTree";
+import { HierarchyNodeTypes, type HierarchyRootNode } from "@/typings";
+
+import { HierarchyTree } from "./useHierarchyTree";
 
 interface SomeData {
   id: string;

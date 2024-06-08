@@ -1,16 +1,16 @@
 <template lang="pug">
 div.notes-thumbnail-list
   div.notes-thumbnail-list(
-    v-for="{ name, content }, idx in notes"
+    v-for="{ title, content }, idx in notes"
     :key="idx"
   )
     div.notes-thumbnail-list--container
-      h5 {{ name ? name : 'Empty' }}
+      h5 {{ title ? title : 'Empty' }}
       p(v-if="content") {{ content }}
 </template>
 
 <script setup lang="ts">
-import type { Note } from "@/stores/notes/types";
+import type { Note } from "@/typings";
 
 interface Props {
   notes: Array<Note>;

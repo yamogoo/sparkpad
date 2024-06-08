@@ -7,7 +7,7 @@ div.notes-list__item(
 )
   div.notes-list__item--container
     div.notes-list__item--content
-      h5 {{ name }}
+      h5 {{ title }}
       p(
         v-if="description"
         data-testid="notes-list-item-description"
@@ -20,7 +20,7 @@ import { onMounted, ref } from "vue";
 interface Props {
   id: number;
   isActive?: boolean;
-  name: string;
+  title: string;
   description?: string;
 }
 

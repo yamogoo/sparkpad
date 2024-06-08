@@ -17,7 +17,7 @@ describe("UINoteListItem", () => {
     const wrapper = mount(UINoteListItem, {
       props: {
         id: 1,
-        name: TITLE,
+        title: TITLE,
         description: DESCRIPTION,
       },
     });
@@ -35,7 +35,7 @@ describe("UINoteListItem", () => {
     const wrapper = mount(UINoteListItem, {
       props: {
         id: 1,
-        name: TITLE,
+        title: TITLE,
         description: DESCRIPTION,
       },
     });
@@ -54,7 +54,7 @@ describe("UINoteListItem", () => {
       props: {
         id: 1,
         isActive: true,
-        name: TITLE,
+        title: TITLE,
         description: DESCRIPTION,
       },
     });
@@ -70,7 +70,7 @@ describe("UINoteListItem", () => {
       props: {
         id: 1,
         isActive: false,
-        name: TITLE,
+        title: TITLE,
         description: DESCRIPTION,
       },
     });
@@ -87,7 +87,7 @@ describe("UINoteListItem", () => {
       props: {
         id: 1,
         isActive: false,
-        name: TITLE,
+        title: TITLE,
         description: DESCRIPTION,
       },
     });
@@ -106,7 +106,7 @@ describe("UINoteListItem", () => {
       props: {
         id: 1,
         isActive: false,
-        name: TITLE,
+        title: TITLE,
         description: DESCRIPTION,
       },
     });

@@ -1,5 +1,6 @@
 import authConfig from "@/config/authConfig";
-import { BadRequest } from "@/typings";
+import { ApiResponse, AuthBody, isAuthToken } from "@/typings";
+
 import { Request, Response, NextFunction } from "express";
 
 import jwt from "jsonwebtoken";
@@ -7,35 +8,37 @@ import jwt from "jsonwebtoken";
 const { secretKey } = authConfig;
 
 const verifyAuthentication = async (
-  req: any,
-  res: Response<BadRequest | any>,
+  req: Request,
+  res: Response<ApiResponse<AuthBody>>,
   next: NextFunction
 ) => {
   const token = req.headers["x-access-token"];
 
-  if (!token) {
-    return res.status(403).send({
-      message: "No token provided",
+  if (!isAuthToken(token))
+    return res.status(400).send({
+      error: "Invalid token",
     });
-  }
 
   if (!secretKey) {
     return res.status(500).send({
-      message: "Server Error. Server has empty secret token",
+      error: "Server Error. Server has empty secret token",
     });
   }
 
   const decoded = jwt.verify(token, secretKey);
 
   if (!(typeof decoded === "object" && "id" in decoded))
-    return res.send(401).send({ message: "Unauthorized" });
+    return res.status(401).send({ error: "Unauthorized" });
 
   const { id } = decoded;
 
   if (id) {
     req.body.userId = id;
-    console.log("verify: ", id);
     next();
+  } else {
+    return res.status(500).send({
+      error: "Server Error. Invalid token data",
+    });
   }
 };
 

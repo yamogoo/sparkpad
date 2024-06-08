@@ -1,9 +1,14 @@
 import { defineStore } from "pinia";
 
-import type { Note, NoteGroup, Notes, NotestStoreState } from "./types";
+import type { Notes, NoteGroup, Note, NoteCreation } from "@/typings";
 
-import { notesService } from "@/services/nots/notesService";
+import { notesService } from "@/services/notes/notesService";
 import { useNotesHistoryStore } from "../notesHistory";
+
+interface NotestStoreState {
+  _notes: Array<Note>;
+  _currentNote: Note | null;
+}
 
 export const useNotesStore = defineStore("notes", {
   state: (): NotestStoreState => ({
@@ -38,8 +43,13 @@ export const useNotesStore = defineStore("notes", {
       // this._notes.push(noteGroup);
     },
     async fetchAllNotes() {
-      const notes = await notesService.getAllNotes();
-      this._notes = notes;
+      const res = await notesService.getAllNotes();
+      const { payload, error } = res;
+
+      if (error) {
+        console.log(error);
+        // ... set global error
+      } else if (payload && !error) this._notes = payload;
 
       // SETTINGS: Selecting first node
       // if <isFocusedOnFirstNoteOnStart> is true
@@ -48,10 +58,10 @@ export const useNotesStore = defineStore("notes", {
       //   settingsStore.getIsFocusedOnFirstNoteOnStart;
       // if (isFocusFirestNodeOnStart) this.selectFirstNode();
 
-      return notes;
+      return this._notes;
     },
 
-    async createNote(note: Note) {
+    async createNote(note: NoteCreation) {
       this._notes.push(note);
 
       this.addHistoryItem(note);
@@ -67,7 +77,11 @@ export const useNotesStore = defineStore("notes", {
 
       /* * * Post Sync with DataBase * * */
 
-      await notesService.createNote(note);
+      const res = await notesService.createNote(note);
+      const { payload, error } = res;
+
+      if (error) throw Error(error);
+      else if (payload && !error) console.log(payload);
     },
 
     async deleteNoteByUID(uid: string) {
@@ -82,7 +96,24 @@ export const useNotesStore = defineStore("notes", {
 
       /* * * Post Sync with DataBase * * */
 
-      if (uid) await notesService.deleteNote(uid);
+      if (uid) {
+        const res = await notesService.deleteNote(uid);
+        const { payload, error } = res;
+
+        if (error) throw Error(error);
+        else if (payload && !error) console.log(payload);
+      }
+    },
+
+    async deleteAll() {
+      const res = await notesService.deleteAll();
+      const { payload, error } = res;
+
+      if (error) throw Error(error);
+      else if (payload && !error) {
+        console.log(payload);
+        this._notes = [];
+      }
     },
 
     /* * * Client * * */
@@ -108,5 +139,3 @@ export const useNotesStore = defineStore("notes", {
     },
   },
 });
-
-export * from "./types";

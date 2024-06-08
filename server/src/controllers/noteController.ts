@@ -1,71 +1,107 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
+import {
+  ApiResponse,
+  Authenticated,
+  NoteCreationAttributes,
+  Notes,
+  Note,
+  NoteUid,
+} from "@/typings";
+
 import { db } from "@/models";
-import { v4 } from "uuid";
 
-const User = db.models.User;
-const Note = db.models.Note;
+const UserModel = db.models.User;
+const NoteModel = db.models.Note;
 
-const getAllNotes = (req: Request, res: Response) => {
+const getAllNotes = (
+  req: Request<{}, {}, Authenticated<{}>>,
+  res: Response<ApiResponse<Notes>>
+) => {
   const { userId } = req.body;
 
-  User.findOne({ where: { id: userId } }).then((user) => {
-    if (!user) res.status(401).send({ message: "User not exists" });
+  UserModel.findOne({ where: { id: userId } }).then((user) => {
+    if (!user) res.status(401).send({ error: "User not exists" });
   });
 
-  Note.findAll({
-    where: {
-      userId,
-    },
-  })
-    .then((notes) => {
-      res.status(200).send({ notes });
+  NoteModel.findAll({ where: { userId } })
+    .then((foundNotes) => {
+      const notes = foundNotes.map((note) => {
+        const _note: Note = {
+          id: Number(note.id),
+          uid: note.uid,
+          path: note.path,
+          title: note.title,
+          content: note.content,
+          noteGroupId: note.noteGroupId,
+        };
+
+        return _note;
+      });
+
+      res.status(200).send({ payload: notes });
     })
     .catch((_err) => {
-      res.status(500).send({ message: "Error when finding notes" });
+      res.status(500).send({ error: "Error when finding notes" });
     });
 };
 
-const createNote = (req: Request, res: Response) => {
-  const { userId, noteGroupId, id, uid, path, name, content } = req.body;
+const createNote = (
+  req: Request<{}, {}, Authenticated<NoteCreationAttributes>>,
+  res: Response<ApiResponse<Note>>
+) => {
+  const note = req.body;
 
-  Note.create({
-    id,
-    uid,
-    path,
-    name,
-    content,
-    noteGroupId,
-    userId,
-  })
-    .then((note) => {
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve(res.status(201).send({ name: note, content }));
-        }, 3000);
-      });
+  NoteModel.create(note)
+    .then((createdNote) => {
+      const noteResponse: Note = {
+        id: createdNote.id,
+        uid: createdNote.uid,
+        path: createdNote.path,
+        title: createdNote.title,
+        content: createdNote.content,
+        noteGroupId: createdNote.noteGroupId,
+      };
+
+      res.status(201).send({ payload: noteResponse });
     })
-    .catch((err) => {
-      console.log(err);
+    .catch(() => {
+      res.status(400).send({ error: "Note not created" });
     });
 };
 
-const deleteNote = (req: Request, res: Response) => {
-  const { id } = req.params;
+const deleteNote = (
+  req: Request<NoteUid, {}, Authenticated<{}>>,
+  res: Response<ApiResponse<NoteUid>>
+) => {
+  const { uid } = req.params;
   const { userId } = req.body;
 
-  Note.destroy({
-    where: {
-      id,
-      userId,
-    },
-  }).then((status) => {
-    if (status === 0) res.status(400).send({ message: "Note deleted" });
-
-    res.status(200).send({ message: "Note deleted" });
+  NoteModel.destroy({ where: { uid, userId } }).then((status) => {
+    if (status === 0) res.status(204).send({ error: "Note not found" });
+    res.status(200).send({ payload: { uid } });
   });
 };
 
-// const deleteAllNote = (req: Request, res: Response, next: NextFunction) => {};
+const deleteAllNote = (
+  req: Request<{}, {}, Authenticated<{}>>,
+  res: Response<ApiResponse<Array<NoteUid>>>
+) => {
+  const { userId } = req.body;
+
+  NoteModel.findAll({ where: { userId } }).then((foundNotes) => {
+    const note_uids = foundNotes.map((note) => {
+      const _note: NoteUid = {
+        uid: note.uid,
+      };
+      return _note;
+    });
+
+    NoteModel.destroy({ where: { userId } }).then((status) => {
+      if (status === 0) res.status(204).send({ error: "Notes not found" });
+      res.status(200).send({ payload: note_uids });
+    });
+  });
+};
 
 // const updateNote = (req: Request, res: Response, next: NextFunction) => {};
 
@@ -73,6 +109,6 @@ export const noteController = {
   getAllNotes,
   createNote,
   deleteNote,
-  // deleteAllNote,
+  deleteAllNote,
   // updateNote,
 };

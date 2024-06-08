@@ -71,7 +71,7 @@ import { verifyLogin, verifyPassword } from "@/utils";
 import { useVerifyField } from "@/composables/useVerifyField";
 
 import { useAuthStore } from "@/stores/auth";
-import type { AuthLoginCredentials } from "@/services/authService";
+import type { AuthLoginCredentials } from "@/typings";
 
 import { PrivateRoutes, PublicRoutes } from "@/router";
 
@@ -171,10 +171,14 @@ const onSubmit = async (_id: number): Promise<void> => {
     password: model.value.password.value,
   };
 
-  const { accessToken } = await authStore.login(credentials);
+  const error = await authStore.login(credentials);
+  if (error) {
+    formError.value.message = error;
+    formError.value.status = true;
+    return;
+  }
 
-  if (accessToken) router.push({ path: PrivateRoutes.EDITOR });
-  return;
+  router.push({ path: PrivateRoutes.EDITOR });
 };
 
 const isMounted = ref(false);

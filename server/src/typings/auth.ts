@@ -1,12 +1,20 @@
-import { Roles } from "@/models/RoleModel";
+import { User } from "./user";
 
-export interface RegisterCredentialsRequest {
-  login: string;
-  email: string;
-  password: string;
-  roles: Roles[];
+export interface AuthBody {
+  userId: string;
 }
 
-export interface BadRequest {
-  message: string;
-}
+export type Authenticated<T> = AuthBody & T;
+
+export type LoginCredentials = Pick<User, "login" | "password">;
+
+/* * * Guards * * */
+
+export const isAuthToken = (token: any): token is string => {
+  return (
+    token !== null &&
+    token !== undefined &&
+    typeof token === "string" &&
+    !Array.isArray(token)
+  );
+};

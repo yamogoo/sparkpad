@@ -1,15 +1,12 @@
+import { User } from "@/typings";
+
 import { DataTypes, Model, Sequelize } from "sequelize";
 
-interface UserAttributes {
-  id: string;
-  login: string;
-  email: string;
-  password: string;
-}
+type UserAttributes = Omit<User, "roles">;
 
 export type UserCreationAttributes = UserAttributes;
 
-class User extends Model<UserAttributes, UserCreationAttributes> {
+class UserModel extends Model<UserAttributes, UserCreationAttributes> {
   [x: string]: any;
   declare id: string;
   declare login: string;
@@ -17,8 +14,8 @@ class User extends Model<UserAttributes, UserCreationAttributes> {
   declare password: string;
 }
 
-export default (sequelize: Sequelize): typeof User => {
-  User.init(
+export default (sequelize: Sequelize): typeof UserModel => {
+  UserModel.init(
     {
       id: {
         type: DataTypes.STRING,
@@ -42,5 +39,5 @@ export default (sequelize: Sequelize): typeof User => {
     }
   );
 
-  return User;
+  return UserModel;
 };

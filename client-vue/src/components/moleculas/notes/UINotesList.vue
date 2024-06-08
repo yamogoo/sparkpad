@@ -6,7 +6,7 @@ div.notes-list(
     v-for="note, idx in notes"
     :key="idx"
     :id="idx"
-    :name="note.data.name"
+    :title="note.data.title"
     :description="note.data.content"
     :is-active="sid===note.data.uid"
     @open="e => onClick(idx, note.data)"
@@ -14,10 +14,9 @@ div.notes-list(
 </template>
 
 <script setup lang="ts">
-import type { Note } from "@/stores/notes/types";
+import type { Note, HierarchyRootNode } from "@/typings";
 
 import UINoteListItem from "./UINoteListItem.vue";
-import type { HierarchyRootNode } from "~/src/stores/notes/utils";
 
 interface Props {
   sid: string;

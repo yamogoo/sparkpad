@@ -1,22 +1,28 @@
+import { History } from "@/typings";
+
 import { DataTypes, Model, Sequelize } from "sequelize";
 
-interface HistoryAttributes {
-  uid: string;
-}
+interface HistoryAttributes extends History {}
 
 type HistoryCreationAttributes = HistoryAttributes;
 
-export class Hystory extends Model<
+export class HystoryModel extends Model<
   HistoryCreationAttributes,
   HistoryAttributes
 > {
-  declare uid: string;
+  declare id: string;
+  declare noteId: string;
 }
 
-export default (sequelize: Sequelize): typeof Hystory => {
-  Hystory.init(
+export default (sequelize: Sequelize): typeof HystoryModel => {
+  HystoryModel.init(
     {
-      uid: {
+      id: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false,
+        primaryKey: true,
+      },
+      noteId: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -25,8 +31,9 @@ export default (sequelize: Sequelize): typeof Hystory => {
       sequelize,
       modelName: "note_history",
       tableName: "note_history",
+      timestamps: false,
     }
   );
 
-  return Hystory;
+  return HystoryModel;
 };

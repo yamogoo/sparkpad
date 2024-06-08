@@ -1,6 +1,7 @@
-import { HierarchyTree, type HierarchyRootNode } from "./useHierarchyTree";
+import type { HierarchyRootNode, Note } from "@/typings";
 
-import { useNotesStore, type Note } from "@/stores/notes";
+import { HierarchyTree } from "./useHierarchyTree";
+import { useNotesStore } from "@/stores/notes";
 
 export const useNotesTree = (): HierarchyRootNode<Note> => {
   const notesStore = useNotesStore();

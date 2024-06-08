@@ -222,9 +222,15 @@ const onSubmit = async (_id: number): Promise<void> => {
     password: model.value.password.value,
   };
 
-  const user = await authStore.register(credentials);
+  const error = await authStore.register(credentials);
 
-  if (user) router.push({ path: PublicRoutes.LOGIN });
+  if (error) {
+    formError.value.message = error;
+    formError.value.status = true;
+    return;
+  }
+
+  router.push({ path: PublicRoutes.LOGIN });
 };
 
 const isMounted = ref(false);

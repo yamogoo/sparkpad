@@ -1,56 +1,44 @@
+import { NoteAttributes, NoteCreationAttributes } from "@/typings";
+
 import { DataTypes, Model, Sequelize } from "sequelize";
 
-export type Path = string;
-
-interface NoteAttributes {
-  id: number;
-  uid: string;
-  path: Path;
-  name: string;
-  content: string;
-  noteGroupId: number;
-  userId: string;
-}
-
-type NoteCreationAttributes = NoteAttributes;
-
-class Note extends Model<NoteAttributes, NoteCreationAttributes> {
-  declare id: string;
+class NoteModel extends Model<NoteAttributes, NoteCreationAttributes> {
+  declare id: number;
   declare uid: string;
-  declare path: Path;
-  declare name: string;
+  declare path: string;
+  declare title: string;
   declare content: string;
   declare noteGroupId: number;
   declare userId: string;
 }
 
-export default (sequelize: Sequelize): typeof Note => {
-  Note.init(
+export default (sequelize: Sequelize): typeof NoteModel => {
+  NoteModel.init(
     {
       uid: {
         type: DataTypes.STRING,
         primaryKey: true,
       },
       id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
       },
       path: {
         type: DataTypes.STRING,
       },
-      name: {
+      title: {
         type: DataTypes.STRING,
       },
       content: {
         type: DataTypes.STRING,
       },
       noteGroupId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.INTEGER.UNSIGNED,
         allowNull: true,
-        references: {
-          model: "note_groups",
-          key: "id",
-        },
+        // references: {
+        //   model: "note_groups",
+        //   key: "id",
+        // },
       },
       userId: {
         type: DataTypes.STRING,
@@ -60,9 +48,10 @@ export default (sequelize: Sequelize): typeof Note => {
     {
       sequelize,
       modelName: "note",
-      tableName: "notes",
+      // tableName: "notes",
+      timestamps: false,
     }
   );
 
-  return Note;
+  return NoteModel;
 };

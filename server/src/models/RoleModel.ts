@@ -1,22 +1,19 @@
-import { DataTypes, Model, Sequelize } from "sequelize";
+import { UserRoles } from "@/typings";
 
-export enum Roles {
-  USER = "user",
-  ADMIN = "admin",
-}
+import { DataTypes, Model, Sequelize } from "sequelize";
 
 export interface RoleAttributes {
   id: string;
-  name: Roles;
+  name: UserRoles;
 }
 
 type RoleCreationAttributes = RoleAttributes;
 
 class Role extends Model<RoleAttributes, RoleCreationAttributes> {
-  static Roles = [Roles.ADMIN, Roles.USER];
+  static Roles = [UserRoles.ADMIN, UserRoles.USER];
 
   declare id: string;
-  declare name: Roles;
+  declare name: UserRoles;
 }
 
 export default (sequelize: Sequelize): typeof Role => {

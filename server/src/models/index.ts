@@ -49,13 +49,13 @@ export class Models {
 
     // Note
 
-    this.NoteGroup.hasMany(this.Note, {
-      foreignKey: "noteGroupId",
-    });
+    // this.NoteGroup.hasMany(this.Note, {
+    //   foreignKey: "noteGroupId",
+    // });
 
-    this.Note.belongsTo(this.NoteGroup, {
-      foreignKey: "noteGroupId",
-    });
+    // this.Note.belongsTo(this.NoteGroup, {
+    //   foreignKey: "noteGroupId",
+    // });
 
     // History
 

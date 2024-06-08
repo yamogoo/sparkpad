@@ -4,14 +4,17 @@ import express from "express";
 
 const router = express.Router();
 
+// getAll
 router.get("/", [auth.verifyAuthentication, noteController.getAllNotes]);
 
+// create
 router.post("/", [auth.verifyAuthentication, noteController.createNote]);
 
-router.delete("/:id", [auth.verifyAuthentication, noteController.deleteNote]);
+// delete
+router.delete("/:uid", [auth.verifyAuthentication, noteController.deleteNote]);
 
 // router.put("/", noteController.updateNote);
 
-// router.delete("/", noteController.deleteAllNote);
+router.delete("/", [auth.verifyAuthentication, noteController.deleteAllNote]);
 
 export default router;

@@ -3,10 +3,10 @@ import { mount } from "@vue/test-utils";
 
 import { createPinia, setActivePinia } from "pinia";
 
-import UINotesList from "./UINotesList.vue";
-
+import type { Notes } from "@/typings";
 import { HierarchyTree } from "@/composables/useHierarchyTree";
-import type { Notes } from "@/stores/notes";
+
+import UINotesList from "./UINotesList.vue";
 
 const pinia = createPinia();
 
@@ -19,22 +19,25 @@ const data: Notes = [
     id: 1,
     uid: "wedlkqwed",
     path: "0",
-    name: "First Note",
+    title: "First Note",
     content: "",
+    noteGroupId: 0,
   },
   {
     id: 2,
     uid: "dfedklfds",
     path: "2",
-    name: "Second Note",
+    title: "Second Note",
     content: "",
+    noteGroupId: 0,
   },
   {
     id: 3,
     uid: "wekdjjow",
     path: "3",
-    name: "Third Note",
+    title: "Third Note",
     content: "",
+    noteGroupId: 0,
   },
 ];
 

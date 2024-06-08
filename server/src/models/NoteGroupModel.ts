@@ -1,42 +1,37 @@
+import { NoteGroup } from "@/typings";
+
 import { DataTypes, Model, Sequelize } from "sequelize";
 
-export type Path = string;
-
-interface NotesGroupAttributes {
-  id: number;
-  path: Path;
-  name: string;
-  description: string;
-  parentId: number;
+interface NotesGroupAttributes extends NoteGroup {
   userId: string;
 }
 
 type NotesGroupCreationAttributes = NotesGroupAttributes;
 
-class NoteGroup extends Model<
+class NoteGroupModel extends Model<
   NotesGroupAttributes,
   NotesGroupCreationAttributes
 > {
   declare id: number;
-  declare path: Path;
-  declare name: string;
+  declare path: string;
+  declare title: string;
   declare description: string;
   declare parentId: number;
   declare userId: string;
 }
 
-export default (sequelize: Sequelize): typeof NoteGroup => {
-  NoteGroup.init(
+export default (sequelize: Sequelize): typeof NoteGroupModel => {
+  NoteGroupModel.init(
     {
       id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.INTEGER.UNSIGNED,
         primaryKey: true,
         allowNull: false,
       },
       path: {
         type: DataTypes.STRING,
       },
-      name: {
+      title: {
         type: DataTypes.STRING,
       },
       description: {
@@ -47,7 +42,7 @@ export default (sequelize: Sequelize): typeof NoteGroup => {
         allowNull: false,
       },
       parentId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.INTEGER.UNSIGNED,
         allowNull: true,
         references: {
           model: "note_groups",
@@ -62,8 +57,14 @@ export default (sequelize: Sequelize): typeof NoteGroup => {
     }
   );
 
-  NoteGroup.hasMany(NoteGroup, { as: "children", foreignKey: "parentId" });
-  NoteGroup.belongsTo(NoteGroup, { as: "parent", foreignKey: "parentId" });
+  NoteGroupModel.hasMany(NoteGroupModel, {
+    as: "children",
+    foreignKey: "parentId",
+  });
+  NoteGroupModel.belongsTo(NoteGroupModel, {
+    as: "parent",
+    foreignKey: "parentId",
+  });
 
-  return NoteGroup;
+  return NoteGroupModel;
 };

@@ -4,10 +4,11 @@ div.main-viewport__tabbar
     v-for="tab, idx in history"
     :key="String(tab)"
     :id="idx"
-    :title="tab.name"
+    :title="tab.title"
     :is-active="idx == sid"
     @open="onOpen(tab.uid)"
     @close="onClose(idx)"
+    @update:idx="onUpdateId"
   )
 </template>
 
@@ -37,6 +38,11 @@ const onOpen = (uid: string): void => {
 
 const onClose = (idx: number): void => {
   notesHistoryStore.remove(idx);
+};
+
+const onUpdateId = (newIdx: number, oldIdx: number): void => {
+  console.log("update");
+  notesHistoryStore.changePosition(newIdx, oldIdx);
 };
 </script>
 

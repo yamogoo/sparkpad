@@ -16,7 +16,10 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "test:unit": "vitest",
     "test:unit:update": "vitest -u",
-    "test:ui": "vitest --ui"
+    "test:ui": "vitest --ui",
+    "type-check": "vue-tsc --build --force",
+    "typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",
+    "typecheck:app": "vue-tsc --noEmit -p tsconfig.app.json --composite false"
   },
   "dependencies": {
     "pinia": "^2.1.7",

@@ -11,6 +11,11 @@ div.notes-control-bar(
   div.notes-control-bar__section
     UIActionButton(
       :icon-name="Symbols.DELETE_ITEM"
+      aria-label="delete all data"
+      @press="onDeleteAll"
+    )
+    UIActionButton(
+      :icon-name="Symbols.DELETE_ITEM"
       aria-label="delete"
       @press="onDeleteItem"
     )
@@ -34,6 +39,7 @@ const emits = defineEmits<{
   (e: "create:note"): void;
   (e: "create:dir"): void;
   (e: "delete:note"): void;
+  (e: "delete:all"): void;
   (e: "search:note"): void;
 }>();
 
@@ -47,6 +53,10 @@ const onCreateDir = () => {
 
 const onDeleteItem = () => {
   emits("delete:note");
+};
+
+const onDeleteAll = () => {
+  emits("delete:all");
 };
 
 const onSearch = () => {

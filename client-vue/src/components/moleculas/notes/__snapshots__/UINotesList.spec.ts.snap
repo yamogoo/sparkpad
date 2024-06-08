@@ -9,8 +9,9 @@ exports[`UINotesList > should emit "select:note" event 1`] = `
     {
       "content": "",
       "id": 1,
-      "name": "First Note",
+      "noteGroupId": 0,
       "path": "0",
+      "title": "First Note",
       "uid": "wedlkqwed",
     },
   ],

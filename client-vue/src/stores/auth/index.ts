@@ -1,11 +1,15 @@
 import { defineStore } from "pinia";
+import { authService } from "@/services/auth/authService";
+
 import {
-  authService,
   type AuthLoginCredentials,
   type AuthorizedUser,
   type AuthRegisterCredentials,
-} from "@/services/auth/authService";
-import { LocalStorageAuthKeys } from "../localStorage";
+  type ServiceError,
+  type UnAuthorizedUser,
+} from "@/typings";
+
+import { LocalStorageAuthKeys } from "@/typings/localStorage";
 
 interface AuthStoreState {
   _isAuthenticated: boolean;
@@ -35,18 +39,40 @@ export const useAuthStore = defineStore("auth", {
     user: (state): AuthorizedUser | null => state._user,
   },
   actions: {
-    async register(credentials: AuthRegisterCredentials) {
-      return await authService.register(credentials);
+    async register(
+      credentials: AuthRegisterCredentials
+    ): Promise<string | undefined> {
+      const res = await authService.register(credentials);
+      const { payload, error } = res;
+
+      if (error) return error;
+      else if (payload && !error) {
+        const unAuthorizedUser = payload;
+        if (unAuthorizedUser) return;
+      }
+      return error;
     },
 
-    async login(credentials: AuthLoginCredentials) {
-      const user = await authService.login(credentials);
+    async login(
+      credentials: AuthLoginCredentials
+    ): Promise<string | undefined> {
+      const res = await authService.login(credentials);
+      const { payload, error } = res;
 
-      if (user) {
-        localStorage.setItem(LocalStorageAuthKeys.USER, JSON.stringify(user));
-        this.setUser(user);
+      if (error) return error;
+      else if (payload && !error) {
+        const authorizedUser = payload;
+
+        localStorage.setItem(
+          LocalStorageAuthKeys.USER,
+          JSON.stringify(authorizedUser)
+        );
+        this.setUser(authorizedUser);
+
+        const { accessToken } = authorizedUser;
+        if (accessToken) return;
       }
-      return user;
+      return error;
     },
 
     logout() {
