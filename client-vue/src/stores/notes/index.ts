@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-import type { Notes, NoteGroup, Note, NoteCreation } from "@/typings";
+import type { Notes, Note, NoteCreation, NoteParentId } from "@/typings";
 
 import { notesService } from "@/services/notes/notesService";
 import { useNotesHistoryStore } from "../notesHistory";
@@ -18,32 +18,30 @@ export const useNotesStore = defineStore("notes", {
   getters: {
     /* * * Client * * */
 
-    allNotes: (state): Notes => {
+    all: (state): Notes => {
       return state._notes;
     },
     currentNote: (state) => {
       return state._currentNote;
     },
-    sid: (state) => {
+
+    sid: (state): string | null => {
+      return state._currentNote?.id ?? null;
+    },
+    sidx: (state) => {
       const id = state._currentNote?.id;
       return state._notes.findIndex((note) => note.id === id);
     },
 
-    currentNotePath: (state) => state._currentNote?.path,
-
-    currentNoteUID: (state) => state._currentNote?.uid,
+    currentNoteUID: (state) => state._currentNote?.id,
 
     lastNoteId: (state) => state._notes.length - 1,
 
     notesLength: (state) => state._notes.length,
   },
   actions: {
-    async createNoteGroup(noteGroup: NoteGroup) {
-      // const { uid } = noteGroup;
-      // this._notes.push(noteGroup);
-    },
-    async fetchAllNotes() {
-      const res = await notesService.getAllNotes();
+    async fetchAll() {
+      const res = await notesService.getAll();
       const { payload, error } = res;
 
       if (error) {
@@ -57,14 +55,19 @@ export const useNotesStore = defineStore("notes", {
       // const isFocusFirestNodeOnStart =
       //   settingsStore.getIsFocusedOnFirstNoteOnStart;
       // if (isFocusFirestNodeOnStart) this.selectFirstNode();
-
       return this._notes;
     },
 
-    async createNote(note: NoteCreation) {
-      this._notes.push(note);
+    async create(note: NoteCreation) {
+      const res = await notesService.create(note);
+      const { payload, error } = res;
 
-      this.addHistoryItem(note);
+      if (error) throw Error(error);
+      else if (payload && !error) {
+        console.log(payload);
+        this._notes.push(note);
+        this.addHistoryItem(note);
+      }
 
       // SETTINGS: Selecting new node
       // next to the previous if
@@ -76,56 +79,62 @@ export const useNotesStore = defineStore("notes", {
       // else this.selectLastNode();
 
       /* * * Post Sync with DataBase * * */
-
-      const res = await notesService.createNote(note);
-      const { payload, error } = res;
-
-      if (error) throw Error(error);
-      else if (payload && !error) console.log(payload);
     },
 
-    async deleteNoteByUID(uid: string) {
-      if (this.notesLength <= 0 || !this.createNote) return;
+    async deleteById(parentId: string | null, id: string) {
+      if (this.notesLength <= 0) return;
 
-      // Remove note
-      const idx = this._notes.findIndex((note) => note.uid === uid);
-      this._notes.splice(idx, 1);
-
-      const historyStore = useNotesHistoryStore();
-      historyStore.remove(idx);
-
-      /* * * Post Sync with DataBase * * */
-
-      if (uid) {
-        const res = await notesService.deleteNote(uid);
-        const { payload, error } = res;
-
-        if (error) throw Error(error);
-        else if (payload && !error) console.log(payload);
-      }
-    },
-
-    async deleteAll() {
-      const res = await notesService.deleteAll();
+      const res = await notesService.delete(parentId, id);
       const { payload, error } = res;
 
       if (error) throw Error(error);
       else if (payload && !error) {
-        console.log(payload);
+        const { id } = payload;
+
+        const idx = this._notes.findIndex((note) => note.id === id);
+        this._notes.splice(idx, 1);
+
+        const historyStore = useNotesHistoryStore();
+        historyStore.remove(idx);
+      }
+    },
+
+    async deleteAll(parentId: NoteParentId) {
+      const res = await notesService.deleteAll(parentId);
+      const { payload, error } = res;
+
+      if (error) console.warn(error);
+      else if (payload && !error) {
+        payload.forEach((deletedNote: Pick<Note, "id">) => {
+          const idx = this._notes.findIndex(
+            (note) => note.id === deletedNote.id
+          );
+          this._notes.splice(idx, 1);
+        });
+
         this._notes = [];
       }
     },
 
+    deleteAllByMap(map: Array<{ id: string }>): void {
+      console.log(map);
+      map.forEach((deletedId) => {
+        const idx = this._notes.findIndex((note) => note.id === deletedId.id);
+        this._notes.splice(idx, 1);
+      });
+    },
+
     /* * * Client * * */
 
-    selectCurrentNoteByUID(uid: string): void {
-      const idx = this._notes.findIndex((el) => el.uid === uid);
+    selectById(id: string): void {
+      const idx = this._notes.findIndex((el) => el.id === id);
       this._currentNote = this._notes[idx];
+      console.log(this._currentNote);
 
       // this.addHistoryItem(this._currentNote);
 
       const historyStore = useNotesHistoryStore();
-      historyStore.add(uid);
+      historyStore.add(id);
     },
 
     /* * * History * * */
@@ -133,9 +142,9 @@ export const useNotesStore = defineStore("notes", {
     addHistoryItem(note: Note): void {
       if (!note) return;
 
-      const { uid } = note;
+      const { id } = note;
       const historyStore = useNotesHistoryStore();
-      historyStore.add(uid);
+      historyStore.add(id);
     },
   },
 });

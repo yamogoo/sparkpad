@@ -1,13 +1,15 @@
 import {
   isNote,
   isNotes,
-  isNoteUid,
-  isNoteUids,
+  isNoteIds,
   type ApiMethod,
   type Note,
   type NoteCreation,
   type Notes,
   type ServiceResponse,
+  isNoteId,
+  type NoteParentId,
+  ServiceStatuses,
 } from "@/typings";
 
 import { fetchData } from "../utils";
@@ -29,38 +31,41 @@ type APIKeys =
 
 export const api: Record<APIKeys, ApiMethod> = {
   getAll: {
-    path: () => `${BASE_URL}/notes`,
+    path: (parentId: string) => `${BASE_URL}/groups/${parentId}/notes/`,
     method: "GET",
   },
   getOne: {
-    path: (uid: string) => `${BASE_URL}/notes/${uid}`,
+    path: (parentId: string, id: string) =>
+      `${BASE_URL}/groups/${parentId}/notes/${id}`,
     method: "GET",
   },
   create: {
-    path: () => `${BASE_URL}/notes`,
+    path: (parentId: string) => `${BASE_URL}/groups/${parentId}/notes/`,
     method: `POST`,
   },
   update: {
-    path: (uid: string) => `${BASE_URL}/notes/${uid}`,
+    path: (parentId: string, id: string) =>
+      `${BASE_URL}/groups/${parentId}/notes/${id}`,
     method: "PUT",
   },
   delete: {
-    path: (uid: string) => `${BASE_URL}/notes/${uid}`,
+    path: (parentId: string, id: string) =>
+      `${BASE_URL}/groups/${parentId}/notes/${id}`,
     method: "DELETE",
   },
   deleteAll: {
-    path: () => `${BASE_URL}/notes`,
+    path: (parentId: string) => `${BASE_URL}/groups/${parentId}/notes/`,
     method: "DELETE",
   },
 };
 
 export class NotesService {
-  public async getOne(uid: string): Promise<ServiceResponse<Note>> {
+  public async getOne(id: string): Promise<ServiceResponse<Note>> {
     const res = await fetchData({
       method: api.getOne.method,
       headers: { ...authHeader() },
       url: api.getOne.path(),
-      body: { uid },
+      body: { id },
     });
 
     if (!isNote(res.payload)) return { error: res.error };
@@ -68,7 +73,7 @@ export class NotesService {
     return { payload, error };
   }
 
-  public async getAllNotes(): Promise<ServiceResponse<Notes>> {
+  public async getAll(): Promise<ServiceResponse<Notes>> {
     const res = await fetchData({
       method: api.getAll.method,
       headers: { ...authHeader() },
@@ -80,11 +85,11 @@ export class NotesService {
     return { payload, error };
   }
 
-  public async createNote(note: NoteCreation): Promise<ServiceResponse<Note>> {
+  public async create(note: NoteCreation): Promise<ServiceResponse<Note>> {
     const res = await fetchData({
       method: api.create.method,
       headers: { ...authHeader() },
-      url: api.create.path(),
+      url: api.create.path(note.parentId),
       body: note,
     });
 
@@ -94,12 +99,12 @@ export class NotesService {
   }
 
   public async updateNote(note: NoteCreation): Promise<ServiceResponse<Note>> {
-    const { uid } = note;
+    const { id } = note;
 
     const res = await fetchData({
       method: api.update.method,
       headers: { ...authHeader() },
-      url: api.update.path(uid),
+      url: api.update.path(id),
       body: note,
     });
 
@@ -108,28 +113,33 @@ export class NotesService {
     return { payload, error };
   }
 
-  public async deleteNote(
-    uid: string
-  ): Promise<ServiceResponse<Pick<Note, "uid">>> {
+  public async delete(
+    parentId: string | null,
+    id: string
+  ): Promise<ServiceResponse<Pick<Note, "id">>> {
     const res = await fetchData({
       method: api.delete.method,
       headers: { ...authHeader() },
-      url: api.delete.path(uid),
+      url: api.delete.path(parentId, id),
     });
 
-    if (!isNoteUid(res.payload)) return { error: res.error };
+    if (!isNoteId(res.payload)) return { error: res.error };
+
     const { error, payload } = res;
     return { payload, error };
   }
 
-  public async deleteAll(): Promise<ServiceResponse<Array<Pick<Note, "uid">>>> {
+  public async deleteAll(
+    parentId: NoteParentId
+  ): Promise<ServiceResponse<Array<Pick<Note, "id">>>> {
     const res = await fetchData({
       method: api.deleteAll.method,
       headers: { ...authHeader() },
-      url: api.deleteAll.path(),
+      url: api.deleteAll.path(parentId),
     });
 
-    if (!isNoteUids(res.payload)) return { error: res.error };
+    if (!isNoteIds(res.payload))
+      return { error: res.error, status: ServiceStatuses.NOT_VALID_DATA };
 
     const { error, payload } = res;
     return { payload, error };

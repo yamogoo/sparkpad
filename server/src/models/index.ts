@@ -50,11 +50,11 @@ export class Models {
     // Note
 
     // this.NoteGroup.hasMany(this.Note, {
-    //   foreignKey: "noteGroupId",
+    //   foreignKey: "parentId",
     // });
 
     // this.Note.belongsTo(this.NoteGroup, {
-    //   foreignKey: "noteGroupId",
+    //   foreignKey: "parentId",
     // });
 
     // History

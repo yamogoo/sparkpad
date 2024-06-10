@@ -19,6 +19,7 @@ export interface AuthorizedUser {
 export type UnAuthorizedUser = Pick<AuthorizedUser, "login" | "email">;
 
 /* * * Guards * * */
+
 export const isUserRole = (userRole: any): userRole is string => {
   return typeof userRole === "string";
 };

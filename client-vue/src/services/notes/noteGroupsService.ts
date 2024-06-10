@@ -1,10 +1,11 @@
 import {
   isNoteGroup,
+  isNoteGroupDeletedAttributes,
   isNoteGroups,
-  isNoteGroupUid,
   type ApiMethod,
   type NoteGroup,
   type NoteGroupCreation,
+  type NoteGroupDeletedAttributes,
   type NoteGroups,
   type ServiceResponse,
 } from "@/typings";
@@ -26,30 +27,30 @@ type APIKeys =
   | "deleteAll";
 
 export const api: Record<APIKeys, ApiMethod> = {
-  getOne: {
-    path: (uid: string) => `${BASE_URL}/note-groups/${uid}`,
+  getAll: {
+    path: () => `${BASE_URL}/groups`,
     method: "GET",
   },
-  getAll: {
-    path: () => `${BASE_URL}/note-groups`,
+  getOne: {
+    path: (id: string) => `${BASE_URL}/groups/${id}`,
     method: "GET",
   },
   create: {
-    path: () => `${BASE_URL}/note-groups`,
+    path: () => `${BASE_URL}/groups/`,
     method: "POST",
   },
   delete: {
-    path: (uid: string) => `${BASE_URL}/note-groups/${uid}`,
+    path: (id: string) => `${BASE_URL}/groups/${id}`,
     method: "DELETE",
   },
   update: {
-    path: (uid: string) => {
-      return `${BASE_URL}/note-groups/${uid}`;
+    path: (id: string) => {
+      return `${BASE_URL}/groups/${id}`;
     },
     method: "PUT",
   },
   deleteAll: {
-    path: () => `${BASE_URL}/note-groups`,
+    path: () => `${BASE_URL}/groups`,
     method: "DELETE",
   },
 };
@@ -63,6 +64,7 @@ export class NoteGroupService {
     });
 
     if (!isNoteGroup(res.payload)) return { error: res.error };
+
     const { error, payload } = res;
     return { payload, error };
   }
@@ -75,11 +77,12 @@ export class NoteGroupService {
     });
 
     if (!isNoteGroups(res.payload)) return { error: res.error };
+
     const { error, payload } = res;
     return { payload, error };
   }
 
-  public async createGroup(
+  public async create(
     noteGroup: NoteGroupCreation
   ): Promise<ServiceResponse<NoteGroup>> {
     const res = await fetchData({
@@ -95,17 +98,17 @@ export class NoteGroupService {
     return { payload, error };
   }
 
-  public async deleteGroup(
-    uid: NoteGroupCreation
-  ): Promise<ServiceResponse<Pick<NoteGroup, "uid">>> {
+  public async delete(
+    id: string
+  ): Promise<ServiceResponse<NoteGroupDeletedAttributes>> {
     const res = await fetchData({
       method: api.delete.method,
       headers: { ...authHeader() },
-      url: api.delete.path(uid),
+      url: api.delete.path(id),
     });
 
-    if (!isNoteGroupUid(res.payload)) return { error: res.error };
-
+    if (!isNoteGroupDeletedAttributes(res.payload)) return { error: res.error };
+    console.log(res.payload);
     const { error, payload } = res;
     return { payload, error };
   }
@@ -123,3 +126,5 @@ export class NoteGroupService {
     return { payload, error };
   }
 }
+
+export const noteGroupService = new NoteGroupService();

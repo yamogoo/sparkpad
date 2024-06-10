@@ -1,0 +1,25 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`useHierarchyView > should create tree of nodes (dirs and files) 1`] = `
+[
+  {
+    "id": "file 1",
+    "parentId": null,
+  },
+  {
+    "children": [
+      {
+        "id": "file 2",
+        "parentId": "dir 1",
+      },
+    ],
+    "id": "dir 1",
+    "parentId": "2",
+  },
+  {
+    "children": [],
+    "id": "dir 2",
+    "parentId": "1",
+  },
+]
+`;

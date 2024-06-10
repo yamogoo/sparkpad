@@ -27,6 +27,8 @@ exports[`UISymbol > should render AddFileIcon icon from "Symbols" data set 1`] =
 
 exports[`UISymbol > should render ArrorRightIcon icon from "Symbols" data set 1`] = `true`;
 
+exports[`UISymbol > should render ArrowBottomIcon icon from "Symbols" data set 1`] = `true`;
+
 exports[`UISymbol > should render AvatarDefaultIcon icon from "Symbols" data set 1`] = `true`;
 
 exports[`UISymbol > should render BinIcon icon from "Symbols" data set 1`] = `true`;

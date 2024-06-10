@@ -5,7 +5,8 @@ import {
   NoteCreationAttributes,
   Notes,
   Note,
-  NoteUid,
+  NoteCreationRequestParams,
+  NoteId,
 } from "@/typings";
 
 import { db } from "@/models";
@@ -13,7 +14,7 @@ import { db } from "@/models";
 const UserModel = db.models.User;
 const NoteModel = db.models.Note;
 
-const getAllNotes = (
+const getAll = (
   req: Request<{}, {}, Authenticated<{}>>,
   res: Response<ApiResponse<Notes>>
 ) => {
@@ -27,12 +28,10 @@ const getAllNotes = (
     .then((foundNotes) => {
       const notes = foundNotes.map((note) => {
         const _note: Note = {
-          id: Number(note.id),
-          uid: note.uid,
-          path: note.path,
+          id: note.id,
           title: note.title,
           content: note.content,
-          noteGroupId: note.noteGroupId,
+          parentId: note.parentId,
         };
 
         return _note;
@@ -45,8 +44,12 @@ const getAllNotes = (
     });
 };
 
-const createNote = (
-  req: Request<{}, {}, Authenticated<NoteCreationAttributes>>,
+const create = (
+  req: Request<
+    NoteCreationRequestParams,
+    {},
+    Authenticated<NoteCreationAttributes>
+  >,
   res: Response<ApiResponse<Note>>
 ) => {
   const note = req.body;
@@ -55,11 +58,9 @@ const createNote = (
     .then((createdNote) => {
       const noteResponse: Note = {
         id: createdNote.id,
-        uid: createdNote.uid,
-        path: createdNote.path,
         title: createdNote.title,
         content: createdNote.content,
-        noteGroupId: createdNote.noteGroupId,
+        parentId: createdNote.parentId,
       };
 
       res.status(201).send({ payload: noteResponse });
@@ -69,46 +70,58 @@ const createNote = (
     });
 };
 
-const deleteNote = (
-  req: Request<NoteUid, {}, Authenticated<{}>>,
-  res: Response<ApiResponse<NoteUid>>
+const deleteOne = (
+  req: Request<NoteCreationRequestParams, {}, Authenticated<{}>>,
+  res: Response<ApiResponse<NoteCreationRequestParams>>
 ) => {
-  const { uid } = req.params;
+  const { parentId, id } = req.params;
   const { userId } = req.body;
 
-  NoteModel.destroy({ where: { uid, userId } }).then((status) => {
-    if (status === 0) res.status(204).send({ error: "Note not found" });
-    res.status(200).send({ payload: { uid } });
-  });
+  NoteModel.destroy({ where: { id, userId } })
+    .then((status) => {
+      if (status === 0)
+        return res.status(204).send({ error: "Note not found" });
+      return res.status(200).send({ payload: { parentId: parentId, id } });
+    })
+    .catch((error) => {
+      res.status(400).send({ error });
+    });
 };
 
-const deleteAllNote = (
-  req: Request<{}, {}, Authenticated<{}>>,
-  res: Response<ApiResponse<Array<NoteUid>>>
+const deleteAll = (
+  req: Request<Pick<Note, "parentId">, {}, Authenticated<{}>>,
+  res: Response<ApiResponse<Array<NoteId>>>
 ) => {
+  console.log("deleteAll");
+  const { parentId } = req.params;
   const { userId } = req.body;
 
-  NoteModel.findAll({ where: { userId } }).then((foundNotes) => {
-    const note_uids = foundNotes.map((note) => {
-      const _note: NoteUid = {
-        uid: note.uid,
-      };
-      return _note;
+  NoteModel.findAll({ where: { parentId, userId } })
+    .then((foundNotes) => {
+      if (foundNotes.length > 0) {
+        const noteIds: Array<NoteId> = foundNotes.map((note) => {
+          return { id: note.id };
+        });
+        NoteModel.destroy({ where: { userId } }).then((status) => {
+          if (status === 0)
+            return res.status(204).send({ error: "Notes not found" });
+          return res.status(200).send({ payload: noteIds });
+        });
+      } else {
+        return res.status(204).send({ error: "Notes not found" });
+      }
+    })
+    .catch(() => {
+      res.status(400).send({ error: `Error when deleting notes in the group` });
     });
-
-    NoteModel.destroy({ where: { userId } }).then((status) => {
-      if (status === 0) res.status(204).send({ error: "Notes not found" });
-      res.status(200).send({ payload: note_uids });
-    });
-  });
 };
 
-// const updateNote = (req: Request, res: Response, next: NextFunction) => {};
+// const update = (req: Request, res: Response, next: NextFunction) => {};
 
 export const noteController = {
-  getAllNotes,
-  createNote,
-  deleteNote,
-  deleteAllNote,
-  // updateNote,
+  getAll,
+  create,
+  deleteOne,
+  deleteAll,
+  // update,
 };

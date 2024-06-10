@@ -10,4 +10,4 @@ export * from "./noteGroup";
 export * from "./note";
 
 // Views
-export * from "./hierarchyTree";
+export * from "./hierarchyView";

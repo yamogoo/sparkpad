@@ -1,31 +1,52 @@
-import type { EncodedNodePath } from "./hierarchyTree";
+import type { HierarchyNodeParentId } from "./hierarchyView";
+import { isNoteIds } from "./note";
 
 export interface NoteGroup {
-  id: number;
-  uid: string;
-  path: EncodedNodePath;
+  id: string;
   title: string;
   description: string;
+  parentId: string | null;
 }
+
+export type NoteGroupParentId = HierarchyNodeParentId;
 
 export type NoteGroupCreation = Pick<
   NoteGroup,
-  "id" | "uid" | "title" | "path" | "description"
+  "id" | "title" | "description" | "parentId"
 >;
 
 export type NoteGroups = Array<NoteGroup>;
 
+export interface NoteGroupDeletedAttributes {
+  groups: Array<{ id: string }>;
+  notes: Array<{ id: string }>;
+}
+
 /* * * Guards * * */
+
+export const isNoteGroupDeletedAttributes = (
+  res: any
+): res is NoteGroupDeletedAttributes => {
+  return (
+    res !== null &&
+    typeof res === "object" &&
+    res.groups !== undefined &&
+    Array.isArray(res.groups) &&
+    // (res.groups.length === 0 || res.groups.every(isNoteGroupIds)) &&
+    res.notes !== undefined &&
+    Array.isArray(res.notes)
+    // (res.notes.length === 0 || res.notes.every(isNoteIds))
+  );
+};
 
 export const isNoteGroup = (noteGroup: any): noteGroup is NoteGroup => {
   return (
     noteGroup !== null &&
     typeof noteGroup === "object" &&
-    typeof noteGroup.id === "number" &&
-    typeof noteGroup.uid === "string" &&
-    typeof noteGroup.path === "string" &&
+    typeof noteGroup.id === "string" &&
     typeof noteGroup.title === "string" &&
-    typeof noteGroup.description === "string"
+    typeof noteGroup.description === "string" &&
+    (noteGroup.parentId === null || typeof noteGroup.parentId === "string")
   );
 };
 
@@ -38,6 +59,17 @@ export const isNoteGroups = (noteGroups: any): noteGroups is NoteGroups => {
   );
 };
 
-export const isNoteGroupUid = (res: any): res is Pick<NoteGroup, "uid"> => {
-  return res !== null && typeof res === "object" && typeof res.uid === "string";
+export const isNoteGroupId = (res: any): res is Pick<NoteGroup, "id"> => {
+  return res !== null && typeof res === "object" && typeof res.id === "string";
+};
+
+export const isNoteGroupIds = (
+  res: any
+): res is Array<Pick<NoteGroup, "id">> => {
+  return (
+    res !== null &&
+    res !== undefined &&
+    Array.isArray(res) &&
+    res.every(isNoteGroupId)
+  );
 };

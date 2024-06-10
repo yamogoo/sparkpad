@@ -69,56 +69,6 @@ export class AuthService {
   public logout(cb: () => void) {
     cb();
   }
-
-  // public async register(credentials: AuthRegisterCredentials) {
-  //   const { login, email, password } = credentials;
-
-  //   const InitRequest = {
-  //     method: api.register.method,
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({
-  //       login,
-  //       email,
-  //       password,
-  //       roles: [UserRoles.USER],
-  //     }),
-  //   };
-
-  //   const res = await fetch(api.register.path(), InitRequest);
-  //   const data = await res.json();
-  //   console.log(data);
-  //   return data;
-  // }
-
-  /* * * Login and save data to local storage * * */
-
-  // public async login(
-  //   credentials: AuthLoginCredentials
-  // ): Promise<AuthorizedUser> {
-  //   const { login, password } = credentials;
-
-  //   const InitRequest = {
-  //     method: api.login.method,
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({
-  //       login,
-  //       password,
-  //     }),
-  //   };
-
-  //   const res = await fetch(api.login.path(), InitRequest);
-
-  //   if (res.status === 400) {
-  //     console.log("error");
-  //   }
-
-  //   const { user }: { user: AuthorizedUser } = await res.json();
-  //   return user;
-  // }
-
-  // public logout(cb: () => void) {
-  //   cb();
-  // }
 }
 
 export const authService = new AuthService();

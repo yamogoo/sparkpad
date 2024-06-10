@@ -1,16 +1,16 @@
 export interface NoteAttributes {
-  id: number;
-  uid: string;
-  path: string;
+  id: string;
   title: string;
   content: string;
-  noteGroupId: number;
+  parentId: string;
   userId: string;
 }
 
 export interface NoteCreationAttributes extends NoteAttributes {}
 
 export type Note = Omit<NoteAttributes, "userId">;
-export type NoteUid = Pick<NoteAttributes, "uid">;
+export type NoteId = Pick<NoteAttributes, "id">;
+
+export type NoteCreationRequestParams = Pick<NoteAttributes, "id" | "parentId">;
 
 export type Notes = Array<Note>;

@@ -1,18 +1,18 @@
-import type { EncodedNodePath, HierarchyNodeTypes } from "./hierarchyTree";
+import type {
+  HierarchyNodeParentId,
+  HierarchyNodeTypes,
+} from "./hierarchyView";
 
 export interface Note {
-  id: number;
-  uid: string;
-  path: EncodedNodePath;
+  id: string;
   title: string;
   content: string;
-  noteGroupId: number;
+  parentId: NoteParentId;
 }
 
-export type NoteCreation = Pick<
-  Note,
-  "id" | "uid" | "title" | "content" | "path" | "noteGroupId"
->;
+export type NoteParentId = HierarchyNodeParentId;
+
+export type NoteCreation = Pick<Note, "id" | "title" | "content" | "parentId">;
 
 export type NoteTypes = HierarchyNodeTypes;
 export type Notes = Array<Note>;
@@ -21,11 +21,10 @@ export const isNote = (note: any): note is Note => {
   return (
     note !== null &&
     typeof note === "object" &&
-    typeof note.id === "number" &&
-    typeof note.uid === "string" &&
-    typeof note.path === "string" &&
+    typeof note.id === "string" &&
     typeof note.title === "string" &&
-    typeof note.content === "string"
+    typeof note.content === "string" &&
+    (note.parentId === null || typeof note.parentId === "string")
   );
 };
 
@@ -38,15 +37,31 @@ export const isNotes = (notes: any): notes is Notes => {
   );
 };
 
-export const isNoteUid = (res: any): res is Pick<Note, "uid"> => {
+export const isNoteId = (res: any): res is Pick<Note, "id"> => {
+  return res !== null && typeof res === "object" && typeof res.id === "string";
+};
+
+export const isNoteParentId = (res: any): res is Pick<Note, "parentId"> => {
   return res !== null && typeof res === "object" && typeof res.uid === "string";
 };
 
-export const isNoteUids = (uids: any): uids is Array<Pick<Note, "uid">> => {
+export const isNoteCreationIds = (
+  res: any
+): res is Pick<Note, "id" | "parentId"> => {
   return (
-    uids !== null &&
-    uids !== undefined &&
-    Array.isArray(uids) &&
-    uids.every(isNoteUid)
+    res !== null &&
+    res !== undefined &&
+    typeof res === "object" &&
+    typeof res.id === "string" &&
+    (res.parentId === null || typeof res.parentId === "string")
+  );
+};
+
+export const isNoteIds = (res: any): res is Array<Pick<Note, "id">> => {
+  return (
+    res !== null &&
+    res !== undefined &&
+    Array.isArray(res) &&
+    res.every(isNoteId)
   );
 };

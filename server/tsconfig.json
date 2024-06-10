@@ -2,6 +2,7 @@
   "extends": "@tsconfig/recommended/tsconfig.json",
   "compilerOptions": {
     "outDir": "./build",
+    "rootDir": "./src",
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
@@ -16,5 +17,6 @@
   "ts-node": {
     "files": true
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/env.d.ts"]
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/env.d.ts"],
+  "exclude": ["node_modules", "dist"]
 }

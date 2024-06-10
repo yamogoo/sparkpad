@@ -34,7 +34,7 @@ class App {
   private setupRouter() {
     this.app.use("/v1", indexRouter);
     this.app.use("/v1/auth", authRouter);
-    this.app.use("/v1/notes", noteRouter);
+    this.app.use("/v1/groups", noteRouter);
   }
 }
 

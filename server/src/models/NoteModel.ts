@@ -3,28 +3,19 @@ import { NoteAttributes, NoteCreationAttributes } from "@/typings";
 import { DataTypes, Model, Sequelize } from "sequelize";
 
 class NoteModel extends Model<NoteAttributes, NoteCreationAttributes> {
-  declare id: number;
-  declare uid: string;
-  declare path: string;
+  declare id: string;
   declare title: string;
   declare content: string;
-  declare noteGroupId: number;
+  declare parentId: string;
   declare userId: string;
 }
 
 export default (sequelize: Sequelize): typeof NoteModel => {
   NoteModel.init(
     {
-      uid: {
+      id: {
         type: DataTypes.STRING,
         primaryKey: true,
-      },
-      id: {
-        type: DataTypes.INTEGER.UNSIGNED,
-        allowNull: false,
-      },
-      path: {
-        type: DataTypes.STRING,
       },
       title: {
         type: DataTypes.STRING,
@@ -32,13 +23,13 @@ export default (sequelize: Sequelize): typeof NoteModel => {
       content: {
         type: DataTypes.STRING,
       },
-      noteGroupId: {
-        type: DataTypes.INTEGER.UNSIGNED,
+      parentId: {
+        type: DataTypes.STRING,
         allowNull: true,
-        // references: {
-        //   model: "note_groups",
-        //   key: "id",
-        // },
+        references: {
+          model: "note_groups",
+          key: "id",
+        },
       },
       userId: {
         type: DataTypes.STRING,

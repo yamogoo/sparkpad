@@ -6,7 +6,7 @@ div.main-viewport__tabbar
     :id="idx"
     :title="tab.title"
     :is-active="idx == sid"
-    @open="onOpen(tab.uid)"
+    @open="onOpen(tab.id)"
     @close="onClose(idx)"
     @update:idx="onUpdateId"
   )
@@ -31,9 +31,9 @@ const notesHistoryStore = useNotesHistoryStore();
 const sid = computed(() => notesHistoryStore.sid);
 const history = computed(() => useNotesHistory());
 
-const onOpen = (uid: string): void => {
-  notesStore.selectCurrentNoteByUID(uid);
-  router.replace({ params: { uid } });
+const onOpen = (id: string): void => {
+  notesStore.selectById(id);
+  router.replace({ params: { id } });
 };
 
 const onClose = (idx: number): void => {
@@ -41,7 +41,6 @@ const onClose = (idx: number): void => {
 };
 
 const onUpdateId = (newIdx: number, oldIdx: number): void => {
-  console.log("update");
   notesHistoryStore.changePosition(newIdx, oldIdx);
 };
 </script>

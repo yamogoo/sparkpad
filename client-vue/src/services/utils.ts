@@ -1,4 +1,4 @@
-import type { ApiResponse, ServiceError } from "@/typings";
+import { ServiceStatuses, type ApiResponse } from "@/typings";
 
 export const isApiResponse = <P>(response: any): response is ApiResponse<P> => {
   return (
@@ -24,7 +24,7 @@ interface FetchDataArgs {
 
 export const fetchData = async (
   opts: FetchDataArgs
-): Promise<ApiResponse<unknown | ServiceError>> => {
+): Promise<ApiResponse<unknown>> => {
   const { headers, method, body, url } = opts;
 
   const DefaultRequest = {
@@ -43,19 +43,22 @@ export const fetchData = async (
     if (!res.ok) {
       const data = await res.json();
       const { error } = data;
-      return { error };
+      return { error, status: ServiceStatuses.ERROR };
     }
 
     const data = await res.json();
 
-    if (!isApiResponse(data)) return { error: "Recieved invalid data" };
+    if (!isApiResponse(data))
+      return { error: "Recieved invalid data", status: ServiceStatuses.ERROR };
 
     const { payload, error } = data;
-    return { payload, error };
+
+    return { payload, error, status: ServiceStatuses.OK };
   } catch (error) {
     return {
       error:
         error instanceof Error ? error.message : "An unknown error occurred",
+      status: ServiceStatuses.ERROR,
     };
   }
 };

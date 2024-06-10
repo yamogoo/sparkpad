@@ -1,6 +1,7 @@
 export enum Symbols {
   CROSS = "CrossIcon",
   ARROW_RIGHT = "ArrorRightIcon",
+  ARROW_BOTTOM = "ArrowBottomIcon",
 
   /* * * Menues * * */
 
