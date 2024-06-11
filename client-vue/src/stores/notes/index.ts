@@ -21,6 +21,13 @@ export const useNotesStore = defineStore("notes", {
     all: (state): Notes => {
       return state._notes;
     },
+
+    getNote: (state) => {
+      return (id: string): Note | undefined => {
+        return state._notes.find((note) => note.id === id);
+      };
+    },
+
     currentNote: (state) => {
       return state._currentNote;
     },
@@ -129,7 +136,6 @@ export const useNotesStore = defineStore("notes", {
     selectById(id: string): void {
       const idx = this._notes.findIndex((el) => el.id === id);
       this._currentNote = this._notes[idx];
-      console.log(this._currentNote);
 
       // this.addHistoryItem(this._currentNote);
 

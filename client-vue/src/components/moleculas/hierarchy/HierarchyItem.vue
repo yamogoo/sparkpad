@@ -225,8 +225,10 @@ $__border-radius: $border-radius;
 
     &__label {
       font-size: 15px;
+      font-weight: 300;
       width: 100%;
       height: 20px;
+      white-space: nowrap;
 
       @include themify($themes) {
         color: themed("text", "primary");

@@ -1,3 +1,5 @@
+import type { ResizableBoundings } from "@/typings";
+
 /* * * App * * */
 
 interface SettingsApp {
@@ -9,7 +11,15 @@ interface SettingsStoreThemes {
   current: string;
 }
 
-/* * * Menu * * */
+/* * * Navigator: Menu * * */
+
+interface SettingsNavigatorMenu {
+  boundings: ResizableBoundings;
+}
+
+interface SettingsNavigator {
+  menu: SettingsNavigatorMenu;
+}
 
 export type SettingsEditorGenerallMenuNotesListModes = "list" | "card";
 interface SettingsEditorGenerallMenuNotesListMode {
@@ -55,6 +65,7 @@ interface SettingsEditor {
 }
 
 export interface SettingsStoreState {
-  editor: SettingsEditor;
   app: SettingsApp;
+  navigator: SettingsNavigator;
+  editor: SettingsEditor;
 }

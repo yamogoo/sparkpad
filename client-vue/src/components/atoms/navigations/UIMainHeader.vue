@@ -25,7 +25,7 @@ $main-header: (
   height: (
     sm: 44px,
     md: 64px,
-    lg: 64px,
+    lg: 88px,
   ),
 );
 

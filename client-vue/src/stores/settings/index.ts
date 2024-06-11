@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 
 import type { SettingsStoreState } from "./types";
+import type { ResizableBoundings } from "@/typings";
 
 export enum Themes {
   DARK = "dark",
@@ -17,6 +18,15 @@ export const useSettingsStore = defineStore("settings", {
       themes: {
         themes: [Themes.LIGHT, Themes.DARK],
         current: defaults.theme,
+      },
+    },
+    navigator: {
+      menu: {
+        boundings: {
+          width: 420,
+          minWidth: 240,
+          maxWidth: 540,
+        },
       },
     },
     editor: {
@@ -49,6 +59,16 @@ export const useSettingsStore = defineStore("settings", {
         (el) => el === this.app.themes.current
       );
       return { theme: state.app.themes.current, id };
+    },
+
+    /* * * Navigator * * */
+
+    navigatorMenuWidth: (state): number => {
+      return state.navigator.menu.boundings.width;
+    },
+
+    navigatorMenuBoundings: (state): ResizableBoundings => {
+      return state.navigator.menu.boundings;
     },
 
     /* * * Menu * * */
@@ -92,32 +112,34 @@ export const useSettingsStore = defineStore("settings", {
       localStorage.setItem("theme", theme);
     },
 
+    /* * * Navigator * * */
+
+    setNavigatorMenuWidth(width: number): void {
+      this.navigator.menu.boundings.width = width;
+    },
+
     /* * * Menu * * */
-    // ++
+
     seiIsPlacedNoteNextDuringCreation(state: boolean): void {
       this.editor.general.menu.isPlacedNoteNextDuringCreation = state;
     },
 
-    // ++
     setIsFocusedOnFirstNoteOnStart(state: boolean): void {
       this.editor.general.menu.isFocusedOnFirstNoteOnStart = state;
     },
 
     /* * * Tabbar * * */
 
-    // --
     setIsFocusedOnNewTab(state: boolean): void {
       this.editor.general.tabbar.isFocusedOnNewTab = state;
     },
 
     /* * * Editor * * */
 
-    // --
     setEditorGeneralContentMode(mode: any): void {
       this.editor.general.content.mode = mode;
     },
 
-    // --
     setEditorGeneralContentFontSize(size: number): void {
       this.editor.general.content.font.size = size;
     },

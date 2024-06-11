@@ -1,17 +1,13 @@
 <template lang="pug">
 div.main-viewport
   UIMainViewportTabbar
-  //- div.main-viewport__tools
-  //-   UIMainMenu
   div.main-viewport__content
-    RouterView
+    UIMDXEditor
 </template>
 
 <script setup lang="ts">
-import { RouterView } from "vue-router";
-
 import UIMainViewportTabbar from "./tabbar/UIMainViewportTabbar.vue";
-// import UIEditorMenu from "./tabbar/content-menu/UIEditorMenu.vue";
+import UIMDXEditor from "@/components/moleculas/mdxEditor/UIMDXEditor.vue";
 </script>
 
 <style lang="scss">
@@ -22,12 +18,6 @@ import UIMainViewportTabbar from "./tabbar/UIMainViewportTabbar.vue";
 
   &-tabbar {
     flex-grow: 1;
-  }
-
-  &__tools {
-    .editor-menu {
-      min-height: 44px;
-    }
   }
 
   &__content {

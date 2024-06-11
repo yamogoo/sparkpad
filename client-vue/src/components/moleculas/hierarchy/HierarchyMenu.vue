@@ -1,21 +1,21 @@
 <template lang="pug">
 ul.hierarchy-menu__body(
-    data-testid="notes-list"
+  data-testid="notes-list"
 )
-    HierarchyItem.hierarchy-menu__item(
-        v-for="item, idx in notesTree"
-        :key="idx"
-        :idx
-        :id="item.id"
-        :parentId="item.parentId"
-        :sid
-        :label="item.title"
-        :type="HierarchyView.getNodeType(item)"
-        :children="item.children"
-        @update="onUpdate"
-        @select="onSelect"
-        @delete="onDelete"
-    )
+  HierarchyItem.hierarchy-menu__item(
+    v-for="item, idx in notesTree"
+    :key="idx"
+    :idx
+    :id="item.id"
+    :parentId="item.parentId"
+    :sid
+    :label="item.title"
+    :type="HierarchyView.getNodeType(item)"
+    :children="item.children"
+    @update="onUpdate"
+    @select="onSelect"
+    @delete="onDelete"
+  )
 </template>
 
 <script setup lang="ts">
@@ -30,6 +30,9 @@ import { HierarchyView } from "@/composables/useHierarchyView";
 import HierarchyItem, {
   type NodeEmittedData,
 } from "@/components/moleculas/hierarchy/HierarchyItem.vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 /* * * Stores * * */
 
@@ -54,6 +57,8 @@ const onSelect = ({ id, parentId, type }: NodeEmittedData): void => {
     sid.value = id;
     notesStore.selectById(id);
     if (parentId) groupsStore.selectById(parentId);
+
+    router.push({ params: { noteId: id.toString() } });
   }
 };
 

@@ -24,4 +24,16 @@ export enum Symbols {
 
   LOGO_WITH_DESCRIPTOR_SM = "LogoWithDescriptorSMIcon",
   LOGO_WITH_DESCRIPTOR_LG = "LogoWithDescriptorLGIcon",
+
+  /* * * Editor * * */
+
+  EDITOR_RENDO_BUTTON = "EditorRendoIcon",
+  EDITOR_UNDO_BUTTON = "EditorUndoIcon",
+
+  EDITOR_STYLE_BOLD = "EditorBoldIcon",
+  EDITOR_STYLE_ITALIC = "EditorItalicIcon",
+  EDITOR_STYLE_UNDERLINE = "EditorUnderlineIcon",
+
+  EDITOR_FORMAT_CODE = "EditorInlineCodeFormatIcon",
+  EDITOR_FORMAT_LIST = "EditorListFormatIcon",
 }

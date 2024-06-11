@@ -22,28 +22,30 @@ export interface Props {
   maxWidth: number;
 }
 
-withDefaults(defineProps<Props>(), {
-  width: 320,
+const props = withDefaults(defineProps<Props>(), {
+  initWidth: 320,
   minWidth: 0,
   maxWidth: 480,
 });
 
+const emits = defineEmits<{
+  (e: "update:width", width: number): void;
+}>();
+
 const refRoot = ref<HTMLDivElement | null>(null);
 const refPane = ref<HTMLDivElement | null>(null);
 
-const isEnter = ref(false);
 const isSplitterShown = ref(false);
 
 onMounted(() => {
   if (refPane.value) {
-    refPane.value.addEventListener(
-      "mouseenter",
-      handleMouseEnter.bind(null, true)
-    );
+    refPane.value.addEventListener("mouseenter", onMouseEnter.bind(null, true));
     refPane.value.addEventListener(
       "mouseleave",
-      handleMouseEnter.bind(null, false)
+      onMouseEnter.bind(null, false)
     );
+
+    refPane.value.addEventListener("pointerdown", onDragStart);
   }
 });
 
@@ -51,18 +53,56 @@ onUnmounted(() => {
   if (refPane.value) {
     refPane.value.removeEventListener(
       "mouseenter",
-      handleMouseEnter.bind(null, true)
+      onMouseEnter.bind(null, true)
     );
     refPane.value.removeEventListener(
       "mouseleave",
-      handleMouseEnter.bind(null, false)
+      onMouseEnter.bind(null, false)
     );
+
+    refPane.value.removeEventListener("pointerdown", onDragStart);
   }
 });
 
-const handleMouseEnter = (state: boolean): void => {
-  isEnter.value = state;
-  isSplitterShown.value = state;
+const onMouseEnter = (state: boolean): void => {
+  if (!(state === false && isResizing)) {
+    isSplitterShown.value = state;
+  }
+};
+
+let isResizing = false;
+let currentPosX = 0;
+let width = props.width;
+
+const onDragStart = (e: PointerEvent): void => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  isResizing = true;
+  onMouseEnter(true);
+
+  const onDragMove = (e: PointerEvent): void => {
+    if (isResizing && refRoot.value) {
+      const rootBoundings = refRoot.value.getBoundingClientRect();
+
+      currentPosX = e.clientX;
+      width = currentPosX - rootBoundings.left;
+
+      if (width > props.minWidth && width < props.maxWidth) {
+        // refRoot.value.style.width = `${width}px`;
+        // refRoot.value.style.minWidth = `${width}px`;
+        emits("update:width", width);
+      }
+    }
+  };
+
+  const onDragEnd = (e: PointerEvent): void => {
+    isResizing = false;
+    onMouseEnter(false);
+  };
+
+  document.addEventListener("pointermove", onDragMove);
+  document.addEventListener("pointerup", onDragEnd);
 };
 
 defineExpose({ refRoot });
@@ -85,8 +125,9 @@ $__pressed-color: rgba(54, 85, 225, 0.443);
   }
 
   &__pane {
-    position: relative;
+    position: absolute;
     display: block;
+    right: 0;
     width: 1px;
     height: 100%;
     z-index: 1;

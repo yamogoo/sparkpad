@@ -3,6 +3,7 @@ import { useAuthStore } from "@/stores/auth";
 
 export enum PrivateRoutes {
   EDITOR = `/editor`,
+  EDITOR_NOTES = `/editor/:noteId(.*)*`,
 }
 
 export enum PublicRoutes {
@@ -61,6 +62,12 @@ export const routes = [
   {
     path: PrivateRoutes.EDITOR,
     component: () => import("@/layouts/private/UIPrivateLayout.vue"),
+    children: [
+      {
+        path: PrivateRoutes.EDITOR_NOTES,
+        component: () => import("@/pages/private/UINotePage.vue"),
+      },
+    ],
   },
 ];
 

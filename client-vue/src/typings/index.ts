@@ -11,3 +11,5 @@ export * from "./note";
 
 // Views
 export * from "./hierarchyView";
+
+export * from "./boundings";

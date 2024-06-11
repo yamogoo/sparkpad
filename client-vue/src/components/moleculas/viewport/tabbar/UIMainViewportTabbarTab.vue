@@ -71,7 +71,7 @@ const onDragStart = (e: PointerEvent): void => {
 
   const width = el.clientWidth;
 
-  const onMove = (e: PointerEvent): void => {
+  const onDragMove = (e: PointerEvent): void => {
     if (el) {
       currentPosX = e.clientX;
       const deltaPosX = currentPosX - startPosX;
@@ -98,14 +98,12 @@ const onDragStart = (e: PointerEvent): void => {
       });
     }
 
-    el.removeEventListener("pointermove", onMove);
-    el.removeEventListener("pointerup", onDragEnd);
-    el.removeEventListener("pointerleave", onDragEnd);
+    document.removeEventListener("pointermove", onDragMove);
+    document.removeEventListener("pointerup", onDragEnd);
   };
 
-  el.addEventListener("pointermove", onMove);
-  el.addEventListener("pointerup", onDragEnd);
-  el.addEventListener("pointerleave", onDragEnd);
+  document.addEventListener("pointermove", onDragMove);
+  document.addEventListener("pointerup", onDragEnd);
 };
 </script>
 
@@ -134,6 +132,7 @@ const onDragStart = (e: PointerEvent): void => {
 
   &__label {
     font-size: 13px;
+    font-weight: 300;
     color: inherit;
     opacity: 0.75;
     white-space: nowrap;

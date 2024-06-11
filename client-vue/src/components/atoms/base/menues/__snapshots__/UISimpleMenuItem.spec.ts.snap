@@ -1,0 +1,40 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`UISimpleMenuItem > should emit "open" event 1`] = `
+[
+  [
+    0,
+  ],
+]
+`;
+
+exports[`UISimpleMenuItem > should have the 'active' class 1`] = `
+[
+  "simple-menu__item",
+  "active",
+]
+`;
+
+exports[`UISimpleMenuItem > should not have an 'active' class 1`] = `false`;
+
+exports[`UISimpleMenuItem > should render chevron icon 1`] = `
+DOMWrapper {
+  "isDisabled": [Function],
+  "wrapperElement": <svg
+    fill="inherit"
+    height="16"
+    viewBox="0 0 8 14"
+    width="16"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M6.14645 7.10355L0.500001 12.75L1.20711 13.4571L7.56066 7.10355L1.20711 0.75L0.5 1.45711L6.14645 7.10355Z"
+      fill="inherit"
+    />
+  </svg>,
+}
+`;
+
+exports[`UISimpleMenuItem > should render slot ($s) 1`] = `"<p data-testid="slot">Slot Content</p>"`;
+
+exports[`UISimpleMenuItem > should render slot (<p data-testid="slot">Slot Content</p>) 1`] = `"<p data-testid="slot">Slot Content</p>"`;

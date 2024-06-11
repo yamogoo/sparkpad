@@ -2,9 +2,10 @@
 div.main-layout
   div.main-layout__menu-view
     UIExpandableBox(
-      :width="420"
-      :min-width="240"
-      :max-width="640"
+      :width="menuBoundings.width"
+      :min-width="menuBoundings.minWidth"
+      :max-width="menuBoundings.maxWidth"
+      @update:width="onUpdateMenuWidth"
     )
       div.main-layout__menu-view--container
         UIMainHeader
@@ -15,11 +16,23 @@ div.main-layout
 </template>
 
 <script setup lang="ts">
+import { computed } from "vue";
+import { useSettingsStore } from "@/stores/settings";
+
 import UIMainHeader from "@/components/atoms/navigations/UIMainHeader.vue";
-// import UIMainFooter from "@/components/atoms/navigations/UIMainFooter.vue";
 import UIExpandableBox from "@/components/atoms/base/boundings/UIResizableBox.vue";
 import UIMainSidebar from "@/components/atoms/menues/UIMainSidebar.vue";
 import UIMainViewport from "@/components/moleculas/viewport/UIMainViewport.vue";
+
+// import UIMainFooter from "@/components/atoms/navigations/UIMainFooter.vue";
+
+const settingsStore = useSettingsStore();
+
+const menuBoundings = computed(() => settingsStore.navigatorMenuBoundings);
+
+const onUpdateMenuWidth = (width: number): void => {
+  settingsStore.setNavigatorMenuWidth(width);
+};
 </script>
 
 <style lang="scss">
@@ -28,8 +41,8 @@ $__border-radius: $border-radius;
 
 .main-layout {
   position: relative;
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: auto 1fr;
   gap: 0px;
   @include box(100%);
 

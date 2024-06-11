@@ -1,8 +1,9 @@
 import { mount } from "@vue/test-utils";
 import { describe, expect, test } from "vitest";
 
-import UIResizableBox from "./UIResizableBox.vue";
 import { nextTick } from "vue";
+
+import UIResizableBox from "./UIResizableBox.vue";
 
 const TRIGGERS_DATA: [string, boolean][] = [
   ["show", true],

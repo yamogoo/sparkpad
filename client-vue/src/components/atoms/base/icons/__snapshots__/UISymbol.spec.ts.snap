@@ -35,6 +35,20 @@ exports[`UISymbol > should render BinIcon icon from "Symbols" data set 1`] = `tr
 
 exports[`UISymbol > should render CrossIcon icon from "Symbols" data set 1`] = `true`;
 
+exports[`UISymbol > should render EditorBoldIcon icon from "Symbols" data set 1`] = `true`;
+
+exports[`UISymbol > should render EditorInlineCodeFormatIcon icon from "Symbols" data set 1`] = `true`;
+
+exports[`UISymbol > should render EditorItalicIcon icon from "Symbols" data set 1`] = `true`;
+
+exports[`UISymbol > should render EditorListFormatIcon icon from "Symbols" data set 1`] = `true`;
+
+exports[`UISymbol > should render EditorRendoIcon icon from "Symbols" data set 1`] = `true`;
+
+exports[`UISymbol > should render EditorUnderlineIcon icon from "Symbols" data set 1`] = `true`;
+
+exports[`UISymbol > should render EditorUndoIcon icon from "Symbols" data set 1`] = `true`;
+
 exports[`UISymbol > should render LogoWithDescriptorLGIcon icon from "Symbols" data set 1`] = `true`;
 
 exports[`UISymbol > should render LogoWithDescriptorSMIcon icon from "Symbols" data set 1`] = `true`;
