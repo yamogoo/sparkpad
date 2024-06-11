@@ -1,6 +1,6 @@
 <template lang="pug">
 li.hierarchy-item(
-  :class="[{'focused': isFocused, 'active': id === sid && !isEditMode, 'edit': isEditMode}]"
+  :class="[{'focused': isFocused, 'active': isActive && !isEditMode, 'edit': isEditMode}]"
 )
   div.hierarchy-item__body(
     ref="refBody"
@@ -44,7 +44,8 @@ li.hierarchy-item(
         :idx
         :id="item.id"
         :parentId="item.parentId"
-        :sid
+        :dirSid
+        :fileSid
         :type="HierarchyView.getNodeType(item)"
         :label="item.title"
         :children="item.children"
@@ -55,7 +56,7 @@ li.hierarchy-item(
 </template>
 
 <script setup lang="ts">
-import { nextTick, onMounted, ref, watch } from "vue";
+import { computed, nextTick, onMounted, ref, watch } from "vue";
 import g from "gsap";
 
 import {
@@ -79,7 +80,8 @@ interface Props {
   idx: number;
   id: string;
   parentId: HierarchyNodeParentId;
-  sid: HierarchyNodeSid;
+  fileSid: HierarchyNodeSid;
+  dirSid: HierarchyNodeSid;
   label: string;
   type: HierarchyNodeTypes;
   children?: Array<HierarchyNode>;
@@ -101,10 +103,21 @@ const refBody = ref<HTMLDivElement | null>(null);
 const refIcon = ref<HTMLDivElement | null>(null);
 const refInput = ref<BaseInputComponent>();
 
-const isActive = ref(false);
 const isFocused = ref(false);
 const isExpaned = ref(true);
 const isEditMode = ref(false);
+
+const isActive = computed({
+  get() {
+    return (
+      (props.type === HierarchyNodeTypes.DIR && props.id === props.dirSid) ||
+      (props.type === HierarchyNodeTypes.FILE && props.id === props.fileSid)
+    );
+  },
+  set(state) {
+    return state;
+  },
+});
 
 onMounted(() => {
   if (refBody.value) {
@@ -170,14 +183,17 @@ useClickOutside(refBody, () => {
   isEditMode.value = false;
 });
 
+/**
+ * @description Depending on the entity type, sets a specific SID
+ */
 watch(
-  () => props.sid,
+  () => [props.dirSid, props.fileSid],
   () => {
-    if (props.sid !== props.id) {
+    if (props.dirSid !== props.id || props.fileSid !== props.id) {
       isEditMode.value = false;
     }
 
-    isActive.value = props.sid === props.id;
+    isActive.value = props.dirSid === props.id || props.fileSid === props.id;
   }
 );
 

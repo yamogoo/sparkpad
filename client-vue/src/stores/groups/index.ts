@@ -33,6 +33,9 @@ export const useNoteGroupsStore = defineStore("note-groups", {
     },
   },
   actions: {
+    /**
+     * @description Queries all groups of user
+     */
     async fetchAll() {
       const res = await noteGroupService.getAll();
       const { payload, error } = res;
@@ -52,6 +55,10 @@ export const useNoteGroupsStore = defineStore("note-groups", {
       return this._groups;
     },
 
+    /**
+     * @description Delete all groups by provided map.
+     * Can remove elements that are children of different root groups
+     */
     deleteAllByMap(map: Array<{ id: string }>): void {
       console.log(map);
       map.forEach((deletedId) => {

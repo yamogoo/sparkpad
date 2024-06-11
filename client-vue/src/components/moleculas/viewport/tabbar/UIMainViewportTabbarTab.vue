@@ -1,7 +1,6 @@
 <template lang="pug">
 div.main-viewport__tabbar-tab(
   ref="refRoot"
-  @click="onClick"
   :class="[{'active': isActive}]"
 )
   div.main-viewport__tabbar-tab--container
@@ -36,12 +35,6 @@ const emits = defineEmits<{
   (e: "close", id: number): void;
   (e: "update:idx", newIdx: number, oldIdx: number): void;
 }>();
-
-const onClick = (e: MouseEvent): void => {
-  e.preventDefault();
-  e.stopPropagation();
-  emits("open", props.id);
-};
 
 const onClose = (e: MouseEvent): void => {
   e.preventDefault();

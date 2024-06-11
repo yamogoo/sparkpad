@@ -41,8 +41,8 @@ $__border-radius: $border-radius;
 
 .main-layout {
   position: relative;
-  display: grid;
-  grid-template-columns: auto 1fr;
+  display: flex;
+  flex-direction: row;
   gap: 0px;
   @include box(100%);
 

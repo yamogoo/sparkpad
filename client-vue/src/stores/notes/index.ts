@@ -4,6 +4,7 @@ import type { Notes, Note, NoteCreation, NoteParentId } from "@/typings";
 
 import { notesService } from "@/services/notes/notesService";
 import { useNotesHistoryStore } from "../notesHistory";
+import { useNoteGroupsStore } from "../groups";
 
 interface NotestStoreState {
   _notes: Array<Note>;
@@ -16,37 +17,55 @@ export const useNotesStore = defineStore("notes", {
     _currentNote: null,
   }),
   getters: {
-    /* * * Client * * */
-
+    /**
+     * @description Returns all notes
+     */
     all: (state): Notes => {
       return state._notes;
     },
 
+    /**
+     * @description Returns one note based on the provided id
+     */
     getNote: (state) => {
       return (id: string): Note | undefined => {
         return state._notes.find((note) => note.id === id);
       };
     },
 
-    currentNote: (state) => {
-      return state._currentNote;
-    },
-
+    /**
+     * @description Selected ID
+     */
     sid: (state): string | null => {
       return state._currentNote?.id ?? null;
     },
+
+    /**
+     * @description Selected Index
+     */
     sidx: (state) => {
       const id = state._currentNote?.id;
       return state._notes.findIndex((note) => note.id === id);
     },
 
-    currentNoteUID: (state) => state._currentNote?.id,
+    /**
+     * @description Returns the current note
+     */
+    currentNote: (state) => {
+      return state._currentNote;
+    },
 
-    lastNoteId: (state) => state._notes.length - 1,
+    lastId: (state) => state._notes.length - 1,
 
+    /**
+     * @description Size of notes
+     */
     notesLength: (state) => state._notes.length,
   },
   actions: {
+    /**
+     * @description Queries all notes of user
+     */
     async fetchAll() {
       const res = await notesService.getAll();
       const { payload, error } = res;
@@ -65,15 +84,20 @@ export const useNotesStore = defineStore("notes", {
       return this._notes;
     },
 
+    /**
+     * @description Creates an element and adds (if it does not exist)
+     * a new element to the history
+     */
     async create(note: NoteCreation) {
       const res = await notesService.create(note);
       const { payload, error } = res;
 
       if (error) throw Error(error);
       else if (payload && !error) {
-        console.log(payload);
-        this._notes.push(note);
-        this.addHistoryItem(note);
+        // console.log(payload);
+        this._notes.push(payload);
+        this.selectById(payload.id);
+        this.addHistoryItem(payload);
       }
 
       // SETTINGS: Selecting new node
@@ -88,6 +112,9 @@ export const useNotesStore = defineStore("notes", {
       /* * * Post Sync with DataBase * * */
     },
 
+    /**
+     * @description Delete note by id and parentId
+     */
     async deleteById(parentId: string | null, id: string) {
       if (this.notesLength <= 0) return;
 
@@ -100,12 +127,12 @@ export const useNotesStore = defineStore("notes", {
 
         const idx = this._notes.findIndex((note) => note.id === id);
         this._notes.splice(idx, 1);
-
-        const historyStore = useNotesHistoryStore();
-        historyStore.remove(idx);
       }
     },
 
+    /**
+     * @description Delete all notes in the group (by parentId)
+     */
     async deleteAll(parentId: NoteParentId) {
       const res = await notesService.deleteAll(parentId);
       const { payload, error } = res;
@@ -123,6 +150,10 @@ export const useNotesStore = defineStore("notes", {
       }
     },
 
+    /**
+     * @description Delete all notes by provided map.
+     * Can remove elements that are children of different root groups
+     */
     deleteAllByMap(map: Array<{ id: string }>): void {
       console.log(map);
       map.forEach((deletedId) => {
@@ -131,16 +162,17 @@ export const useNotesStore = defineStore("notes", {
       });
     },
 
-    /* * * Client * * */
-
+    /**
+     * @description Sets the current note and parent group
+     */
     selectById(id: string): void {
       const idx = this._notes.findIndex((el) => el.id === id);
       this._currentNote = this._notes[idx];
 
-      // this.addHistoryItem(this._currentNote);
+      const groupsStore = useNoteGroupsStore();
 
-      const historyStore = useNotesHistoryStore();
-      historyStore.add(id);
+      const parentId = this.currentNote?.parentId ?? null;
+      groupsStore.selectById(parentId);
     },
 
     /* * * History * * */

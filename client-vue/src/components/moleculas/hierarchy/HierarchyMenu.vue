@@ -8,7 +8,8 @@ ul.hierarchy-menu__body(
     :idx
     :id="item.id"
     :parentId="item.parentId"
-    :sid
+    :dir-sid="groupSid"
+    :file-sid="noteSid"
     :label="item.title"
     :type="HierarchyView.getNodeType(item)"
     :children="item.children"
@@ -19,18 +20,19 @@ ul.hierarchy-menu__body(
 </template>
 
 <script setup lang="ts">
-import { computed, type Ref, ref } from "vue";
+import { computed } from "vue";
+import { useRouter } from "vue-router";
 
 import { useNotesStore } from "@/stores/notes";
 import { useNoteGroupsStore } from "@/stores/groups";
+import { useNotesHistoryStore } from "@/stores/notesHistory";
 
-import { HierarchyNodeTypes, type HierarchyNodeSid } from "@/typings";
+import { HierarchyNodeTypes } from "@/typings";
 import { HierarchyView } from "@/composables/useHierarchyView";
 
 import HierarchyItem, {
   type NodeEmittedData,
 } from "@/components/moleculas/hierarchy/HierarchyItem.vue";
-import { useRouter } from "vue-router";
 
 const router = useRouter();
 
@@ -38,36 +40,45 @@ const router = useRouter();
 
 const groupsStore = useNoteGroupsStore();
 const notesStore = useNotesStore();
+const historyStore = useNotesHistoryStore();
 
-/* * * Notes * * */
+const groupSid = computed(() => groupsStore.sid ?? null);
+const noteSid = computed(() => notesStore.sid);
 
-const sid: Ref<HierarchyNodeSid> = ref(null);
-
+/**
+ * @description Formation of a tree of nodes
+ */
 const notesTree = computed(() => {
   return HierarchyView.createTree(groupsStore.all, notesStore.all);
 });
 
 /* * * Handlers * * */
 
+/**
+ * @description Depending on the entity type, sets a specific sid
+ */
 const onSelect = ({ id, parentId, type }: NodeEmittedData): void => {
   if (type === HierarchyNodeTypes.DIR) {
-    sid.value = id;
     groupsStore.selectById(id);
   } else if (type === HierarchyNodeTypes.FILE) {
-    sid.value = id;
     notesStore.selectById(id);
-    if (parentId) groupsStore.selectById(parentId);
+    historyStore.add(id);
+    groupsStore.selectById(parentId);
 
     router.push({ params: { noteId: id.toString() } });
   }
 };
 
+/**
+ * @description Deletes a note or group depending on the object type.
+ */
 const onDelete = ({ id, parentId, type }: NodeEmittedData): void => {
   if (type === HierarchyNodeTypes.DIR) {
     groupsStore.deleteById(id);
     groupsStore.selectById(parentId);
   } else if (type === HierarchyNodeTypes.FILE) {
     notesStore.deleteById(parentId, id);
+    historyStore.deleteById(id);
   }
 };
 

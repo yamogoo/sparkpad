@@ -33,11 +33,16 @@ const history = computed(() => useNotesHistory());
 
 const onOpen = (id: string): void => {
   notesStore.selectById(id);
-  router.replace({ params: { id } });
+  notesHistoryStore.setSidByKey(id);
+
+  router.push({ params: { noteId: id.toString() } });
 };
 
 const onClose = (idx: number): void => {
-  notesHistoryStore.remove(idx);
+  notesHistoryStore.deleteByIdx(idx);
+  const newIdx = notesHistoryStore.sid;
+  const newId = notesHistoryStore.getItemByIdx(newIdx ?? 0);
+  notesStore.selectById(newId ?? "");
 };
 
 const onUpdateId = (newIdx: number, oldIdx: number): void => {

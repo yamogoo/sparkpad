@@ -59,7 +59,6 @@ Transition(
               for="login"
               @press="onSubmit"
             )
-        //- UILoginSocial
 </template>
 
 <script setup lang="ts">
@@ -85,8 +84,6 @@ import UIInput from "@/components/atoms/base/inputs/UIInput.vue";
 import UIButton from "@/components/atoms/base/buttons/UIButton.vue";
 import UICheckbox from "@/components/atoms/base/switches/UICheckbox.vue";
 import UILink from "@/components/atoms/base/links/UILink.vue";
-
-// import UILoginSocial from "./UILoginSocial.vue";
 
 enum ErrorMessages {
   PASSWORD_NOT_VERIFIED = "pasword must be more than 8 characters",
