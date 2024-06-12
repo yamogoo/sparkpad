@@ -20,13 +20,18 @@ export const useSettingsStore = defineStore("settings", {
         current: defaults.theme,
       },
     },
+    mainMenu: {
+      isMinimized: false,
+    },
     navigator: {
-      menu: {
-        boundings: {
-          width: 420,
-          minWidth: 240,
-          maxWidth: 540,
-        },
+      show: true,
+      boundings: {
+        width: 420,
+        minWidth: 240,
+        maxWidth: 540,
+      },
+      hierarchyMenu: {
+        isScrollToNoteEnabled: true,
       },
     },
     editor: {
@@ -54,49 +59,72 @@ export const useSettingsStore = defineStore("settings", {
     },
   }),
   getters: {
-    getTheme(state): { theme: string; id: number } {
+    /**
+     * @description The current theme of the app
+     */
+    appTheme(state): { theme: string; id: number } {
       const id = this.app.themes.themes.findIndex(
         (el) => el === this.app.themes.current
       );
       return { theme: state.app.themes.current, id };
     },
 
+    /* * * Main Menu * * */
+
+    /**
+     * @description Main sidebar view state
+     */
+    isMainMenuMinimized: (state) => {
+      return state.mainMenu.isMinimized;
+    },
+
     /* * * Navigator * * */
 
-    navigatorMenuWidth: (state): number => {
-      return state.navigator.menu.boundings.width;
+    /**
+     * @description Current navigator window width
+     */
+    navigatorWidth: (state): number => {
+      console.log("get width: ", state.navigator.boundings.width);
+      return state.navigator.boundings.width;
     },
 
-    navigatorMenuBoundings: (state): ResizableBoundings => {
-      return state.navigator.menu.boundings;
+    isHierarchyScrollToNoteEnabled: (state): boolean => {
+      return state.navigator.hierarchyMenu.isScrollToNoteEnabled;
     },
 
-    /* * * Menu * * */
+    /**
+     * @description Current navigator window rect boundings
+     */
+    navigatorBoundings: (state): ResizableBoundings => {
+      return state.navigator.boundings;
+    },
 
-    getIsPlacedNoteNextDuringCreation: (state): boolean => {
+    /* * * Modal Menu * * */
+
+    IsPlacedNoteNextDuringCreation: (state): boolean => {
       return state.editor.general.menu.isPlacedNoteNextDuringCreation;
     },
 
-    getIsFocusedOnFirstNoteOnStart: (state): boolean => {
+    isFocusedOnFirstNoteOnStart: (state): boolean => {
       return state.editor.general.menu.isFocusedOnFirstNoteOnStart;
     },
 
-    getIsNoteListMode: (state): boolean => {
+    isNoteListMode: (state): boolean => {
       const mode = state.editor.general.menu.notesListMode.mode;
       return mode === "list";
     },
 
     /* * * Tabbar * * */
 
-    getMaxOpenedTabs: (state): number => {
+    maxOpenedTabs: (state): number => {
       return state.editor.general.tabbar.maxOpenedTabs;
     },
 
-    getIsFocusedOnNewTab: (state): boolean => {
+    isFocusedOnNewTab: (state): boolean => {
       return state.editor.general.tabbar.isFocusedOnNewTab;
     },
 
-    getContentFontSizeSid: (state) => {
+    contentFontSizeSid: (state) => {
       const sizes = state.editor.general.content.font.sizes;
       const size = state.editor.general.content.font.size;
 
@@ -106,32 +134,51 @@ export const useSettingsStore = defineStore("settings", {
   actions: {
     /* * * App * * */
 
-    setTheme(state: boolean): void {
+    /**
+     * @description Set the app theme
+     */
+    setAppTheme(state: boolean): void {
       const theme = this.app.themes.themes[Number(state)];
       this.app.themes.current = theme;
       localStorage.setItem("theme", theme);
     },
 
+    /* * * Main Menu * * */
+
+    /**
+     * @description Set main sidebar view state
+     */
+    setIsMainMenuMinimized(isMinimized: boolean): boolean {
+      console.log(isMinimized);
+      this.mainMenu.isMinimized = isMinimized;
+      return this.mainMenu.isMinimized;
+    },
+
     /* * * Navigator * * */
 
-    setNavigatorMenuWidth(width: number): void {
-      this.navigator.menu.boundings.width = width;
+    setNavigatorWidth(width: number): void {
+      console.log("store width: ", width);
+      this.navigator.boundings.width = width;
+    },
+
+    setIsHierarchyScrollToNoteEnabled(isEnabled: boolean): void {
+      this.navigator.hierarchyMenu.isScrollToNoteEnabled = isEnabled;
     },
 
     /* * * Menu * * */
 
-    seiIsPlacedNoteNextDuringCreation(state: boolean): void {
-      this.editor.general.menu.isPlacedNoteNextDuringCreation = state;
+    seiIsPlacedNoteNextDuringCreation(isEnabled: boolean): void {
+      this.editor.general.menu.isPlacedNoteNextDuringCreation = isEnabled;
     },
 
-    setIsFocusedOnFirstNoteOnStart(state: boolean): void {
-      this.editor.general.menu.isFocusedOnFirstNoteOnStart = state;
+    setIsFocusedOnFirstNoteOnStart(isEnabled: boolean): void {
+      this.editor.general.menu.isFocusedOnFirstNoteOnStart = isEnabled;
     },
 
     /* * * Tabbar * * */
 
-    setIsFocusedOnNewTab(state: boolean): void {
-      this.editor.general.tabbar.isFocusedOnNewTab = state;
+    setIsFocusedOnNewTab(isEnabled: boolean): void {
+      this.editor.general.tabbar.isFocusedOnNewTab = isEnabled;
     },
 
     /* * * Editor * * */

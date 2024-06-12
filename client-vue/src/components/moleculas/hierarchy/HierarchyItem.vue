@@ -1,6 +1,6 @@
 <template lang="pug">
 li.hierarchy-item(
-  :class="[{'focused': isFocused, 'active': isActive && !isEditMode, 'edit': isEditMode}]"
+  :class="[{'focused': isFocused, 'active': isActive && !isEditMode, 'edit': isEditMode, 'file': type === HierarchyNodeTypes.FILE}]"
 )
   div.hierarchy-item__body(
     ref="refBody"

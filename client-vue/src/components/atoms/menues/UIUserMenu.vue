@@ -7,7 +7,7 @@ div.user-menu(
       data-testid="menu-button"
       :icon-name="Symbols.MENU"
       aria-label="toggle navigator"
-      @click="onToggleMenu"
+      @click="onMinimize"
     )
     div.user-menu__footer
       UIModalView(
@@ -32,23 +32,29 @@ div.user-menu(
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import {
   Routes,
   useSettingsRouter,
 } from "@/components/moleculas/modals/settings/settingsRouter";
 
-import { Symbols } from "@/components/atoms/base/icons/UIIcon.vue";
+import { useSettingsStore } from "~/src/stores/settings";
 
+import { Symbols } from "@/components/atoms/base/icons/UIIcon.vue";
 import UIModalView from "@/components/atoms/modals/UIModalView.vue";
 import UISettingsModal from "@/components/moleculas/modals/settings/UISettingsModal.vue";
 import UIActionButton from "@/components/atoms/base/buttons/UIActionButton.vue";
 
 const settingsRouter = useSettingsRouter();
 
+const settingsStore = useSettingsStore();
+
+const isMainMenuMinimized = computed(() => settingsStore.isMainMenuMinimized);
 const isSettingsOpen = ref(false);
 
-const onToggleMenu = (): void => {};
+const onMinimize = (): void => {
+  settingsStore.setIsMainMenuMinimized(!isMainMenuMinimized.value);
+};
 
 const onOpenSettings = (): void => {
   isSettingsOpen.value = true;

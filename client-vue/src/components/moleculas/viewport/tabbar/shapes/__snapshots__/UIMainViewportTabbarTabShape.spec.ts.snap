@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`UIMainViewportTabbarTabShape > should render side shapes 1`] = `2`;
+
+exports[`UIMainViewportTabbarTabShape > should render slot (<p data-testid="slot">Slot Content</p>) 1`] = `"<p data-testid="slot">Slot Content</p>"`;

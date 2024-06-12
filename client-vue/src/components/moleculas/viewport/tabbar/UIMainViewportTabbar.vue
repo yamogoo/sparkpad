@@ -1,5 +1,7 @@
 <template lang="pug">
-div.main-viewport__tabbar
+div.main-viewport__tabbar(
+  data-testid="main-viewport-tabbar"
+)
   UIMainViewportTabbarTab(
     v-for="tab, idx in history"
     :key="String(tab)"

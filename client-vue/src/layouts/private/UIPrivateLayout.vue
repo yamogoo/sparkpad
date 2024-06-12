@@ -1,13 +1,13 @@
 <template lang="pug">
 div.main-layout
   div.main-layout__menu-view
-    UIExpandableBox(
-      :width="menuBoundings.width"
-      :min-width="menuBoundings.minWidth"
-      :max-width="menuBoundings.maxWidth"
-      @update:width="onUpdateMenuWidth"
-    )
-      div.main-layout__menu-view--container
+    div.main-layout__menu-view--container
+      UIExpandableBox(
+        :width="isMainMenuMinimized ? 54 : navigatorBoundings.width"
+        :min-width="navigatorBoundings.minWidth"
+        :max-width="navigatorBoundings.maxWidth"
+        @update:width="onUpdateMenuWidth"
+      )
         UIMainHeader
         UIMainSidebar
   div.main-layout__content-view
@@ -28,10 +28,11 @@ import UIMainViewport from "@/components/moleculas/viewport/UIMainViewport.vue";
 
 const settingsStore = useSettingsStore();
 
-const menuBoundings = computed(() => settingsStore.navigatorMenuBoundings);
+const navigatorBoundings = computed(() => settingsStore.navigatorBoundings);
+const isMainMenuMinimized = computed(() => settingsStore.isMainMenuMinimized);
 
 const onUpdateMenuWidth = (width: number): void => {
-  settingsStore.setNavigatorMenuWidth(width);
+  settingsStore.setNavigatorWidth(width);
 };
 </script>
 

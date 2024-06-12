@@ -11,14 +11,22 @@ interface SettingsStoreThemes {
   current: string;
 }
 
-/* * * Navigator: Menu * * */
+/* * * Main Menu * * */
 
-interface SettingsNavigatorMenu {
-  boundings: ResizableBoundings;
+interface MainMenu {
+  isMinimized: boolean;
+}
+
+/* * * Navigator * * */
+
+interface SettingsNavigatorHierarchyMenu {
+  isScrollToNoteEnabled: boolean;
 }
 
 interface SettingsNavigator {
-  menu: SettingsNavigatorMenu;
+  show: boolean;
+  boundings: ResizableBoundings;
+  hierarchyMenu: SettingsNavigatorHierarchyMenu;
 }
 
 export type SettingsEditorGenerallMenuNotesListModes = "list" | "card";
@@ -66,6 +74,7 @@ interface SettingsEditor {
 
 export interface SettingsStoreState {
   app: SettingsApp;
+  mainMenu: MainMenu;
   navigator: SettingsNavigator;
   editor: SettingsEditor;
 }

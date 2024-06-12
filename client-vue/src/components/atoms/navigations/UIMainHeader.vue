@@ -10,13 +10,14 @@ header.main-header(
 
 <script setup lang="ts">
 import { useRouter } from "vue-router";
+import { PrivateRoutes } from "@/router";
 
 import UILogo from "@/components/atoms/base/logos/UILogo.vue";
 
 const router = useRouter();
 
 const onClickLogo = () => {
-  router.push({ path: "/private" });
+  router.push({ path: PrivateRoutes.EDITOR });
 };
 </script>
 

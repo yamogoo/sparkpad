@@ -15,7 +15,7 @@ import { useSettingsStore } from "@/stores/settings";
 const configStore = useSettingsStore();
 
 const theme = computed(() => {
-  return configStore.getTheme.theme;
+  return configStore.appTheme.theme;
 });
 </script>
 

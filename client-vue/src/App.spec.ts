@@ -63,7 +63,7 @@ describe("App", () => {
       });
 
       const configStore = useSettingsStore();
-      configStore.setTheme(isLightTheme);
+      configStore.setAppTheme(isLightTheme);
 
       await nextTick();
 

@@ -1,5 +1,7 @@
 <template lang="pug">
-div.mdx-editor
+div.mdx-editor(
+  data-testid="mdx-editor"
+)
   div.mdx-editor__header
     UIMDXEditorContentMenu
   div.mdx-editor__content

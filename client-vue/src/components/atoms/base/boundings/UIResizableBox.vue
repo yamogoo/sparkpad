@@ -23,7 +23,7 @@ export interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  initWidth: 320,
+  width: 320,
   minWidth: 0,
   maxWidth: 480,
 });
@@ -72,7 +72,8 @@ const onMouseEnter = (state: boolean): void => {
 
 let isResizing = false;
 let currentPosX = 0;
-let width = props.width;
+let newWidth = props.width;
+let prevWidth = newWidth;
 
 const onDragStart = (e: PointerEvent): void => {
   e.preventDefault();
@@ -86,13 +87,16 @@ const onDragStart = (e: PointerEvent): void => {
       const rootBoundings = refRoot.value.getBoundingClientRect();
 
       currentPosX = e.clientX;
-      width = currentPosX - rootBoundings.left;
+      newWidth = Math.round(currentPosX - rootBoundings.left);
 
-      if (width > props.minWidth && width < props.maxWidth) {
-        // refRoot.value.style.width = `${width}px`;
-        // refRoot.value.style.minWidth = `${width}px`;
-        emits("update:width", width);
+      if (
+        newWidth > props.minWidth &&
+        newWidth < props.maxWidth &&
+        prevWidth !== newWidth
+      ) {
+        emits("update:width", newWidth);
       }
+      prevWidth = newWidth;
     }
   };
 
@@ -127,7 +131,7 @@ $__pressed-color: rgba(54, 85, 225, 0.443);
   &__pane {
     position: absolute;
     display: block;
-    right: 0;
+    right: 2px;
     width: 1px;
     height: 100%;
     z-index: 1;

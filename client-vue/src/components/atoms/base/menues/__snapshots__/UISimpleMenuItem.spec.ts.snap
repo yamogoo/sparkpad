@@ -35,6 +35,4 @@ DOMWrapper {
 }
 `;
 
-exports[`UISimpleMenuItem > should render slot ($s) 1`] = `"<p data-testid="slot">Slot Content</p>"`;
-
 exports[`UISimpleMenuItem > should render slot (<p data-testid="slot">Slot Content</p>) 1`] = `"<p data-testid="slot">Slot Content</p>"`;

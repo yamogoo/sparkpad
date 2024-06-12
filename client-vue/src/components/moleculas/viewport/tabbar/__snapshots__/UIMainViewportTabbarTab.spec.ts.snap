@@ -1,0 +1,34 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`UIMainViewportTabbarTab > classes > should have "active class" 1`] = `
+[
+  "main-viewport__tabbar-tab",
+  "active",
+]
+`;
+
+exports[`UIMainViewportTabbarTab > classes > should not have "active class" 1`] = `
+[
+  "main-viewport__tabbar-tab",
+]
+`;
+
+exports[`UIMainViewportTabbarTab > close button > should note render close button 1`] = `false`;
+
+exports[`UIMainViewportTabbarTab > close button > should render close button 1`] = `true`;
+
+exports[`UIMainViewportTabbarTab > events > should emit "close" event 1`] = `
+[
+  [
+    0,
+  ],
+]
+`;
+
+exports[`UIMainViewportTabbarTab > events > should emit "open" event 1`] = `
+[
+  [
+    0,
+  ],
+]
+`;

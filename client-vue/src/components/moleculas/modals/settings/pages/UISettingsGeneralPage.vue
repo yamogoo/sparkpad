@@ -23,12 +23,12 @@ import UISwitch from "@/components/atoms/base/switches/UISwitch.vue";
 
 const settingsStore = useSettingsStore();
 
-const isLightTheme = computed(() => !!settingsStore.getTheme.id);
+const isLightTheme = computed(() => !!settingsStore.appTheme.id);
 
-const themeName = computed(() => settingsStore.getTheme.theme);
+const themeName = computed(() => settingsStore.appTheme.theme);
 
 const onToggleTheme = (state: boolean): void => {
-  settingsStore.setTheme(state);
+  settingsStore.setAppTheme(state);
 };
 </script>
 

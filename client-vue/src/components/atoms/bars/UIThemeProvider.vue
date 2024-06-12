@@ -20,15 +20,15 @@ import UISwitch from "@/components/atoms/base/switches/UISwitch.vue";
 const configStore = useSettingsStore();
 
 const theme = computed(() => {
-  return configStore.getTheme.theme;
+  return configStore.appTheme.theme;
 });
 
 const themeState = computed(() => {
-  return !!configStore.getTheme.id;
+  return !!configStore.appTheme.id;
 });
 
 const onUpdateTheme = (state: boolean) => {
-  configStore.setTheme(state);
+  configStore.setAppTheme(state);
 };
 </script>
 

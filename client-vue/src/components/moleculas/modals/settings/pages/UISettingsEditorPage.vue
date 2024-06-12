@@ -32,6 +32,17 @@ UISheet
       :state="isFocusedOnNewTab"
       @update:state="onFocusedOnNewTab"
     )
+  UICellOption(
+    data-testid="scroll-to-note"
+    :title="`Scroll to current note`"
+    :description="'In list view, always scroll to current note'"
+    :show-description="true"
+  )
+    UISwitch(
+      data-testid="open-new-on-creation-control"
+      :state="isHierarchyScrollToNoteEnabled"
+      @update:state="onScrollToCurrentNote"
+    )
 </template>
 
 <script setup lang="ts">
@@ -68,7 +79,7 @@ const settingsStore = useSettingsStore();
 /* * * Menu * * */
 
 const isPlacedNoteNextDuringCreation = computed(() => {
-  return settingsStore.getIsPlacedNoteNextDuringCreation;
+  return settingsStore.IsPlacedNoteNextDuringCreation;
 });
 
 const placedNoteNextDuringCreationDescription = computed(() => {
@@ -82,7 +93,7 @@ const onPlaceNoteToTheEndDuringCreation = (state: boolean): void => {
 };
 
 const isFocusedOnFirstNoteOnStart = computed(() => {
-  return settingsStore.getIsFocusedOnFirstNoteOnStart;
+  return settingsStore.isFocusedOnFirstNoteOnStart;
 });
 
 const focusOnFirstNoteOnStartup = computed(() => {
@@ -95,14 +106,22 @@ const onFocusedOnFirstNoteOnStart = (state: boolean): void => {
   settingsStore.setIsFocusedOnFirstNoteOnStart(state);
 };
 
+const isHierarchyScrollToNoteEnabled = computed(() => {
+  return settingsStore.isHierarchyScrollToNoteEnabled;
+});
+
+const onScrollToCurrentNote = (isEnabled: boolean): void => {
+  settingsStore.setIsHierarchyScrollToNoteEnabled(isEnabled);
+};
+
 /* * * Tabbar * * */
 
-const isFocusedOnNewTab = computed(() => settingsStore.getIsFocusedOnNewTab);
+const isFocusedOnNewTab = computed(() => settingsStore.isFocusedOnNewTab);
 
 // const contentFontSizes = computed(
 //   () => settingsStore.editor.general.content.font.sizes
 // );
-// const contentFontSizeSid = computed(() => settingsStore.getContentFontSizeSid);
+// const contentFontSizeSid = computed(() => settingsStore.contentFontSizeSid);
 
 /* * * Handlers * * */
 

@@ -79,7 +79,7 @@ export const useNotesStore = defineStore("notes", {
       // if <isFocusedOnFirstNoteOnStart> is true
       // const settingsStore = useSettingsStore();
       // const isFocusFirestNodeOnStart =
-      //   settingsStore.getIsFocusedOnFirstNoteOnStart;
+      //   settingsStore.isFocusedOnFirstNoteOnStart;
       // if (isFocusFirestNodeOnStart) this.selectFirstNode();
       return this._notes;
     },
@@ -104,7 +104,7 @@ export const useNotesStore = defineStore("notes", {
       // next to the previous if
       // <IsPlacedNoteNextDuringCreation> is true
       // const settingsStore = useSettingsStore();
-      // const isPlaceToNext = settingsStore.getIsPlacedNoteNextDuringCreation;
+      // const isPlaceToNext = settingsStore.IsPlacedNoteNextDuringCreation;
 
       // if (isPlaceToNext) this.selectNextNode();
       // else this.selectLastNode();

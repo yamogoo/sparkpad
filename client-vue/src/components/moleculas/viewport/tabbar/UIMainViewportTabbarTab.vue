@@ -1,6 +1,7 @@
 <template lang="pug">
 div.main-viewport__tabbar-tab(
   ref="refRoot"
+  data-testid="tabbar-tab"
   :class="[{'active': isActive}]"
 )
   div.main-viewport__tabbar-tab--container
@@ -8,6 +9,7 @@ div.main-viewport__tabbar-tab(
       span.main-viewport__tabbar-tab__label {{ title.length > 15 ? `${title.slice(0, 15)}...` : title }}
       UIIcon(
         v-if="isActive"
+        data-testid="tabbar-tab-close-button"
         :name="Symbols.CROSS"
         @click="onClose"
       )

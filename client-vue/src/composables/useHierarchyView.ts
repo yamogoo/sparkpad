@@ -1,12 +1,18 @@
 import { HierarchyNodeTypes, type HierarchyNode } from "@/typings";
 
 export class HierarchyView {
+  /**
+   * @description Type of node (dir<0x00> or file<0x01>)
+   */
   static getNodeType(node: HierarchyNode): HierarchyNodeTypes {
     return "children" in node && Array.isArray(node.children)
       ? HierarchyNodeTypes.DIR
       : HierarchyNodeTypes.FILE;
   }
 
+  /**
+   * @description Formation of a tree of nodes
+   */
   static createTree<D, F>(
     dirs: Array<HierarchyNode>,
     files: Array<HierarchyNode>

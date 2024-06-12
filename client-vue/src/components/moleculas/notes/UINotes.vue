@@ -12,6 +12,7 @@ div.notes(
   div.notes--container
     HierarchyMenu(
       v-if="isNoteListMode"
+      :is-scroll-to-note="isScrollToNoteEnabled"
     )
 </template>
 
@@ -40,7 +41,10 @@ const groupSid = computed(() => groupsStore.sid ?? null);
 
 /* * * Mode * * */
 
-const isNoteListMode = computed(() => settingsStore.getIsNoteListMode);
+const isScrollToNoteEnabled = computed(
+  () => settingsStore.isHierarchyScrollToNoteEnabled
+);
+const isNoteListMode = computed(() => settingsStore.isNoteListMode);
 
 /* * * Handlers * * */
 
@@ -93,14 +97,6 @@ onMounted(() => {
     position: relative;
     @include box(100%);
     overflow-x: hidden;
-    overflow-y: auto;
   }
-}
-
-.hierarchy-menu__body {
-  height: 100%;
-  padding: 10px;
-  margin: 0;
-  list-style: none;
 }
 </style>

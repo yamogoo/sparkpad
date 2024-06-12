@@ -1,5 +1,8 @@
 <template>
-  <div class="mian-viewport__tabbar-tab__shape__side">
+  <div
+    class="mian-viewport__tabbar-tab__shape__side"
+    data-testid="tabbar-tab-shape-side"
+  >
     <div class="mian-viewport__tabbar-tab__shape__side--body"></div>
     <svg
       width="24"

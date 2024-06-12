@@ -34,7 +34,7 @@ describe("UIThemeProvider", () => {
     const wrapper = mount(UIThemeProvider);
 
     const configStore = useSettingsStore();
-    configStore.setTheme(isLightTheme);
+    configStore.setAppTheme(isLightTheme);
 
     await nextTick();
 

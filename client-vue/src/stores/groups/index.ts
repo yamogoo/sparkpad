@@ -49,7 +49,7 @@ export const useNoteGroupsStore = defineStore("note-groups", {
       // if <isFocusedOnFirstNoteOnStart> is true
       // const settingsStore = useSettingsStore();
       // const isFocusFirestNodeOnStart =
-      //   settingsStore.getIsFocusedOnFirstNoteOnStart;
+      //   settingsStore.isFocusedOnFirstNoteOnStart;
       // if (isFocusFirestNodeOnStart) this.selectFirstNode();
 
       return this._groups;
