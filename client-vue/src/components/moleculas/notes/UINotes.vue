@@ -81,9 +81,7 @@ const onSearchNote = (): void => {};
 /* * * Init * * */
 
 onMounted(() => {
-  groupsStore.fetchAll().then(() => {
-    notesStore.fetchAll();
-  });
+  groupsStore.fetchHierarchy();
 });
 </script>
 

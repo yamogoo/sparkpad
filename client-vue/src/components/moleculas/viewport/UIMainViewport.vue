@@ -2,12 +2,22 @@
 div.main-viewport
   UIMainViewportTabbar
   div.main-viewport__content
-    UIMDXEditor
+    UIWelcomeSheet(v-if="!isCurrentNoteSelected")
+    UIMDXEditor(v-if="isCurrentNoteSelected")
 </template>
 
 <script setup lang="ts">
+import { computed } from "vue";
+
+import { useNotesStore } from "@/stores/notes";
+
 import UIMainViewportTabbar from "./tabbar/UIMainViewportTabbar.vue";
+import UIWelcomeSheet from "@/components/moleculas/sheets/UIWelcomeSheet.vue";
 import UIMDXEditor from "@/components/moleculas/mdxEditor/UIMDXEditor.vue";
+
+const notesStore = useNotesStore();
+
+const isCurrentNoteSelected = computed(() => notesStore.sid !== null);
 </script>
 
 <style lang="scss">

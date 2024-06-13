@@ -1,13 +1,13 @@
 <template lang="pug">
 div.main-layout
   div.main-layout__menu-view
-    div.main-layout__menu-view--container
-      UIExpandableBox(
-        :width="isMainMenuMinimized ? 54 : navigatorBoundings.width"
-        :min-width="navigatorBoundings.minWidth"
-        :max-width="navigatorBoundings.maxWidth"
-        @update:width="onUpdateMenuWidth"
-      )
+    UIResizableBox(
+      :width="isMainMenuMinimized ? 54 : navigatorBoundings.width"
+      :min-width="navigatorBoundings.minWidth"
+      :max-width="navigatorBoundings.maxWidth"
+      @update:width="onUpdateMenuWidth"
+    )
+      div.main-layout__menu-view--container
         UIMainHeader
         UIMainSidebar
   div.main-layout__content-view
@@ -20,7 +20,7 @@ import { computed } from "vue";
 import { useSettingsStore } from "@/stores/settings";
 
 import UIMainHeader from "@/components/atoms/navigations/UIMainHeader.vue";
-import UIExpandableBox from "@/components/atoms/base/boundings/UIResizableBox.vue";
+import UIResizableBox from "@/components/atoms/base/boundings/UIResizableBox.vue";
 import UIMainSidebar from "@/components/atoms/menues/UIMainSidebar.vue";
 import UIMainViewport from "@/components/moleculas/viewport/UIMainViewport.vue";
 

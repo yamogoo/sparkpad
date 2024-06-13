@@ -11,10 +11,11 @@ export type HierarchyNodeSid = string | null;
 export interface HierarchyNodeCreationAttributes {
   id: string;
   parentId: HierarchyNodeParentId;
+  [key: string]: any;
 }
 
 export interface HierarchyNode extends HierarchyNodeCreationAttributes {
-  [key: string]: any;
+  type: HierarchyNodeTypes;
   children?: Array<HierarchyNode>;
 }
 

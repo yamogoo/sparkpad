@@ -38,7 +38,7 @@ import {
   useSettingsRouter,
 } from "@/components/moleculas/modals/settings/settingsRouter";
 
-import { useSettingsStore } from "~/src/stores/settings";
+import { useSettingsStore } from "@/stores/settings";
 
 import { Symbols } from "@/components/atoms/base/icons/UIIcon.vue";
 import UIModalView from "@/components/atoms/modals/UIModalView.vue";

@@ -1,5 +1,5 @@
 <template lang="pug">
-div.icon
+div.icon(v-if="name")
   UISymbol(:name :size)
 </template>
 

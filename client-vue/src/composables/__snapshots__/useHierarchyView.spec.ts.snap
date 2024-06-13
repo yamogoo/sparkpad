@@ -5,21 +5,25 @@ exports[`useHierarchyView > should create tree of nodes (dirs and files) 1`] = `
   {
     "id": "file 1",
     "parentId": null,
+    "type": 1,
   },
   {
     "children": [
       {
         "id": "file 2",
         "parentId": "dir 1",
+        "type": 1,
       },
     ],
     "id": "dir 1",
     "parentId": "2",
+    "type": 0,
   },
   {
     "children": [],
     "id": "dir 2",
     "parentId": "1",
+    "type": 0,
   },
 ]
 `;

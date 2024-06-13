@@ -16,12 +16,19 @@ export enum Symbols {
   DELETE_ITEM = "BinIcon",
   SEARCH = "SearchIcon",
 
+  /* * * Hierarchy * * */
+
+  DIR = "FolderFillIcon",
+  DIR_OPEN = "FolderOpenFillIcon",
+  FILE = "FileIcon",
+
   /* * * Thumbnails * * */
 
   AVATAR_DEFAULT = "AvatarDefaultIcon",
 
   /* * * Logos * * */
 
+  LOGO = "LogoIcon",
   LOGO_WITH_DESCRIPTOR_SM = "LogoWithDescriptorSMIcon",
   LOGO_WITH_DESCRIPTOR_LG = "LogoWithDescriptorLGIcon",
 
@@ -36,4 +43,12 @@ export enum Symbols {
 
   EDITOR_FORMAT_CODE = "EditorInlineCodeFormatIcon",
   EDITOR_FORMAT_LIST = "EditorListFormatIcon",
+}
+
+export enum KeyboardSymbols {
+  SHIFT = "⇧",
+  OPTION = "⌥",
+  CONTROL = "⌃",
+  COMMAND = "⌘",
+  TAB = "⇥",
 }

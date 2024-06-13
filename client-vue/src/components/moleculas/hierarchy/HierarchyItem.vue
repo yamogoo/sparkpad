@@ -1,21 +1,29 @@
 <template lang="pug">
 li.hierarchy-item(
+  data-testid="hierarchy-item"
   :class="[{'focused': isFocused, 'active': isActive && !isEditMode, 'edit': isEditMode, 'file': type === HierarchyNodeTypes.FILE}]"
 )
   div.hierarchy-item__body(
     ref="refBody"
+    data-testid="hierarchy-item-body"
     tabindex="0"
     @click="e => { onClick(e, {id, parentId, type}) }"
     @keyup.enter="onEdit"
   )
     div.hierarchy-item__body__icon(
       ref="refIcon"
-      @click="onExpand"
     )
       UIIcon(
         v-if="type === HierarchyNodeTypes.DIR"
+        data-testid="hierarchy-item-arrow-icon"
         :name="Symbols.ARROW_BOTTOM"
+        size="12"
       )
+    UIIcon(
+      data-testid="hierarchy-item-node-icon"
+      :name="nodeIcon"
+      size="18"
+    )
     div.hierarchy-item__body__label(
       v-if="!isEditMode"
     ) {{ label }}
@@ -28,6 +36,7 @@ li.hierarchy-item(
     )
     UIActionButton(
       v-if="isActive"
+      data-testid="hierarchy-item-delete-button"
       :icon-name="Symbols.DELETE_ITEM"
       aria-label="delete"
       @press="e => { onDelete({id, parentId, type}) }"
@@ -40,13 +49,11 @@ li.hierarchy-item(
       HierarchyItem(
         v-if="children.length > 0"
         v-for="item, idx in children"
-        :key="idx"
-        :idx
+        :key="item.id"
         :id="item.id"
+        :sid
         :parentId="item.parentId"
-        :dirSid
-        :fileSid
-        :type="HierarchyView.getNodeType(item)"
+        :type="item.type"
         :label="item.title"
         :children="item.children"
         @select="onSelect"
@@ -56,7 +63,7 @@ li.hierarchy-item(
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref, watch } from "vue";
+import { onMounted, nextTick, ref, computed, watch } from "vue";
 import g from "gsap";
 
 import {
@@ -69,19 +76,15 @@ import {
 
 import { useClickOutside } from "@/composables/useClickOutside";
 
-import { HierarchyView } from "@/composables/useHierarchyView";
-
 import HierarchyItem from "@/components/moleculas/hierarchy/HierarchyItem.vue";
 import UIIcon, { Symbols } from "@/components/atoms/base/icons/UIIcon.vue";
 import UIInput from "@/components/atoms/base/inputs/UIInput.vue";
 import UIActionButton from "@/components/atoms/base/buttons/UIActionButton.vue";
 
 interface Props {
-  idx: number;
   id: string;
   parentId: HierarchyNodeParentId;
-  fileSid: HierarchyNodeSid;
-  dirSid: HierarchyNodeSid;
+  sid: HierarchyNodeSid;
   label: string;
   type: HierarchyNodeTypes;
   children?: Array<HierarchyNode>;
@@ -104,15 +107,19 @@ const refIcon = ref<HTMLDivElement | null>(null);
 const refInput = ref<BaseInputComponent>();
 
 const isFocused = ref(false);
-const isExpaned = ref(true);
+const isExpaned = ref(false);
 const isEditMode = ref(false);
+
+const nodeIcon = computed(() => {
+  if (props.type === HierarchyNodeTypes.DIR)
+    return isExpaned.value ? Symbols.DIR_OPEN : Symbols.DIR;
+  else if (props.type === HierarchyNodeTypes.FILE) return Symbols.FILE;
+  return undefined;
+});
 
 const isActive = computed({
   get() {
-    return (
-      (props.type === HierarchyNodeTypes.DIR && props.id === props.dirSid) ||
-      (props.type === HierarchyNodeTypes.FILE && props.id === props.fileSid)
-    );
+    return props.id === props.sid;
   },
   set(state) {
     return state;
@@ -145,10 +152,13 @@ const onUpdateName = (value: string): void => {
 };
 
 const onClick = (e: MouseEvent, args: NodeEmittedData): void => {
+  e.preventDefault();
   e.stopPropagation();
+
   isActive.value = !isActive.value;
 
   onSelect(args);
+  onExpand(e);
 };
 
 const onEdit = (_e: KeyboardEvent): void => {
@@ -186,14 +196,15 @@ useClickOutside(refBody, () => {
 /**
  * @description Depending on the entity type, sets a specific SID
  */
+
 watch(
-  () => [props.dirSid, props.fileSid],
+  () => props.sid,
   () => {
-    if (props.dirSid !== props.id || props.fileSid !== props.id) {
+    if (props.sid !== props.id) {
       isEditMode.value = false;
     }
 
-    isActive.value = props.dirSid === props.id || props.fileSid === props.id;
+    isActive.value = props.sid === props.id;
   }
 );
 
@@ -219,6 +230,7 @@ export interface NodeEmittedData extends HierarchyNodeCreationAttributes {
 
 <style lang="scss">
 $tab-offset-x: 6px;
+$__item-height: 36px;
 $__border-radius: $border-radius;
 
 .hierarchy-item {
@@ -233,7 +245,7 @@ $__border-radius: $border-radius;
     flex-direction: row;
     align-items: center;
     width: 100%;
-    height: 36px;
+    height: $__item-height;
     gap: 8px;
     padding: 0px $tab-offset-x;
     border-radius: calc($__border-radius / 3);
@@ -334,6 +346,17 @@ $__border-radius: $border-radius;
         @include themify($themes) {
           color: themed("icon", "primary");
         }
+      }
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      @include box(1px, $__item-height);
+
+      @include themify($themes) {
+        background-color: themed("text", "primary");
       }
     }
   }

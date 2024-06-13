@@ -1,6 +1,7 @@
 <template lang="pug">
 div.symbol(
   data-testid="symbol"
+  :data-test="name"
 )
   component(
     v-if="!size"
@@ -15,15 +16,27 @@ div.symbol(
 </template>
 
 <script setup lang="ts">
-import { defineAsyncComponent } from "vue";
+import { watch, defineAsyncComponent } from "vue";
 
 import { type SymbolProps } from "./types";
 
 const props = withDefaults(defineProps<SymbolProps>(), {});
 
-const component = defineAsyncComponent(() => {
-  return import(`./symbols/${props.name}.vue`);
-});
+let component: null = null;
+
+const loadComponent = (name: string | undefined): void => {
+  component = defineAsyncComponent(() => {
+    return import(`./symbols/${name}.vue`);
+  });
+};
+
+watch(
+  () => props.name,
+  () => {
+    loadComponent(props.name);
+  },
+  { immediate: true }
+);
 </script>
 
 <script lang="ts">

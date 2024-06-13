@@ -4,7 +4,7 @@ import { describe, expect, test } from "vitest";
 import { nextTick } from "vue";
 import { createPinia, setActivePinia } from "pinia";
 
-import { Themes, useSettingsStore } from "~/src/stores/settings";
+import { Themes, useSettingsStore } from "@/stores/settings";
 
 import UIThemeProvider from "./UIThemeProvider.vue";
 

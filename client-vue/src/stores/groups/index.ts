@@ -3,6 +3,7 @@ import type { NoteGroup, NoteGroupCreation, NoteGroups } from "@/typings";
 
 import { noteGroupService } from "@/services/notes/noteGroupsService";
 import { useNotesStore } from "../notes";
+import { notesService } from "@/services/notes/notesService";
 
 interface NoteGroupStoreState {
   _groups: Array<NoteGroup>;
@@ -53,6 +54,24 @@ export const useNoteGroupsStore = defineStore("note-groups", {
       // if (isFocusFirestNodeOnStart) this.selectFirstNode();
 
       return this._groups;
+    },
+
+    async fetchHierarchy(): Promise<any> {
+      // return new Promise.all([noteGroupService.getAll]);
+
+      const data = await Promise.all([
+        noteGroupService.getAll(),
+        notesService.getAll(),
+      ]);
+
+      const [groups, notes] = data;
+
+      if (!groups.error && groups.payload && !notes.error && notes.payload) {
+        const notesStore = useNotesStore();
+
+        this._groups = groups.payload;
+        notesStore._notes = notes.payload;
+      }
     },
 
     /**

@@ -4,7 +4,7 @@ import { describe, expect, test, vi } from "vitest";
 import { h, nextTick } from "vue";
 import { createPinia, setActivePinia } from "pinia";
 
-import { Themes, useSettingsStore } from "~/src/stores/settings";
+import { Themes, useSettingsStore } from "@/stores/settings";
 
 import App from "./App.vue";
 

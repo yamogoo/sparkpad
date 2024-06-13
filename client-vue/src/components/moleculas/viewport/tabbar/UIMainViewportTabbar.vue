@@ -19,7 +19,7 @@ import { computed } from "vue";
 import { useRouter } from "vue-router";
 
 import { useNotesStore } from "@/stores/notes";
-import { useNotesHistoryStore } from "~/src/stores/notesHistory";
+import { useNotesHistoryStore } from "@/stores/notesHistory";
 
 import { useNotesHistory } from "@/composables/useNotesHystory";
 

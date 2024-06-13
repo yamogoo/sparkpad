@@ -1,6 +1,6 @@
 import { Symbols } from "./Symbols";
 
 export interface SymbolProps {
-  name: Symbols;
+  name?: Symbols;
   size?: number | string;
 }

@@ -1,0 +1,3 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`UIKeyTooltip > should render content 1`] = `"Inner Content"`;

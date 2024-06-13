@@ -149,7 +149,6 @@ export const useSettingsStore = defineStore("settings", {
      * @description Set main sidebar view state
      */
     setIsMainMenuMinimized(isMinimized: boolean): boolean {
-      console.log(isMinimized);
       this.mainMenu.isMinimized = isMinimized;
       return this.mainMenu.isMinimized;
     },
@@ -157,7 +156,6 @@ export const useSettingsStore = defineStore("settings", {
     /* * * Navigator * * */
 
     setNavigatorWidth(width: number): void {
-      console.log("store width: ", width);
       this.navigator.boundings.width = width;
     },
 

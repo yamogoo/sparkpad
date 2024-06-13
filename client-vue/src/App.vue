@@ -28,6 +28,10 @@ body {
   *::selection {
     background-color: $c-app-selection;
   }
+
+  p {
+    margin: 0;
+  }
 }
 
 #app {

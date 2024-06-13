@@ -1,4 +1,8 @@
-import { HierarchyNodeTypes, type HierarchyNode } from "@/typings";
+import {
+  HierarchyNodeTypes,
+  type HierarchyNode,
+  type HierarchyNodeCreationAttributes,
+} from "@/typings";
 
 export class HierarchyView {
   /**
@@ -13,23 +17,27 @@ export class HierarchyView {
   /**
    * @description Formation of a tree of nodes
    */
-  static createTree<D, F>(
-    dirs: Array<HierarchyNode>,
-    files: Array<HierarchyNode>
-  ) {
+
+  static createTree<
+    D extends HierarchyNodeCreationAttributes,
+    F extends HierarchyNodeCreationAttributes,
+  >(dirs: Array<D>, files: Array<F>) {
     const nodesMap: { [key: string]: HierarchyNode } = {};
 
     dirs.forEach((dir) => {
-      nodesMap[dir.id] = { ...dir, children: [] };
+      nodesMap[dir.id] = { ...dir, children: [], type: HierarchyNodeTypes.DIR };
     });
 
     const tree: Array<HierarchyNode> = [];
 
     for (const file of files) {
       if (file.parentId !== null) {
-        nodesMap[file.parentId].children!.push(file);
+        nodesMap[file.parentId].children!.push({
+          ...file,
+          type: HierarchyNodeTypes.FILE,
+        });
       } else if (file.parentId === null) {
-        tree.push(file);
+        tree.push({ ...file, type: HierarchyNodeTypes.FILE });
       }
     }
 

@@ -49,6 +49,14 @@ exports[`UISymbol > should render EditorUnderlineIcon icon from "Symbols" data s
 
 exports[`UISymbol > should render EditorUndoIcon icon from "Symbols" data set 1`] = `true`;
 
+exports[`UISymbol > should render FileIcon icon from "Symbols" data set 1`] = `true`;
+
+exports[`UISymbol > should render FolderFillIcon icon from "Symbols" data set 1`] = `true`;
+
+exports[`UISymbol > should render FolderOpenFillIcon icon from "Symbols" data set 1`] = `true`;
+
+exports[`UISymbol > should render LogoIcon icon from "Symbols" data set 1`] = `true`;
+
 exports[`UISymbol > should render LogoWithDescriptorLGIcon icon from "Symbols" data set 1`] = `true`;
 
 exports[`UISymbol > should render LogoWithDescriptorSMIcon icon from "Symbols" data set 1`] = `true`;

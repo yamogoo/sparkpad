@@ -9,7 +9,7 @@ exports[`UISimpleMenu > should render slot content (<p>Slot Content</p>) 1`] = `
     <transition-stub appear="false" persisted="false" css="false">
       <div class="simple-menu__item__icon">
         <div class="icon">
-          <div class="symbol" data-testid="symbol">
+          <div class="symbol" data-testid="symbol" data-test="ArrorRightIcon">
             <!--v-if-->
             <!---->
           </div>
