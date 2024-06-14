@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /editor/
+Disallow: /private/
+
+User-agent: *
+Allow: /auth/login

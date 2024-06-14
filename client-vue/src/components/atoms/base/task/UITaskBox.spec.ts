@@ -72,11 +72,11 @@ describe("UITaskBox", () => {
       },
     });
 
-    type Data = "author" | "name" | "description" | "version";
+    type Data = "author" | "description" | "version"; // "name"
 
     const props: Record<Data, DOMWrapper<Element>> = {
       author: wrapper.find('[data-testid="task-box-author"]'),
-      name: wrapper.find('[data-testid="task-box-name"]'),
+      // name: wrapper.find('[data-testid="task-box-name"]'),
       description: wrapper.find('[data-testid="task-box-description"]'),
       version: wrapper.find('[data-testid="task-box-version"]'),
     };

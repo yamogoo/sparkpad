@@ -69,18 +69,12 @@ export interface Props {
   }
 
   input {
-    font-size: 18px;
-    font-weight: 400;
-    @include box(100%, 44px);
+    @extend %input;
+    @extend %input-respond;
     @include padding-h(12px);
-    box-sizing: border-box;
-    border-radius: 6px;
-    user-select: all;
-    outline: none;
     @extend %transition;
 
     @include themify($themes) {
-      color: themed("text", "primary");
       border: 1px solid themed("border", "primary");
       background-color: themed("background", "primary");
     }

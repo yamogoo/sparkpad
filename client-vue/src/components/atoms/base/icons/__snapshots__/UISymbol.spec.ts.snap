@@ -33,6 +33,8 @@ exports[`UISymbol > should render AvatarDefaultIcon icon from "Symbols" data set
 
 exports[`UISymbol > should render BinIcon icon from "Symbols" data set 1`] = `true`;
 
+exports[`UISymbol > should render CrossFillIcon icon from "Symbols" data set 1`] = `true`;
+
 exports[`UISymbol > should render CrossIcon icon from "Symbols" data set 1`] = `true`;
 
 exports[`UISymbol > should render EditorBoldIcon icon from "Symbols" data set 1`] = `true`;
@@ -49,9 +51,15 @@ exports[`UISymbol > should render EditorUnderlineIcon icon from "Symbols" data s
 
 exports[`UISymbol > should render EditorUndoIcon icon from "Symbols" data set 1`] = `true`;
 
+exports[`UISymbol > should render FavoritesFillIcon icon from "Symbols" data set 1`] = `true`;
+
+exports[`UISymbol > should render FavoritesIcon icon from "Symbols" data set 1`] = `true`;
+
 exports[`UISymbol > should render FileIcon icon from "Symbols" data set 1`] = `true`;
 
 exports[`UISymbol > should render FolderFillIcon icon from "Symbols" data set 1`] = `true`;
+
+exports[`UISymbol > should render FolderIcon icon from "Symbols" data set 1`] = `true`;
 
 exports[`UISymbol > should render FolderOpenFillIcon icon from "Symbols" data set 1`] = `true`;
 

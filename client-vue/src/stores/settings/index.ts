@@ -27,7 +27,7 @@ export const useSettingsStore = defineStore("settings", {
       show: true,
       boundings: {
         width: 420,
-        minWidth: 240,
+        minWidth: 320,
         maxWidth: 540,
       },
       hierarchyMenu: {

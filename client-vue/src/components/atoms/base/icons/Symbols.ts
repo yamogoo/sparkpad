@@ -1,5 +1,7 @@
 export enum Symbols {
   CROSS = "CrossIcon",
+  CROSS_FILL = "CrossFillIcon",
+
   ARROW_RIGHT = "ArrorRightIcon",
   ARROW_BOTTOM = "ArrowBottomIcon",
 
@@ -8,6 +10,9 @@ export enum Symbols {
   SETTINGS = "SettingsMdIcon",
   USER_THUMBNAIL = "UserThumbnailIcon",
   MENU = "MenuIcon",
+
+  FAVORITES = "FavoritesIcon",
+  FAVORITES_FILL = "FavoritesFillIcon",
 
   /* * * Notes Menu * * */
 
@@ -18,8 +23,9 @@ export enum Symbols {
 
   /* * * Hierarchy * * */
 
-  DIR = "FolderFillIcon",
-  DIR_OPEN = "FolderOpenFillIcon",
+  DIR = "FolderIcon",
+  DIR_FILL = "FolderFillIcon",
+  DIR_OPEN_FILL = "FolderOpenFillIcon",
   FILE = "FileIcon",
 
   /* * * Thumbnails * * */

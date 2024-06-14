@@ -4,33 +4,33 @@ import { describe, expect, test } from "vitest";
 import { createPinia, setActivePinia } from "pinia";
 
 import { nextTick } from "vue";
-import UINotes from "./UINotes.vue";
+import UINavigator from "./UINavigator.vue";
 
 const pinia = createPinia();
 
-describe("UINotes", () => {
-  test("should render UINotes DOM element", async () => {
+describe("UINavigator", () => {
+  test("should render UINavigator DOM element", async () => {
     setActivePinia(pinia);
 
-    const wrapper = mount(UINotes);
+    const wrapper = mount(UINavigator);
 
     await nextTick();
 
-    const list = wrapper.find('[data-testid="notes-list"]');
+    const list = wrapper.find('[data-testid="hierarhy-list"]');
     const isListExists = list.exists();
 
     expect(isListExists).toBe(true);
     expect(isListExists).toMatchSnapshot();
   });
 
-  test("should render UINotesControlBar DOM element", async () => {
+  test("should render UIHierarchyMenuControlBar DOM element", async () => {
     setActivePinia(pinia);
 
-    const wrapper = mount(UINotes);
+    const wrapper = mount(UINavigator);
 
     await nextTick();
 
-    const controlBar = wrapper.find('[data-testid="notes-control-bar"]');
+    const controlBar = wrapper.find('[data-testid="hierarhy-control-bar"]');
     const isControlBarExists = controlBar.exists();
 
     expect(isControlBarExists).toBe(true);

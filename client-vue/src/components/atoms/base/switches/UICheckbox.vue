@@ -49,6 +49,7 @@ $__size: 16px;
   align-items: center;
   gap: 10px;
   cursor: pointer;
+  user-select: none;
 
   &:hover {
     opacity: 0.75;

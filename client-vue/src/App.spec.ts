@@ -1,4 +1,4 @@
-import { mount, shallowMount } from "@vue/test-utils";
+import { mount } from "@vue/test-utils";
 import { describe, expect, test, vi } from "vitest";
 
 import { h, nextTick } from "vue";

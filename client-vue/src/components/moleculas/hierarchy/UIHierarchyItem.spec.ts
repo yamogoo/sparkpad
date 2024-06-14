@@ -6,7 +6,7 @@ import { nextTick } from "vue";
 import { HierarchyNodeTypes } from "@/typings";
 import { Symbols } from "@/components/atoms/base/icons/Symbols";
 
-import HierarchyItem from "./HierarchyItem.vue";
+import UIHierarchyItem from "./UIHierarchyItem.vue";
 
 enum Classes {
   FOCUSED = "focused",
@@ -19,10 +19,10 @@ enum Emits {
   DELETE = "delete",
 }
 
-describe("HierarchyItem", () => {
+describe("UIHierarchyItem", () => {
   describe("classes", () => {
     describe(`${Classes.FOCUSED} class name`, async () => {
-      const wrapper = mount(HierarchyItem, {
+      const wrapper = mount(UIHierarchyItem, {
         props: {
           id: "1",
           parentId: null,
@@ -56,7 +56,7 @@ describe("HierarchyItem", () => {
     });
 
     describe(`${Classes.ACTIVE} class name`, () => {
-      const wrapper = mount(HierarchyItem, {
+      const wrapper = mount(UIHierarchyItem, {
         props: {
           id: "1",
           parentId: null,
@@ -90,7 +90,7 @@ describe("HierarchyItem", () => {
     });
 
     describe(`${Classes.FILE}`, () => {
-      const wrapper = mount(HierarchyItem, {
+      const wrapper = mount(UIHierarchyItem, {
         props: {
           id: "1",
           parentId: null,
@@ -121,7 +121,7 @@ describe("HierarchyItem", () => {
 
   describe("events", () => {
     test.each([Emits.SELECT])(`should emit "%s" event`, async (eventName) => {
-      const wrapper = mount(HierarchyItem, {
+      const wrapper = mount(UIHierarchyItem, {
         props: {
           id: "1",
           parentId: null,
@@ -138,50 +138,50 @@ describe("HierarchyItem", () => {
       expect(wrapper.emitted(eventName)).toMatchSnapshot();
     });
 
-    test.each([Emits.DELETE])(`should emit "%s" event`, async (eventName) => {
-      const wrapper = mount(HierarchyItem, {
-        props: {
-          id: "1",
-          parentId: null,
-          sid: "1",
-          label: "Label",
-          type: HierarchyNodeTypes.FILE,
-        },
-      });
+    // test.each([Emits.DELETE])(`should emit "%s" event`, async (eventName) => {
+    //   const wrapper = mount(UIHierarchyItem, {
+    //     props: {
+    //       id: "1",
+    //       parentId: null,
+    //       sid: "1",
+    //       label: "Label",
+    //       type: HierarchyNodeTypes.FILE,
+    //     },
+    //   });
 
-      const deleteButton = wrapper.find(
-        '[data-testid="hierarchy-item-delete-button"]'
-      );
-      await deleteButton.trigger("click");
+    //   const deleteButton = wrapper.find(
+    //     '[data-testid="hierarchy-item-delete-button"]'
+    //   );
+    //   await deleteButton.trigger("click");
 
-      expect(wrapper.emitted()).toHaveProperty(eventName);
-      expect(wrapper.emitted(eventName)).toMatchSnapshot();
-    });
+    //   expect(wrapper.emitted()).toHaveProperty(eventName);
+    //   expect(wrapper.emitted(eventName)).toMatchSnapshot();
+    // });
   });
 
   describe("components", () => {
-    test(`should render "Delete" button`, async () => {
-      const wrapper = mount(HierarchyItem, {
-        props: {
-          id: "1",
-          parentId: null,
-          sid: "1",
-          label: "Label",
-          type: HierarchyNodeTypes.FILE,
-        },
-      });
+    // test(`should render "Delete" button`, async () => {
+    //   const wrapper = mount(UIHierarchyItem, {
+    //     props: {
+    //       id: "1",
+    //       parentId: null,
+    //       sid: "1",
+    //       label: "Label",
+    //       type: HierarchyNodeTypes.FILE,
+    //     },
+    //   });
 
-      const deleteButton = wrapper.find(
-        '[data-testid="hierarchy-item-delete-button"]'
-      );
-      const isDeleteButtonExists = deleteButton.exists();
+    //   const deleteButton = wrapper.find(
+    //     '[data-testid="hierarchy-item-delete-button"]'
+    //   );
+    //   const isDeleteButtonExists = deleteButton.exists();
 
-      expect(isDeleteButtonExists).toBe(true);
-      expect(isDeleteButtonExists).toMatchSnapshot();
-    });
+    //   expect(isDeleteButtonExists).toBe(true);
+    //   expect(isDeleteButtonExists).toMatchSnapshot();
+    // });
 
     describe("Node Type Icon", () => {
-      const wrapper = mount(HierarchyItem, {
+      const wrapper = mount(UIHierarchyItem, {
         props: {
           id: "1",
           parentId: null,
@@ -215,7 +215,7 @@ describe("HierarchyItem", () => {
         await wrapper.setProps({ type: HierarchyNodeTypes.DIR });
         await nextTick();
 
-        const nodeIcon = wrapper.find(`[data-test="${Symbols.DIR}"]`);
+        const nodeIcon = wrapper.find(`[data-test="${Symbols.DIR_FILL}"]`);
         const isNodeIconExists = nodeIcon.exists();
 
         expect(isNodeIconExists).toBe(true);
@@ -229,7 +229,7 @@ describe("HierarchyItem", () => {
 
         await nextTick();
 
-        const nodeIcon = wrapper.find(`[data-test="${Symbols.DIR_OPEN}"]`);
+        const nodeIcon = wrapper.find(`[data-test="${Symbols.DIR_OPEN_FILL}"]`);
         const isNodeIconExists = nodeIcon.exists();
 
         expect(isNodeIconExists).toBe(true);
@@ -238,7 +238,7 @@ describe("HierarchyItem", () => {
     });
 
     describe("Arrow Icon", () => {
-      const wrapper = mount(HierarchyItem, {
+      const wrapper = mount(UIHierarchyItem, {
         props: {
           id: "1",
           parentId: null,

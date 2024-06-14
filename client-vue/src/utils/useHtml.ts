@@ -10,3 +10,21 @@ export const setAppTitle = (name: string): void => {
     }
   }
 };
+
+export const setMeta = (role: string, content: string) => {
+  const el: HTMLMetaElement | null = document.querySelector(
+    `meta[name=${role}]`
+  );
+
+  if (el) el.setAttribute("content", content);
+  else {
+    const head: HTMLHeadElement | null =
+      document.getElementsByTagName("head")[0];
+
+    const el: HTMLMetaElement | null = document.createElement("meta");
+
+    el.setAttribute("name", role);
+    el.setAttribute("content", String(content));
+    head.appendChild(el);
+  }
+};

@@ -1,12 +1,12 @@
 <template lang="pug">
-div.hierarchy-menu(
+div.hierarchy(
   @click="onClickOutside"
 )
-  ul.hierarchy-menu__body(
-    data-testid="notes-list"
+  ul.hierarchy__list(
+    data-testid="hierarchy-list"
   )
-    HierarchyItem.hierarchy-menu__item(
-      v-for="item in notesTree"
+    UIHierarchyItem.hierarchy__item(
+      v-for="item in data"
       :key="item.id"
       :id="item.id"
       :sid="sid"
@@ -21,7 +21,7 @@ div.hierarchy-menu(
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, ref, watchEffect, type Ref } from "vue";
+import { computed, ref, watchEffect, type Ref } from "vue";
 import { useRouter } from "vue-router";
 
 import { PrivateRoutes } from "@/router";
@@ -30,19 +30,19 @@ import { useNotesStore } from "@/stores/notes";
 import { useNoteGroupsStore } from "@/stores/groups";
 import { useNotesHistoryStore } from "@/stores/notesHistory";
 
-import { HierarchyNodeTypes, type Note, type NoteGroup } from "@/typings";
-import { HierarchyView } from "@/composables/useHierarchyView";
+import { HierarchyNodeTypes, type HierarchyNode } from "@/typings";
 
-import HierarchyItem, {
+import UIHierarchyItem, {
   type NodeEmittedData,
-} from "@/components/moleculas/hierarchy/HierarchyItem.vue";
+} from "@/components/moleculas/hierarchy/UIHierarchyItem.vue";
 
 interface Props {
+  data: Array<HierarchyNode>;
   isScrollToNote: boolean;
   minScrollToNoteOffset?: number;
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   isScrollToNote: false,
   minScrollToNoteOffset: 36,
 });
@@ -56,20 +56,13 @@ const notesStore = useNotesStore();
 const historyStore = useNotesHistoryStore();
 
 const groupSid = computed(() => {
-  if (props.isScrollToNote) scrollToNote();
+  // if (props.isScrollToNote) scrollToNote();
   return groupsStore.sid ?? null;
 });
 const noteSid = computed(() => {
   // Scroll to note (navigator menu settings)
-  if (props.isScrollToNote) scrollToNote();
+  // if (props.isScrollToNote) scrollToNote();
   return notesStore.sid;
-});
-
-const notesTree = computed(() => {
-  return HierarchyView.createTree<NoteGroup, Note>(
-    groupsStore.all,
-    notesStore.all
-  );
 });
 
 const sid: Ref<string | null> = ref(null);
@@ -77,21 +70,21 @@ const sid: Ref<string | null> = ref(null);
 /**
  * @description Scroll to current note
  */
-const scrollToNote = async () => {
-  await nextTick();
+// const scrollToNote = async () => {
+//   await nextTick();
 
-  const container: HTMLDivElement | null =
-    document.querySelector(".hierarchy-menu");
+//   const container: HTMLDivElement | null =
+//     document.querySelector(".hierarchy-menu");
 
-  const el: HTMLLIElement | null = document.querySelector(
-    ".hierarchy-item.active.file"
-  );
+//   const el: HTMLLIElement | null = document.querySelector(
+//     ".hierarchy-item.active.file"
+//   );
 
-  if (container && el) {
-    const top = el.offsetTop - props.minScrollToNoteOffset;
-    container.scrollTo({ behavior: "smooth", top });
-  }
-};
+//   if (container && el) {
+//     const top = el.offsetTop - props.minScrollToNoteOffset;
+//     container.scrollTo({ behavior: "smooth", top });
+//   }
+// };
 
 watchEffect(() => {
   groupSid.value;
@@ -142,13 +135,13 @@ const onUpdate = (id: string): void => {};
 </script>
 
 <style lang="scss">
-.hierarchy-menu {
+.hierarchy {
   position: relative;
   @include box(100%);
   overflow-x: hidden;
   overflow-y: auto;
 
-  &__body {
+  &__list {
     position: relative;
     height: 100%;
     padding: 10px;

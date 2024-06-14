@@ -10,6 +10,8 @@ exports[`indexedRouter > routes > should add new route to routes and set current
 
 exports[`indexedRouter > routes > should retern route by route path (/home) 1`] = `
 {
+  "component": undefined,
+  "meta": undefined,
   "path": "/home",
 }
 `;
@@ -17,7 +19,7 @@ exports[`indexedRouter > routes > should retern route by route path (/home) 1`] 
 exports[`indexedRouter > routes > should set routes 1`] = `
 [
   {
-    "path": "/",
+    "path": "/home",
   },
   {
     "path": "/settings",

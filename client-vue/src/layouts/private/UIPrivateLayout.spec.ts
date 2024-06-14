@@ -4,12 +4,11 @@ import { describe, expect, test, vi } from "vitest";
 import { createPinia, setActivePinia } from "pinia";
 import UIPrivateLayout from "./UIPrivateLayout.vue";
 
-const pinia = createPinia();
-
 vi.mock("vue-router");
 
 describe("UIPrivateLayout", () => {
   test("should render MainHeader", async () => {
+    const pinia = createPinia();
     setActivePinia(pinia);
 
     const wrapper = mount(UIPrivateLayout);

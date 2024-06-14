@@ -4,11 +4,11 @@ div.main-sidebar
   div.main-sidebar--content(
      v-if="showContent"
   )
-    UINotes
+    UINavigator
 </template>
 
 <script setup lang="ts">
-import UINotes from "@/components/moleculas/notes/UINotes.vue";
+import UINavigator from "@/components/moleculas/navigator/UINavigator.vue";
 import UIUserMenu from "./UIUserMenu.vue";
 
 interface Props {

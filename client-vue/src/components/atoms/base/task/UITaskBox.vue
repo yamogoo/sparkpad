@@ -23,7 +23,7 @@ interface Props {
 
 withDefaults(defineProps<Props>(), {
   author: import.meta.env.APP_AUTHOR,
-  name: import.meta.env.APP_NAME,
+  // name: import.meta.env.APP_NAME,
   description: import.meta.env.APP_DESCRIPTION,
   version: import.meta.env.APP_VERSION,
 });

@@ -2,7 +2,7 @@ import { describe, expect, test } from "vitest";
 
 import { IndexedRouter, type IndexedRoute } from "./indexedRouter";
 
-const routes: Array<IndexedRoute> = [{ path: "/" }, { path: "/settings" }];
+const routes: Array<IndexedRoute> = [{ path: "/home" }, { path: "/settings" }];
 
 const DEFAULT_ROUTE = "/home";
 const NEW_ROUTE: IndexedRoute = { path: "new" };

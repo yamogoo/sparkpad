@@ -1,0 +1,71 @@
+$input: (
+  border-radius: $border-radius--input,
+  size: (
+    md: (
+      height: (
+        sm: 32px,
+        md: 32px,
+        lg: 32px,
+        xl: 32px,
+      ),
+    ),
+    lg: (
+      height: (
+        sm: 44px,
+        md: 44px,
+        lg: 44px,
+        xl: 44px,
+      ),
+    ),
+  ),
+);
+
+%input {
+  font-size: 18px;
+  font-weight: 400;
+  box-sizing: border-box;
+  border-radius: get("border-radius", $input);
+  user-select: all;
+  outline: none;
+  border: none;
+
+  @include themify($themes) {
+    color: themed("text", "primary");
+  }
+}
+
+%input-respond {
+  @include respond-above(lg) {
+    @include box(100%, get("size.lg.height.xl", $input));
+  }
+
+  @include respond-between(md, lg) {
+    @include box(100%, get("size.lg.height.lg", $input));
+  }
+
+  @include respond-between(sm, md) {
+    @include box(100%, get("size.lg.height.md", $input));
+  }
+
+  @include respond-below(sm) {
+    @include box(100%, get("size.lg.height.sm", $input));
+  }
+
+  &.--md {
+    @include respond-above(lg) {
+      @include box(100%, get("size.md.height.xl", $input) !important);
+    }
+
+    @include respond-between(md, lg) {
+      @include box(100%, get("size.md.height.lg", $input) !important);
+    }
+
+    @include respond-between(sm, md) {
+      @include box(100%, get("size.md.height.md", $input) !important);
+    }
+
+    @include respond-below(sm) {
+      @include box(100%, get("size.md.height.sm", $input) !important);
+    }
+  }
+}

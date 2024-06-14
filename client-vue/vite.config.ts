@@ -5,6 +5,8 @@ import vue from "@vitejs/plugin-vue";
 
 import packageJson from "./package.json";
 
+import terserConfig from "./terser.config";
+
 // https://vitejs.dev/config/
 export default (opts: { mode: string }) => {
   const { mode } = opts;
@@ -16,6 +18,12 @@ export default (opts: { mode: string }) => {
     plugins: [vue()],
     server: {
       port,
+    },
+    build: {
+      cssCodeSplit: true,
+      cssMinify: "lightningcss",
+      minify: "terser",
+      terserOptions: terserConfig,
     },
     define: {
       "import.meta.env.APP_NAME": JSON.stringify(packageJson.name),

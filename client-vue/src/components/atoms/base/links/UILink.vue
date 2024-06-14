@@ -1,5 +1,8 @@
 <template lang="pug">
-a.link(@click="onClick")
+a.link(
+  :href="to"
+  @click="onClick"
+)
   UISymbol(
     v-if="iconName"
     :name="iconName"

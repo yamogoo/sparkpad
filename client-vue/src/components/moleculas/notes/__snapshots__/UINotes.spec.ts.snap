@@ -1,5 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`UINotes > should render UINotes DOM element 1`] = `true`;
-
-exports[`UINotes > should render UINotesControlBar DOM element 1`] = `true`;

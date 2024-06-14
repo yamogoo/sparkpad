@@ -8,6 +8,5 @@ div.sheet
   width: 100%;
   min-height: 100%;
   height: auto;
-  padding: 40px;
 }
 </style>

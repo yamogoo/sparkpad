@@ -47,7 +47,7 @@ import UIKeyTooltip, {
         @include box(280px !important);
 
         @include themify($themes) {
-          fill: themed("background", "app");
+          fill: url(#logo-gradient);
         }
       }
     }

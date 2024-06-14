@@ -12,6 +12,7 @@ export default mergeConfig(
       root: fileURLToPath(new URL("./", import.meta.url)),
       reporters: ["html", "verbose"],
       outputFile: "./src/tests-report/index.html",
+      setupFiles: "./vitest.setup.ts",
     },
   })
 );

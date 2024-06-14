@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import compression from "compression";
 
 // Routes
 import indexRouter from "@/routes/index";
@@ -26,6 +27,7 @@ class App {
     );
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
+    this.app.use(compression());
     this.app.use(cookieParser());
 
     await db.init();

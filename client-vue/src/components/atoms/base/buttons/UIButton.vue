@@ -17,7 +17,6 @@ button.button(
 import UISymbol, { Symbols } from "@/components/atoms/base/icons/UISymbol.vue";
 
 interface Props {
-  // ID for manage multiple buttons
   id?: number;
   label?: string;
   iconName?: Symbols;

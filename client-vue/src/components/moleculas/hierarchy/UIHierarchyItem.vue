@@ -7,11 +7,11 @@ li.hierarchy-item(
     ref="refBody"
     data-testid="hierarchy-item-body"
     tabindex="0"
-    @click="e => { onClick(e, {id, parentId, type}) }"
     @keyup.enter="onEdit"
   )
     div.hierarchy-item__body__icon(
       ref="refIcon"
+      @click="e => { onClick(e, {id, parentId, type}) }"
     )
       UIIcon(
         v-if="type === HierarchyNodeTypes.DIR"
@@ -23,30 +23,32 @@ li.hierarchy-item(
       data-testid="hierarchy-item-node-icon"
       :name="nodeIcon"
       size="18"
+      @click="e => { onClick(e, {id, parentId, type}) }"
     )
     div.hierarchy-item__body__label(
       v-if="!isEditMode"
+      @click="e => {onEditName(e, {id, parentId, type})}"
     ) {{ label }}
-    UIInput(
+    input(
       v-if="isEditMode"
       ref="refInput"
+      type="text"
       :value="props.label"
-      :isError="false"
-      @update:value="onUpdateName"
+      @input="onUpdateName"
     )
     UIActionButton(
       v-if="isActive"
       data-testid="hierarchy-item-delete-button"
       :icon-name="Symbols.DELETE_ITEM"
       aria-label="delete"
-      @press="e => { onDelete({id, parentId, type}) }"
+      @press="() => { onDelete({id, parentId, type}) }"
     )
   div.hierarchy-item__footer(
     v-if="children && children.length > 0 && isExpaned"
   )
     div.hierarchy-item__footer__tail
     ul.hierarchy-item__footer__container
-      HierarchyItem(
+      UIHierarchyItem(
         v-if="children.length > 0"
         v-for="item, idx in children"
         :key="item.id"
@@ -63,7 +65,7 @@ li.hierarchy-item(
 </template>
 
 <script setup lang="ts">
-import { onMounted, nextTick, ref, computed, watch } from "vue";
+import { onMounted, nextTick, ref, computed, watch, onUnmounted } from "vue";
 import g from "gsap";
 
 import {
@@ -74,11 +76,10 @@ import {
   type HierarchyNodeSid,
 } from "@/typings";
 
-import { useClickOutside } from "@/composables/useClickOutside";
+import { useClickOutside, useDoubleClick } from "@/composables";
 
-import HierarchyItem from "@/components/moleculas/hierarchy/HierarchyItem.vue";
+import UIHierarchyItem from "@/components/moleculas/hierarchy/UIHierarchyItem.vue";
 import UIIcon, { Symbols } from "@/components/atoms/base/icons/UIIcon.vue";
-import UIInput from "@/components/atoms/base/inputs/UIInput.vue";
 import UIActionButton from "@/components/atoms/base/buttons/UIActionButton.vue";
 
 interface Props {
@@ -88,9 +89,12 @@ interface Props {
   label: string;
   type: HierarchyNodeTypes;
   children?: Array<HierarchyNode>;
+  doubleClickStep?: number;
 }
 
-const props = withDefaults(defineProps<Props>(), {});
+const props = withDefaults(defineProps<Props>(), {
+  doubleClickStep: 500,
+});
 
 const emit = defineEmits<{
   (e: "select", args: NodeEmittedData): void;
@@ -98,13 +102,9 @@ const emit = defineEmits<{
   (e: "delete", args: NodeEmittedData): void;
 }>();
 
-interface BaseInputComponent extends HTMLInputElement {
-  onFocus(): void;
-}
-
 const refBody = ref<HTMLDivElement | null>(null);
 const refIcon = ref<HTMLDivElement | null>(null);
-const refInput = ref<BaseInputComponent>();
+const refInput = ref<HTMLInputElement>();
 
 const isFocused = ref(false);
 const isExpaned = ref(false);
@@ -112,7 +112,7 @@ const isEditMode = ref(false);
 
 const nodeIcon = computed(() => {
   if (props.type === HierarchyNodeTypes.DIR)
-    return isExpaned.value ? Symbols.DIR_OPEN : Symbols.DIR;
+    return isExpaned.value ? Symbols.DIR_OPEN_FILL : Symbols.DIR_FILL;
   else if (props.type === HierarchyNodeTypes.FILE) return Symbols.FILE;
   return undefined;
 });
@@ -127,29 +127,50 @@ const isActive = computed({
 });
 
 onMounted(() => {
-  if (refBody.value) {
+  if (refBody.value)
     refBody.value.addEventListener("mouseenter", handleOnFocus);
-    refBody.value.addEventListener("mouseleave", handleOnLeave);
-  }
-  animateIcon();
+
+  animateIcon(0.0);
+});
+
+onUnmounted(() => {
+  if (refBody.value)
+    refBody.value.removeEventListener("mouseenter", handleOnFocus);
 });
 
 const handleOnFocus = (e: MouseEvent): void => {
   e.stopImmediatePropagation();
+
+  const el = e.currentTarget as HTMLDivElement;
   isFocused.value = true;
+
+  const handleOnLeave = (_e: MouseEvent): void => {
+    isFocused.value = false;
+    el.removeEventListener("mouseleave", handleOnLeave);
+  };
+
+  el.addEventListener("mouseleave", handleOnLeave);
 };
 
-const handleOnLeave = (_e: MouseEvent): void => {
-  isFocused.value = false;
-};
+const onUpdateName = (e: Event): void => {
+  const value = (e.target as HTMLInputElement).value;
 
-const onUpdateName = (value: string): void => {
   emit("update", value, {
     id: props.id,
     parentId: props.parentId,
     type: props.type,
   });
 };
+
+const onEdit = (): void => {
+  isEditMode.value = !isEditMode.value;
+
+  nextTick(() => {
+    if (refInput.value) refInput.value.focus();
+  });
+};
+
+const doubleClick = useDoubleClick(props.doubleClickStep);
 
 const onClick = (e: MouseEvent, args: NodeEmittedData): void => {
   e.preventDefault();
@@ -161,14 +182,16 @@ const onClick = (e: MouseEvent, args: NodeEmittedData): void => {
   onExpand(e);
 };
 
-const onEdit = (_e: KeyboardEvent): void => {
-  isEditMode.value = !isEditMode.value;
+const onEditName = (e: MouseEvent, args: NodeEmittedData): void => {
+  e.preventDefault();
+  e.stopPropagation();
 
-  nextTick(() => {
-    if (refInput.value) {
-      refInput.value.onFocus();
-    }
-  });
+  if (!isEditMode.value) {
+    // isActive.value = !isActive.value;
+    isActive.value = true;
+    onSelect(args);
+    doubleClick(onEdit);
+  }
 };
 
 const onSelect = (args: NodeEmittedData): void => {
@@ -210,13 +233,13 @@ watch(
 
 /* * * Animations * * */
 
-const animateIcon = () => {
+const animateIcon = (duration = 0.15) => {
   const angle = isExpaned.value ? 0 : -90;
 
   if (refIcon.value)
     g.to(refIcon.value, {
       rotation: angle,
-      duration: 0.15,
+      duration,
       ease: "power4.out",
     });
 };
@@ -267,8 +290,10 @@ $__border-radius: $border-radius;
       font-size: 16px;
       height: 20px;
       background: none;
+      width: 100%;
       border: none;
       padding: 0px;
+      outline: none;
 
       @include themify($themes) {
         color: themed("text", "primary");

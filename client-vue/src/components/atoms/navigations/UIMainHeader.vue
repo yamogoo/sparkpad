@@ -19,6 +19,11 @@ const router = useRouter();
 const onClickLogo = () => {
   router.push({ path: PrivateRoutes.EDITOR });
 };
+
+const onSearch = (value: string): void => {
+  console.log(value);
+  // emits("search", value);
+};
 </script>
 
 <style lang="scss">
