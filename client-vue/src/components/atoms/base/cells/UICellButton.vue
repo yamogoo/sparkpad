@@ -103,7 +103,7 @@ $border: $border-radius;
 
   &:hover {
     @include themify($themes) {
-      background-color: darken(themed("background", "primary"), 2%);
+      background-color: lighten(themed("background", "primary"), 2%);
     }
   }
 }

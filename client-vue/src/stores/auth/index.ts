@@ -5,8 +5,6 @@ import {
   type AuthLoginCredentials,
   type AuthorizedUser,
   type AuthRegisterCredentials,
-  type ServiceError,
-  type UnAuthorizedUser,
 } from "@/typings";
 
 import { LocalStorageAuthKeys } from "@/typings/localStorage";
@@ -79,6 +77,7 @@ export const useAuthStore = defineStore("auth", {
       authService.logout(() => {
         localStorage.removeItem("user");
       });
+      this.setUser(null);
     },
 
     setUser(user: AuthorizedUser | null) {

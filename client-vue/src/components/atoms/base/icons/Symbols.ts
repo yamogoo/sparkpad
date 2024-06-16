@@ -35,6 +35,7 @@ export enum Symbols {
   /* * * Logos * * */
 
   LOGO = "LogoIcon",
+  LOGO_DESCRIPTOR = "LogoDescriptorIcon",
   LOGO_WITH_DESCRIPTOR_SM = "LogoWithDescriptorSMIcon",
   LOGO_WITH_DESCRIPTOR_LG = "LogoWithDescriptorLGIcon",
 

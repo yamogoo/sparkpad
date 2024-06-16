@@ -1,7 +1,7 @@
 export default {
   mangle: {
     properties: {
-      regex: /^data-test$/,
+      regex: /^data-testid$/,
     },
   },
   compress: {

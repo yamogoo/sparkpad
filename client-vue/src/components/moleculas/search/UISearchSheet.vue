@@ -1,16 +1,17 @@
 <template lang="pug">
 UISearchPanel(
-    @search="value => { searchedText = value }"
+  ref="refSearchPanel"
+  @search="value => { searchedValue = value }"
 )
 UISearchList(
-    :data
-    :sid
-    @select:file="onSelectFile"
+  :data
+  :sid
+  @select:file="onSelectFile"
 )
 </template>
 
 <script setup lang="ts">
-import { ref, type Ref, computed } from "vue";
+import { ref, type Ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 
 import { useNotesStore } from "@/stores/notes";
@@ -30,13 +31,19 @@ const groupsStore = useNoteGroupsStore();
 const notesStore = useNotesStore();
 const historyStore = useNotesHistoryStore();
 
-const searchedText = ref("");
+const searchedValue = ref("");
+
+const refSearchPanel = ref<InstanceType<typeof UISearchPanel>>();
+
+onMounted(() => {
+  if (refSearchPanel.value) refSearchPanel.value.onFocus(true);
+});
 
 const data = computed(() => {
-  if (searchedText.value === "") return [];
+  if (searchedValue.value === "") return [];
 
   return notesStore.all.filter(
-    (note) => note.title.indexOf(searchedText.value) !== -1
+    (note) => note.title.indexOf(searchedValue.value) !== -1
   );
 });
 

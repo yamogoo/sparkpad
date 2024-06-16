@@ -57,5 +57,16 @@ describe("UIResizableBox", () => {
         expect(className).toMatchSnapshot();
       }
     );
+
+    test('should hide "pane"', async () => {
+      const wrapper = mount(UIResizableBox, {
+        props: { ...DEFAULT_PROPS, isDisabled: true },
+      });
+
+      const pane = wrapper.find('[data-testid="resizaable-box-pane"]');
+
+      expect(pane.attributes("style")).toContain("display: none;");
+      expect(pane.attributes("style")).toMatchSnapshot();
+    });
   });
 });

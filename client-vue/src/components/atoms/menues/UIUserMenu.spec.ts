@@ -1,11 +1,7 @@
 import { mount } from "@vue/test-utils";
 import { describe, expect, test, vi } from "vitest";
 
-import { createPinia, setActivePinia } from "pinia";
-
 import UIUserMenu from "./UIUserMenu.vue";
-
-const pinia = createPinia();
 
 const components = [
   ["menu button", '[data-testid="menu-button"]'],
@@ -17,8 +13,6 @@ describe("UIMainSidebar", () => {
   test.each(components)(
     "should render (%s) component",
     async (_name, component) => {
-      setActivePinia(pinia);
-
       const wrapper = mount(UIUserMenu);
 
       await vi.dynamicImportSettled();
@@ -32,8 +26,6 @@ describe("UIMainSidebar", () => {
   );
 
   test('should open settings menu (modal) by clicking on "settings button"', async () => {
-    setActivePinia(pinia);
-
     const wrapper = mount(UIUserMenu);
 
     await vi.dynamicImportSettled();

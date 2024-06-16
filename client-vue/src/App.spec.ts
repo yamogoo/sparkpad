@@ -1,29 +1,18 @@
 import { mount } from "@vue/test-utils";
-import { describe, expect, test, vi } from "vitest";
+import { describe, expect, test } from "vitest";
 
-import { h, nextTick } from "vue";
-import { createPinia, setActivePinia } from "pinia";
+import { nextTick } from "vue";
 
 import { Themes, useSettingsStore } from "@/stores/settings";
 
 import App from "./App.vue";
 
-const pinia = createPinia();
-
 const THEME_PREFIX = "theme-";
 const pattern = new RegExp(`^${THEME_PREFIX}`);
 
-vi.mock("vue-router");
-
 describe("App", () => {
   test("app container should contain a default theme name", () => {
-    setActivePinia(pinia);
-
-    const wrapper = mount(App, {
-      global: {
-        components: { RouterView: h("div") },
-      },
-    });
+    const wrapper = mount(App);
 
     const classes = wrapper.find('[data-testid="app-container"]').classes();
 
@@ -54,13 +43,7 @@ describe("App", () => {
   ])(
     "app container should contain the %s theme",
     async (themeName, isLightTheme) => {
-      setActivePinia(pinia);
-
-      const wrapper = mount(App, {
-        global: {
-          components: { RouterView: h("div") },
-        },
-      });
+      const wrapper = mount(App);
 
       const configStore = useSettingsStore();
       configStore.setAppTheme(isLightTheme);

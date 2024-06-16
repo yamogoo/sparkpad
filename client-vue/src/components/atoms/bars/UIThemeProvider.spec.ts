@@ -2,21 +2,13 @@ import { mount } from "@vue/test-utils";
 import { describe, expect, test } from "vitest";
 
 import { nextTick } from "vue";
-import { createPinia, setActivePinia } from "pinia";
 
 import { Themes, useSettingsStore } from "@/stores/settings";
 
 import UIThemeProvider from "./UIThemeProvider.vue";
 
-const pinia = createPinia();
-
-// const THEME_PREFIX = "theme-";
-// const pattern = new RegExp(`^${THEME_PREFIX}`);
-
 describe("UIThemeProvider", () => {
   test("should render theme name", () => {
-    setActivePinia(pinia);
-
     const wrapper = mount(UIThemeProvider);
 
     const themeLabel = wrapper.find('[data-testid="theme-label"]');
@@ -29,8 +21,6 @@ describe("UIThemeProvider", () => {
     [Themes.LIGHT, false],
     [Themes.DARK, true],
   ])("should contain the %s theme", async (themeName, isLightTheme) => {
-    setActivePinia(pinia);
-
     const wrapper = mount(UIThemeProvider);
 
     const configStore = useSettingsStore();

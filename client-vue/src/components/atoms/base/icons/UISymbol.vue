@@ -4,14 +4,14 @@ div.symbol(
   :data-test="name"
 )
   component(
-    v-if="!size"
+    v-if="!(width || height)"
     :is="component"
   )
   component(
-    v-if="size"
+    v-if="width || height"
     :is="component"
-    :width="size"
-    :height="size"
+    :width="width"
+    :height="height ?? width"
   )
 </template>
 

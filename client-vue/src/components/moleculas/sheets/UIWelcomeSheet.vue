@@ -1,8 +1,10 @@
 <template lang="pug">
 div.welcome
-  UIIcon.logo(
+  UIIcon.logo--lg(
     data-testid="logo"
     :name="Symbols.LOGO"
+    :width="'220'"
+    :size="undefined"
   )
   div.content-group-v
     div.content-group-h
@@ -39,7 +41,7 @@ import UIKeyTooltip, {
     }
   }
 
-  .logo {
+  .logo--lg {
     padding: 80px;
 
     .symbol {

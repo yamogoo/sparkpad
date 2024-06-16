@@ -77,18 +77,20 @@ export const router = createRouter({
 });
 
 router.beforeEach((to, _from, next) => {
-  const authStore = useAuthStore();
+  // const authStore = useAuthStore();
 
-  const pathes: any[] = Object.values(PublicRoutes);
-  const authReuired = !pathes.includes(to.path);
+  // const pathes: any[] = Object.values(PublicRoutes);
+  // const authReuired = !pathes.includes(to.path);
 
-  const isAuthenticated = authStore.isAuthenticated;
+  // const isAuthenticated = authStore.isAuthenticated;
 
-  /* * * Auth guard * * */
+  // /* * * Auth guard * * */
 
-  if (authReuired && !isAuthenticated) {
-    next(PublicRoutes.LOGIN);
-  } else {
-    next();
-  }
+  // if (authReuired && !isAuthenticated) {
+  //   next(PublicRoutes.LOGIN);
+  // } else {
+  //   next();
+  // }
+
+  next();
 });

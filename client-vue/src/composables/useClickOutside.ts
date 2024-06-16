@@ -1,15 +1,15 @@
 import { onMounted, onBeforeUnmount, type Ref } from "vue";
 
-export const useClickOutside = (component: Ref, callback: Function) => {
+export const useClickOutside = (component: Ref, cb: Function) => {
   if (!component) return;
 
-  const listener = (event: Event): void => {
+  const listener = (e: Event): void => {
     if (
-      event.target !== component.value &&
-      event.composedPath().includes(component.value)
+      e.target !== component.value &&
+      e.composedPath().includes(component.value)
     )
       return;
-    if (typeof callback === "function") callback();
+    if (typeof cb === "function") cb();
   };
 
   onMounted(() => {

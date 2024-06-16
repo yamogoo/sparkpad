@@ -7,3 +7,5 @@ exports[`UIResizableBox > classes > should have the class name "hide" when mouse
 exports[`UIResizableBox > classes > should have the class name "show" when mouseenter  1`] = `true`;
 
 exports[`UIResizableBox > classes > should have the class name "show" when mouseleave  1`] = `false`;
+
+exports[`UIResizableBox > classes > should hide "pane" 1`] = `"display: none;"`;

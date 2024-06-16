@@ -1,0 +1,20 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`UISearchPanel > should emit "search" event 1`] = `
+[
+  [
+    "",
+  ],
+]
+`;
+
+exports[`UISearchPanel > should have "focused" class name 1`] = `
+[
+  "search-panel",
+  "focused",
+]
+`;
+
+exports[`UISearchPanel > should render clear button 1`] = `true`;
+
+exports[`UISearchPanel > should render search icon 1`] = `true`;

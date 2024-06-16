@@ -2,6 +2,9 @@
 div.settings-view
   UISettingsMenu
   div.settings-view__content
+    UIUserPage(
+      v-if="route.path === Routes.USER"
+    )
     UISettingsAboutPage(
       v-if="route.path === Routes.ABOUT"
     )
@@ -17,6 +20,8 @@ div.settings-view
 import { useSettingsRoute, Routes } from "./settingsRouter";
 
 import UISettingsMenu from "@/components/moleculas/modals/settings/UISettingsMenu.vue";
+
+import UIUserPage from "./pages/UIUserPage.vue";
 import UISettingsAboutPage from "./pages/UISettingsAboutPage.vue";
 import UISettingsEditorPage from "./pages/UISettingsEditorPage.vue";
 import UISettingsGeneralPage from "./pages/UISettingsGeneralPage.vue";

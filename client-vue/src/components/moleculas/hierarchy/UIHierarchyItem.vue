@@ -28,7 +28,8 @@ li.hierarchy-item(
     div.hierarchy-item__body__label(
       v-if="!isEditMode"
       @click="e => {onEditName(e, {id, parentId, type})}"
-    ) {{ label }}
+    )
+      span {{ label }}
     input(
       v-if="isEditMode"
       ref="refInput"
@@ -275,20 +276,29 @@ $__border-radius: $border-radius;
     outline: none;
 
     &__label {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
       font-size: 15px;
       font-weight: 300;
-      width: 100%;
-      height: 20px;
+      letter-spacing: 0.3px;
+      @include box(100%);
       white-space: nowrap;
 
       @include themify($themes) {
         color: themed("text", "primary");
       }
+
+      span {
+        display: block;
+        margin: 0;
+      }
     }
 
     input {
-      font-size: 16px;
-      height: 20px;
+      font-size: 15px;
+      font-weight: 300;
+      letter-spacing: 0.3px;
       background: none;
       width: 100%;
       border: none;

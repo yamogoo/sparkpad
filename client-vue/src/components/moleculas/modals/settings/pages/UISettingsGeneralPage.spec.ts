@@ -1,11 +1,7 @@
 import { describe, expect, test } from "vitest";
 import { mount } from "@vue/test-utils";
 
-import { createPinia, setActivePinia } from "pinia";
-
 import UISettingsGeneralPage from "./UISettingsGeneralPage.vue";
-
-const pinia = createPinia();
 
 const options = [
   ["settings theme", '[data-testid="settings-theme"]'],
@@ -14,8 +10,6 @@ const options = [
 
 describe("UISettingsGeneralPage", () => {
   test.each(options)('should render "%s" option', (_name, attr) => {
-    setActivePinia(pinia);
-
     const wrapper = mount(UISettingsGeneralPage);
 
     const el = wrapper.find(attr);

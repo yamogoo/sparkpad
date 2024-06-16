@@ -1,15 +1,9 @@
 import { mount } from "@vue/test-utils";
 import { describe, expect, test } from "vitest";
 
-import { createPinia, setActivePinia } from "pinia";
-
 import UISettingsMenu from "./UISettingsMenu.vue";
 
-const pinia = createPinia();
-
 describe("UISettingsMenu", () => {
-  setActivePinia(pinia);
-
   test("should render SimpleMenu DOM element", () => {
     const wrapper = mount(UISettingsMenu);
 

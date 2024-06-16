@@ -7,37 +7,20 @@ div.navigator(
 </template>
 
 <script setup lang="ts">
-import { onMounted, computed } from "vue";
+import { onMounted } from "vue";
 
-import { useSettingsStore } from "@/stores/settings";
 import { useNoteGroupsStore } from "@/stores/groups";
 
 import UISearchSheet from "@/components/moleculas/search/UISearchSheet.vue";
 import UIHierarchySheet from "@/components/moleculas/hierarchy/UIHierarchySheet.vue";
 
-import {
-  useNavigatorRouter,
-  useNavigatorRoute,
-  Routes,
-} from "./navigatorRouter";
+import { useNavigatorRoute, Routes } from "./navigatorRouter";
 
-const router = useNavigatorRouter();
 const route = useNavigatorRoute();
 
 /* * * Stores * * */
 
 const groupsStore = useNoteGroupsStore();
-const settingsStore = useSettingsStore();
-
-/* * * Mode * * */
-
-const isNoteListMode = computed(() => settingsStore.isNoteListMode);
-
-/* * * Handlers * * */
-
-const onSearch = (value: string): void => {
-  console.log(value);
-};
 
 /* * * Init * * */
 

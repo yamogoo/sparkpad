@@ -1,17 +1,11 @@
 import { mount } from "@vue/test-utils";
 import { describe, expect, test } from "vitest";
 
-import { createPinia, setActivePinia } from "pinia";
-
 import { nextTick } from "vue";
 import UINavigator from "./UINavigator.vue";
 
-const pinia = createPinia();
-
 describe("UINavigator", () => {
   test("should render UINavigator DOM element", async () => {
-    setActivePinia(pinia);
-
     const wrapper = mount(UINavigator);
 
     await nextTick();
@@ -24,8 +18,6 @@ describe("UINavigator", () => {
   });
 
   test("should render UIHierarchyMenuControlBar DOM element", async () => {
-    setActivePinia(pinia);
-
     const wrapper = mount(UINavigator);
 
     await nextTick();

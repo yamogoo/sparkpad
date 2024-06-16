@@ -1,11 +1,7 @@
 import { describe, expect, test } from "vitest";
 import { mount } from "@vue/test-utils";
 
-import { createPinia, setActivePinia } from "pinia";
-
 import UISettingsEditorPage from "./UISettingsEditorPage.vue";
-
-const pinia = createPinia();
 
 const options = [
   ["place new note at the end", '[data-testid="place-note-next"]'],
@@ -26,8 +22,6 @@ const options = [
 
 describe("UISettingsEditorPage", () => {
   test.each(options)('should render "%s" option', (_name, attr) => {
-    setActivePinia(pinia);
-
     const wrapper = mount(UISettingsEditorPage);
 
     const el = wrapper.find(attr);

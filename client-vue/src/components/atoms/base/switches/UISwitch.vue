@@ -9,9 +9,10 @@ label.switch(
     @change="onChange"
   )
   div.switch__track
-    span.switch__knob(
-      ref="refKnob"
-    )
+    div.switch__track--container
+      span.switch__knob(
+        ref="refKnob"
+      )
   span.switch__label(v-if="label") {{ label }}
 </template>
 
@@ -47,7 +48,7 @@ const onChange = (e: Event): void => {
 
 const onAnimateKnob = (duration = 0.25): void => {
   if (refKnob.value) {
-    const knobPosX = props.state ? 24 : 0;
+    const knobPosX = props.state ? 20 : 0;
 
     g.to(refKnob.value, {
       x: knobPosX,
@@ -72,8 +73,8 @@ watch(
 </script>
 
 <style lang="scss">
-$__width: 48px;
-$__height: 24px;
+$__width: 40px;
+$__height: 20px;
 $__knob-size: 16px;
 
 .switch {
@@ -95,9 +96,13 @@ $__knob-size: 16px;
   &__track {
     @include box($__width, $__height);
     border-radius: $__height;
-    padding: 4px;
+    padding: 2px;
     overflow: hidden;
     @extend %transition;
+
+    &--container {
+      @include box(100%);
+    }
   }
 
   &__knob {

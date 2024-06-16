@@ -63,6 +63,8 @@ exports[`UISymbol > should render FolderIcon icon from "Symbols" data set 1`] = 
 
 exports[`UISymbol > should render FolderOpenFillIcon icon from "Symbols" data set 1`] = `true`;
 
+exports[`UISymbol > should render LogoDescriptorIcon icon from "Symbols" data set 1`] = `true`;
+
 exports[`UISymbol > should render LogoIcon icon from "Symbols" data set 1`] = `true`;
 
 exports[`UISymbol > should render LogoWithDescriptorLGIcon icon from "Symbols" data set 1`] = `true`;

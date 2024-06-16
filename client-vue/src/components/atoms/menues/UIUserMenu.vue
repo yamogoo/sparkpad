@@ -54,7 +54,7 @@ div.user-menu(
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { ref } from "vue";
 import {
   useSettingsRouter,
   Routes as SettingsRoutes,
@@ -79,7 +79,6 @@ const navigatorRoute = useNavigatorRoute();
 
 const settingsStore = useSettingsStore();
 
-const isMainMenuMinimized = computed(() => settingsStore.isMainMenuMinimized);
 const isSettingsOpen = ref(false);
 
 const onMinimize = (isMinimized: boolean): void => {

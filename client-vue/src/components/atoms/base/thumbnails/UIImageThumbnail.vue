@@ -40,9 +40,16 @@ withDefaults(defineProps<Props>(), {
     background-color: rgba(#ffffff, 0.07); //themed('background', 'primary');
   }
 
-  .icon {
+  .symbol {
+    @include box(100%);
+
     @include themify($themes) {
       fill: themed("background", "app");
+    }
+
+    svg {
+      width: inherit;
+      height: inherit;
     }
   }
 }

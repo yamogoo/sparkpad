@@ -5,7 +5,10 @@ div.resizaable-box(
 )
   div.resizaable-box__container
     slot
-  div.resizaable-box__pane
+  div.resizaable-box__pane(
+    v-show="!isDisabled"
+    data-testid="resizaable-box-pane"
+  )
     div.resizaable-box__pane__splitter(
       ref="refPane"
       data-testid="resizaable-box-pane-splitter"
@@ -20,12 +23,14 @@ export interface Props {
   width: number;
   minWidth: number;
   maxWidth: number;
+  isDisabled?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   width: 320,
   minWidth: 0,
   maxWidth: 480,
+  isDisabled: false,
 });
 
 const emits = defineEmits<{
@@ -36,6 +41,11 @@ const refRoot = ref<HTMLDivElement | null>(null);
 const refPane = ref<HTMLDivElement | null>(null);
 
 const isSplitterShown = ref(false);
+
+let isResizing = false;
+let currentPosX = 0;
+let newWidth = props.width;
+let prevWidth = newWidth;
 
 onMounted(() => {
   if (refPane.value) {
@@ -69,11 +79,6 @@ const onMouseEnter = (state: boolean): void => {
     isSplitterShown.value = state;
   }
 };
-
-let isResizing = false;
-let currentPosX = 0;
-let newWidth = props.width;
-let prevWidth = newWidth;
 
 const onDragStart = (e: PointerEvent): void => {
   e.preventDefault();

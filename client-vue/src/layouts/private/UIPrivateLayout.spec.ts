@@ -1,17 +1,19 @@
 import { mount } from "@vue/test-utils";
 import { describe, expect, test, vi } from "vitest";
 
-import { createPinia, setActivePinia } from "pinia";
+import { initRouter, router } from "@/router/mock";
+
 import UIPrivateLayout from "./UIPrivateLayout.vue";
 
-vi.mock("vue-router");
-
 describe("UIPrivateLayout", () => {
-  test("should render MainHeader", async () => {
-    const pinia = createPinia();
-    setActivePinia(pinia);
+  initRouter();
 
-    const wrapper = mount(UIPrivateLayout);
+  test("should render MainHeader", async () => {
+    const wrapper = mount(UIPrivateLayout, {
+      global: {
+        plugins: [router],
+      },
+    });
 
     await vi.dynamicImportSettled();
 
@@ -22,17 +24,19 @@ describe("UIPrivateLayout", () => {
     expect(isHeaderExists).toMatchSnapshot();
   });
 
-  // test("should render MainFooter", () => {
-  //   setActivePinia(pinia);
+  test("should render MainFooter", () => {
+    const wrapper = mount(UIPrivateLayout, {
+      global: {
+        plugins: [router],
+      },
+    });
 
-  //   const wrapper = mount(UIPrivateLayout);
+    const footer = wrapper.find('[data-testid="main-footer"]');
+    const isFooterExists = footer.exists();
 
-  //   const footer = wrapper.find('[data-testid="main-footer"]');
-  //   const isFooterExists = footer.exists();
-
-  //   expect(isFooterExists).toBe(true);
-  //   expect(isFooterExists).toMatchSnapshot();
-  // });
+    expect(isFooterExists).toBe(true);
+    expect(isFooterExists).toMatchSnapshot();
+  });
 
   /* * * !!!TEST RouterView * * */
 });

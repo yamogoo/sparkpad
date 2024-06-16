@@ -28,7 +28,7 @@ describe("UISymbol", () => {
       const wrapper = mount(UISymbol, {
         props: {
           name: Symbols.CROSS,
-          size,
+          width: `${size}`,
         },
       });
 

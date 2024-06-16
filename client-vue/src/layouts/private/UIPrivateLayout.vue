@@ -5,6 +5,7 @@ div.main-layout
       :width="isMainMenuMinimized ? 54 : navigatorBoundings.width"
       :min-width="navigatorBoundings.minWidth"
       :max-width="navigatorBoundings.maxWidth"
+      :is-disabled="isMainMenuMinimized"
       @update:width="onUpdateMenuWidth"
     )
       div.main-layout__menu-view--container

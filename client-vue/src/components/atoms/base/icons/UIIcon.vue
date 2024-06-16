@@ -1,19 +1,15 @@
 <template lang="pug">
 div.icon(v-if="name")
-  UISymbol(:name :size)
+  UISymbol(:name :width :height)
 </template>
 
 <script setup lang="ts">
 import UISymbol from "./UISymbol.vue";
 import type { SymbolProps } from "./types";
 
-interface Props extends SymbolProps {
-  size?: number | string;
-}
+interface Props extends SymbolProps {}
 
-withDefaults(defineProps<Props>(), {
-  size: 16,
-});
+defineProps<Props>();
 </script>
 
 <script lang="ts">

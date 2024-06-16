@@ -22,9 +22,9 @@ DOMWrapper {
   "isDisabled": [Function],
   "wrapperElement": <svg
     fill="inherit"
-    height="16"
+    height="14"
     viewBox="0 0 8 14"
-    width="16"
+    width="8"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path

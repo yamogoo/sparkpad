@@ -4,34 +4,37 @@ header.main-header(
 )
   div.main-header__section
     UILogo(
+      :isMinimized
       @click="onClickLogo"
     )
 </template>
 
 <script setup lang="ts">
+import { computed } from "vue";
 import { useRouter } from "vue-router";
 import { PrivateRoutes } from "@/router";
+
+import { useSettingsStore } from "@/stores/settings";
 
 import UILogo from "@/components/atoms/base/logos/UILogo.vue";
 
 const router = useRouter();
 
+const settingsStore = useSettingsStore();
+
+const isMinimized = computed(() => settingsStore.isMainMenuMinimized);
+
 const onClickLogo = () => {
   router.push({ path: PrivateRoutes.EDITOR });
-};
-
-const onSearch = (value: string): void => {
-  console.log(value);
-  // emits("search", value);
 };
 </script>
 
 <style lang="scss">
 $main-header: (
   height: (
-    sm: 44px,
+    sm: 48px,
     md: 64px,
-    lg: 88px,
+    lg: 64px,
   ),
 );
 

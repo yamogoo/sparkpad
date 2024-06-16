@@ -36,11 +36,11 @@ body {
 
 #app {
   position: relative;
-  font-family: "Caros";
   letter-spacing: 0.03em;
   @include box(100vw, 100vh);
 
   * {
+    font-family: "Caros";
     box-sizing: border-box;
   }
 }

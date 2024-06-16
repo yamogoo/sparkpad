@@ -1,7 +1,7 @@
 <template lang="pug">
 ul.hierarchy__list.search-list
   li.hierarchy-item(
-    v-for="{id, title, content, parentId} in data"
+    v-for="{id, title, parentId} in data"
     :key="id"
     data-testid="hierarchy-item"
   )
@@ -15,7 +15,9 @@ ul.hierarchy__list.search-list
         :name="Symbols.FILE"
         size="18"
       )
-      div.hierarchy-item__body__label {{ title }}
+      div.hierarchy-item__body__label
+        p {{ title }}
+          //- span highlight
 </template>
 
 <script setup lang="ts">
@@ -36,5 +38,12 @@ defineEmits<{
 </script>
 
 <style lang="scss">
-// .search-list {}
+.search-list {
+  .hierarchy-item__body__label {
+    span {
+      display: inline;
+      background-color: $c-app-selection;
+    }
+  }
+}
 </style>

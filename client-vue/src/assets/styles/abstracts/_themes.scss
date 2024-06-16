@@ -9,6 +9,7 @@ $themes: (
         primary: #4c4c4c,
         secondary: #3a3a3a,
         error: $c-error,
+        accent: $c-accent-primary--light,
         window: #494949,
       ),
       background: (
@@ -58,6 +59,7 @@ $themes: (
     border: (
       primary: #d9d9d9,
       secondary: #e7e7e7,
+      accent: $c-accent-primary--light,
       error: $c-error,
       window: #e1e1e1,
     ),

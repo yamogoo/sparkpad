@@ -1,7 +1,8 @@
-import { describe, expect, test, vi } from "vitest";
+import { describe, expect, test } from "vitest";
+import { mount } from "@vue/test-utils";
 
 import { type SimpleMenuItem } from "./UISimpleMenuItem.vue";
-import { mount } from "@vue/test-utils";
+
 import UISimpleMenu from "./UISimpleMenu.vue";
 
 const routes: SimpleMenuItem[] = [
@@ -15,19 +16,12 @@ const routes: SimpleMenuItem[] = [
   },
 ];
 
-vi.mock("vue-router");
-
 describe("UISimpleMenu", () => {
   test.each([[routes]])("menu should have ", (items) => {
     const wrapper = mount(UISimpleMenu, {
       props: {
         sid: 0,
         items,
-      },
-      global: {
-        mocks: {
-          $router: { push: vi.fn() },
-        },
       },
     });
 
@@ -48,11 +42,6 @@ describe("UISimpleMenu", () => {
         },
         slots: {
           default: slot,
-        },
-        global: {
-          mocks: {
-            $router: { push: vi.fn() },
-          },
         },
       });
 
