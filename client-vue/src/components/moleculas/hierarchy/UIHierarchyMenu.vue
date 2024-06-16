@@ -1,5 +1,6 @@
 <template lang="pug">
 div.hierarchy(
+  data-teestid="hierarchy"
   @click="onClickOutside"
 )
   ul.hierarchy__list(

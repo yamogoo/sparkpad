@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`UINavigator > should render UIHierarchyMenuControlBar DOM element 1`] = `true`;
+
+exports[`UINavigator > should render UINavigator DOM element 1`] = `true`;

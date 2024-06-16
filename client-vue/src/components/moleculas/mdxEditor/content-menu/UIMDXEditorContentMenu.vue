@@ -1,5 +1,7 @@
 <template lang="pug">
-div.editor-menu
+div.editor-menu(
+    data-testid="editor-content-menu"
+)
     MDXEditorMenuGroup
         UIActionButton(
             :icon-name="Symbols.EDITOR_UNDO_BUTTON"

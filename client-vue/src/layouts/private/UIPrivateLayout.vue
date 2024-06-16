@@ -25,8 +25,6 @@ import UIResizableBox from "@/components/atoms/base/boundings/UIResizableBox.vue
 import UIMainSidebar from "@/components/atoms/menues/UIMainSidebar.vue";
 import UIMainViewport from "@/components/moleculas/viewport/UIMainViewport.vue";
 
-// import UIMainFooter from "@/components/atoms/navigations/UIMainFooter.vue";
-
 const settingsStore = useSettingsStore();
 
 const navigatorBoundings = computed(() => settingsStore.navigatorBoundings);

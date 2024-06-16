@@ -23,20 +23,4 @@ describe("UIPrivateLayout", () => {
     expect(isHeaderExists).toBe(true);
     expect(isHeaderExists).toMatchSnapshot();
   });
-
-  test("should render MainFooter", () => {
-    const wrapper = mount(UIPrivateLayout, {
-      global: {
-        plugins: [router],
-      },
-    });
-
-    const footer = wrapper.find('[data-testid="main-footer"]');
-    const isFooterExists = footer.exists();
-
-    expect(isFooterExists).toBe(true);
-    expect(isFooterExists).toMatchSnapshot();
-  });
-
-  /* * * !!!TEST RouterView * * */
 });

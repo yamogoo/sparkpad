@@ -21,13 +21,13 @@ ul.hierarchy__list.search-list
 </template>
 
 <script setup lang="ts">
-import { HierarchyNodeTypes } from "@/typings";
+import { HierarchyNodeTypes, type Note } from "@/typings";
 import { type NodeEmittedData } from "@/components/moleculas/hierarchy/UIHierarchyItem.vue";
 
 import UIIcon, { Symbols } from "@/components/atoms/base/icons/UIIcon.vue";
 
 interface Props {
-  data: any;
+  data: Array<Note>;
 }
 
 defineProps<Props>();

@@ -1,14 +1,17 @@
 import { mount } from "@vue/test-utils";
 import { describe, expect, test } from "vitest";
-import { h } from "vue";
+
+import { initRouter, router } from "@/router/mock";
 
 import UIPublicLayout from "./UIPublicLayout.vue";
 
 describe("UIPublicLayout", () => {
+  initRouter();
+
   test("should render ThemeProvider", () => {
     const wrapper = mount(UIPublicLayout, {
       global: {
-        components: { RouterView: h("div") },
+        plugins: [router],
       },
     });
 

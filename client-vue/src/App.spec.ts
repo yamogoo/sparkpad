@@ -4,6 +4,7 @@ import { describe, expect, test } from "vitest";
 import { nextTick } from "vue";
 
 import { Themes, useSettingsStore } from "@/stores/settings";
+import { initRouter, router } from "@/router/mock";
 
 import App from "./App.vue";
 
@@ -11,8 +12,14 @@ const THEME_PREFIX = "theme-";
 const pattern = new RegExp(`^${THEME_PREFIX}`);
 
 describe("App", () => {
+  initRouter();
+
   test("app container should contain a default theme name", () => {
-    const wrapper = mount(App);
+    const wrapper = mount(App, {
+      global: {
+        plugins: [router],
+      },
+    });
 
     const classes = wrapper.find('[data-testid="app-container"]').classes();
 
@@ -43,7 +50,11 @@ describe("App", () => {
   ])(
     "app container should contain the %s theme",
     async (themeName, isLightTheme) => {
-      const wrapper = mount(App);
+      const wrapper = mount(App, {
+        global: {
+          plugins: [router],
+        },
+      });
 
       const configStore = useSettingsStore();
       configStore.setAppTheme(isLightTheme);

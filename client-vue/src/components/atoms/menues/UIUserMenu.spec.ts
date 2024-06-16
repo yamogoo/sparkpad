@@ -1,5 +1,7 @@
 import { mount } from "@vue/test-utils";
-import { describe, expect, test, vi } from "vitest";
+import { beforeEach, describe, expect, test, vi } from "vitest";
+
+import { initRouter, router } from "@/router/mock";
 
 import UIUserMenu from "./UIUserMenu.vue";
 
@@ -10,10 +12,24 @@ const components = [
 ];
 
 describe("UIMainSidebar", () => {
+  initRouter();
+
+  let teleportTarget;
+
+  beforeEach(() => {
+    teleportTarget = document.createElement("div");
+    teleportTarget.className = "app--container";
+    document.body.appendChild(teleportTarget);
+  });
+
   test.each(components)(
     "should render (%s) component",
     async (_name, component) => {
-      const wrapper = mount(UIUserMenu);
+      const wrapper = mount(UIUserMenu, {
+        global: {
+          plugins: [router],
+        },
+      });
 
       await vi.dynamicImportSettled();
 
@@ -26,7 +42,11 @@ describe("UIMainSidebar", () => {
   );
 
   test('should open settings menu (modal) by clicking on "settings button"', async () => {
-    const wrapper = mount(UIUserMenu);
+    const wrapper = mount(UIUserMenu, {
+      global: {
+        plugins: [router],
+      },
+    });
 
     await vi.dynamicImportSettled();
 
