@@ -11,7 +11,7 @@ UISearchList(
 </template>
 
 <script setup lang="ts">
-import { ref, type Ref, computed, onMounted } from "vue";
+import { ref, type Ref, computed, onMounted, type ComputedRef } from "vue";
 import { useRouter } from "vue-router";
 
 import { useNotesStore } from "@/stores/notes";
@@ -24,6 +24,9 @@ import { type NodeEmittedData } from "@/components/moleculas/hierarchy/UIHierarc
 
 import UISearchPanel from "@/components/atoms/bars/search/UISearchPanel.vue";
 import UISearchList from "@/components/moleculas/search/UISearchList.vue";
+
+import { findAllSegments } from "@/utils";
+import type { SearchedNode } from "~/src/typings";
 
 const router = useRouter();
 
@@ -39,12 +42,31 @@ onMounted(() => {
   if (refSearchPanel.value) refSearchPanel.value.onFocus(true);
 });
 
-const data = computed(() => {
+const data: ComputedRef<Array<SearchedNode>> = computed(() => {
   if (searchedValue.value === "") return [];
 
-  return notesStore.all.filter(
+  const searchedNotes = notesStore.all.filter(
     (note) => note.title.indexOf(searchedValue.value) !== -1
   );
+
+  return searchedNotes.map(({ id, title, parentId }) => {
+    const segments = findAllSegments(title, searchedValue.value, true);
+
+    let template = "";
+
+    segments.forEach((segment) => {
+      template += segment.match
+        ? `<span>${segment.value}</span>`
+        : segment.value;
+    });
+
+    return {
+      id,
+      parentId,
+      template: `<p>${template}</p>`,
+      segments,
+    };
+  });
 });
 
 const sid: Ref<string | null> = ref(null);

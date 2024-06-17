@@ -295,6 +295,12 @@ $__border-radius: $border-radius;
       }
     }
 
+    &__info {
+      @include themify($themes) {
+        color: themed("text", "disabled");
+      }
+    }
+
     input {
       font-size: 15px;
       font-weight: 300;

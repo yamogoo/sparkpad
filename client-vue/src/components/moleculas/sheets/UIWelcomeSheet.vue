@@ -13,15 +13,30 @@ div.welcome
         :content="`${KeyboardSymbols.COMMAND} K`"
       )
     div.content-group-h
-      p Open next tab
+      p Minimize Menu
       UIKeyTooltip(
-        :content="`${KeyboardSymbols.COMMAND} ]`"
+        :content="`CTRL 0`"
       )
     div.content-group-h
-      p Open previous tab
+      p Show Navigator
       UIKeyTooltip(
-        :content="`${KeyboardSymbols.COMMAND} [`"
+        :content="`CTRL 1`"
       )
+    div.content-group-h
+      p Show Favorites
+      UIKeyTooltip(
+        :content="`CTRL 2`"
+      )
+    //- div.content-group-h
+    //-   p Open next tab
+    //-   UIKeyTooltip(
+    //-     :content="`${KeyboardSymbols.COMMAND} ]`"
+    //-   )
+    //- div.content-group-h
+    //-   p Open previous tab
+    //-   UIKeyTooltip(
+    //-     :content="`${KeyboardSymbols.COMMAND} [`"
+    //-   )
 </template>
 
 <script setup lang="ts">
@@ -36,7 +51,7 @@ import UIKeyTooltip, {
   .content-group-h {
     p {
       @include themify($themes) {
-        color: themed("text", "disabled");
+        color: themed("text", "secondary");
       }
     }
   }

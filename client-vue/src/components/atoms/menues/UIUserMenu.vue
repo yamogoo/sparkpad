@@ -15,21 +15,21 @@ div.user-menu(
       :icon-name="Symbols.DIR"
       aria-label="navigator menu"
       :isActive="navigatorRoute.path === NavigatorRoutes.HIERARCHY_MENU"
-      @click="() => { navigatorRouter.push({ path: NavigatorRoutes.HIERARCHY_MENU }); onMinimize(false); }"
+      @click="onOpenNavigator"
     )
     UIActionButton(
       data-testid="search-button"
       :icon-name="Symbols.SEARCH"
       aria-label="search in navigator"
       :isActive="navigatorRoute.path === NavigatorRoutes.SEARCH"
-      @click="() => { navigatorRouter.push({ path: NavigatorRoutes.SEARCH }); onMinimize(false); }"
+      @click="onSearch"
     )
     UIActionButton(
       data-testid="favorites-button"
       :icon-name="Symbols.FAVORITES"
       aria-label="open favorites"
       :isActive="navigatorRoute.path === NavigatorRoutes.FAVORITES"
-      @click="() => { navigatorRouter.push({ path: NavigatorRoutes.FAVORITES }); onMinimize(false); }"
+      @click="onOpenFavorites"
     )
   div.user-menu__footer
     UIModalView(
@@ -54,7 +54,7 @@ div.user-menu(
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 import {
   useSettingsRouter,
   Routes as SettingsRoutes,
@@ -98,6 +98,63 @@ const onUserPage = (): void => {
   settingsRouter.push({ path: SettingsRoutes.USER });
   isSettingsOpen.value = true;
 };
+
+/* * * Search * * */
+
+const onSearch = (): void => {
+  navigatorRouter.push({ path: NavigatorRoutes.SEARCH });
+  onMinimize(false);
+};
+
+const onOpenNavigator = (): void => {
+  navigatorRouter.push({ path: NavigatorRoutes.HIERARCHY_MENU });
+  onMinimize(false);
+};
+
+const onOpenFavorites = (): void => {
+  navigatorRouter.push({ path: NavigatorRoutes.FAVORITES });
+  onMinimize(false);
+};
+
+let sKey = "";
+let prevKey = "";
+
+const onShortcut = (e: KeyboardEvent): void => {
+  prevKey = sKey;
+
+  const { key } = e;
+  sKey = key;
+
+  if (prevKey === "Meta") {
+    switch (sKey) {
+      case "k":
+        onSearch();
+        return;
+    }
+  }
+
+  if (prevKey === "Control") {
+    switch (sKey) {
+      case "0":
+        onMinimize(true);
+        return;
+      case "1":
+        onOpenNavigator();
+        return;
+      case "2":
+        onOpenFavorites();
+        return;
+    }
+  }
+};
+
+onMounted(() => {
+  document.addEventListener("keydown", onShortcut);
+});
+
+onUnmounted(() => {
+  document.removeEventListener("keydown", onShortcut);
+});
 </script>
 
 <style lang="scss">

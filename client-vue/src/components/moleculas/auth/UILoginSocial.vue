@@ -82,7 +82,7 @@ export interface SocialButton {
       @extend %transition;
 
       @include themify($themes) {
-        color: themed("text", "disabled");
+        color: themed("text", "secondary");
       }
     }
   }

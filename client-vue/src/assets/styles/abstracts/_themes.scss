@@ -33,7 +33,7 @@ $themes: (
         secondary--invert: #939393,
         accent-primary: $c-accent-primary--dark,
         accent-secondary: $c-accent-secondary,
-        disabled: #a1a1a1,
+        disabled: darken(#bfbfbf, 24%),
         error: $c-error,
       ),
       icon: (

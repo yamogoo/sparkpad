@@ -91,7 +91,7 @@ export enum CellOptionControllers {
     margin-top: 10px;
 
     @include themify($themes) {
-      color: themed("text", "disabled");
+      color: themed("text", "secondary");
     }
   }
 }

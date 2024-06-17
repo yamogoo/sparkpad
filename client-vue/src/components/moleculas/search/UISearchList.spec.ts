@@ -1,40 +1,40 @@
 import { mount } from "@vue/test-utils";
 import { describe, expect, test } from "vitest";
 
-import { HierarchyNodeTypes, type Note } from "@/typings";
+import { type SearchedNode } from "@/typings";
 
 import UISearchList from "./UISearchList.vue";
 
-const data: Array<Note> = [
+const data: Array<SearchedNode> = [
   {
     id: "0",
     parentId: null,
-    title: "",
-    content: "",
+    template: "",
+    segments: [],
   },
   {
     id: "1",
     parentId: "0",
-    title: "",
-    content: "",
+    template: "",
+    segments: [],
   },
   {
     id: "2",
     parentId: "1",
-    title: "",
-    content: "",
+    template: "",
+    segments: [],
   },
   {
     id: "3",
     parentId: "2",
-    title: "",
-    content: "",
+    template: "",
+    segments: [],
   },
   {
     id: "4",
     parentId: "2",
-    title: "",
-    content: "",
+    template: "",
+    segments: [],
   },
 ];
 

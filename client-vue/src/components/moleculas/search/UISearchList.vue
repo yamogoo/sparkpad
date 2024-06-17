@@ -1,7 +1,9 @@
 <template lang="pug">
-ul.hierarchy__list.search-list
+ul.hierarchy__list.search-list(
+  data-testid="search-list"
+)
   li.hierarchy-item(
-    v-for="{id, title, parentId} in data"
+    v-for="{id, template, parentId, segments} in data"
     :key="id"
     data-testid="hierarchy-item"
   )
@@ -15,19 +17,20 @@ ul.hierarchy__list.search-list
         :name="Symbols.FILE"
         size="18"
       )
-      div.hierarchy-item__body__label
-        p {{ title }}
-          //- span highlight
+      div.hierarchy-item__body__label(
+        v-html="template"
+      )
+      span.hierarchy-item__body__info {{ segments.filter(el => el.match).length }}
 </template>
 
 <script setup lang="ts">
-import { HierarchyNodeTypes, type Note } from "@/typings";
+import { HierarchyNodeTypes, type SearchedNode } from "@/typings";
 import { type NodeEmittedData } from "@/components/moleculas/hierarchy/UIHierarchyItem.vue";
 
 import UIIcon, { Symbols } from "@/components/atoms/base/icons/UIIcon.vue";
 
 interface Props {
-  data: Array<Note>;
+  data: Array<SearchedNode>;
 }
 
 defineProps<Props>();
@@ -42,7 +45,9 @@ defineEmits<{
   .hierarchy-item__body__label {
     span {
       display: inline;
-      background-color: $c-app-selection;
+      // background-color: $c-app-selection;
+      background-color: #fff97042;
+      // color: black !important;
     }
   }
 }

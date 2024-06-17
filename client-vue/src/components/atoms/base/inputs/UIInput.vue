@@ -64,7 +64,7 @@ export interface Props {
     @extend %transition;
 
     @include themify($themes) {
-      color: themed("text", "disabled");
+      color: themed("text", "secondary");
     }
   }
 
@@ -77,6 +77,12 @@ export interface Props {
     @include themify($themes) {
       border: 1px solid themed("border", "primary");
       background-color: themed("background", "primary");
+    }
+
+    &:focus {
+      @include themify($themes) {
+        border-color: themed("border", "accent");
+      }
     }
   }
 

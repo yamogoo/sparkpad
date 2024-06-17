@@ -31,7 +31,7 @@ $__border-radius: 4px;
   @include box(max-content, 28px);
 
   @include themify($themes) {
-    color: themed("text", "disabled");
+    color: themed("text", "secondary");
     border-color: themed("border", "primary");
     background-color: themed("background", "primary");
   }

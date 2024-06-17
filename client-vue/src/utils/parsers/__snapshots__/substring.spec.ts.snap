@@ -1,0 +1,165 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`findSubstrIdxs > findAllSegments > should look for matches regardless of case ([ { value: 'D', position: { start: +0, end: +0 } }, { value: 'eSc', position: { start: 1, end: 3 }, match: 'ESC' }, { value: 'RiPtIoN', position: { start: 4, end: 10 } } ]) 1`] = `
+[
+  {
+    "position": {
+      "end": 0,
+      "start": 0,
+    },
+    "value": "D",
+  },
+  {
+    "match": "ESC",
+    "position": {
+      "end": 3,
+      "start": 1,
+    },
+    "value": "eSc",
+  },
+  {
+    "position": {
+      "end": 10,
+      "start": 4,
+    },
+    "value": "RiPtIoN",
+  },
+]
+`;
+
+exports[`findSubstrIdxs > findAllSegments > should look for matches regardless of case ([ { value: 'Desc', position: { start: +0, end: 3 }, match: 'desc' }, { value: ' ', position: { start: 4, end: 4 } }, { value: 'Desc', position: { start: 5, end: 8 }, match: 'desc' }, { value: ' ', position: { start: 9, end: 9 } }, { value: 'desc', position: { start: 10, end: 13 }, match: 'desc' }, { value: ' ', position: { start: 14, end: 14 } }, { value: 'desc', position: { start: 15, end: 18 }, match: 'desc' }, { value: 'ription', position: { start: 19, end: 25 } } ]) 1`] = `
+[
+  {
+    "match": "desc",
+    "position": {
+      "end": 3,
+      "start": 0,
+    },
+    "value": "Desc",
+  },
+  {
+    "position": {
+      "end": 4,
+      "start": 4,
+    },
+    "value": " ",
+  },
+  {
+    "match": "desc",
+    "position": {
+      "end": 8,
+      "start": 5,
+    },
+    "value": "Desc",
+  },
+  {
+    "position": {
+      "end": 9,
+      "start": 9,
+    },
+    "value": " ",
+  },
+  {
+    "match": "desc",
+    "position": {
+      "end": 13,
+      "start": 10,
+    },
+    "value": "desc",
+  },
+  {
+    "position": {
+      "end": 14,
+      "start": 14,
+    },
+    "value": " ",
+  },
+  {
+    "match": "desc",
+    "position": {
+      "end": 18,
+      "start": 15,
+    },
+    "value": "desc",
+  },
+  {
+    "position": {
+      "end": 25,
+      "start": 19,
+    },
+    "value": "ription",
+  },
+]
+`;
+
+exports[`findSubstrIdxs > findAllSegments > should look for matches regardless of case ([ { value: 'd', position: { start: +0, end: +0 } }, { value: 'esc', position: { start: 1, end: 3 }, match: 'esc' }, { value: 'ription', position: { start: 4, end: 10 } } ]) 1`] = `
+[
+  {
+    "position": {
+      "end": 0,
+      "start": 0,
+    },
+    "value": "d",
+  },
+  {
+    "match": "esc",
+    "position": {
+      "end": 3,
+      "start": 1,
+    },
+    "value": "esc",
+  },
+  {
+    "position": {
+      "end": 10,
+      "start": 4,
+    },
+    "value": "ription",
+  },
+]
+`;
+
+exports[`findSubstrIdxs > findAllSubstrIdxs > should have ([ { start: 1, end: 3 } ]) indexes of "esc" substring 1`] = `
+[
+  {
+    "end": 3,
+    "start": 1,
+  },
+]
+`;
+
+exports[`findSubstrIdxs > findAllSubstrIdxs > should have ([ { start: 5, end: 5 }, { start: 8, end: 8 } ]) indexes of "i" substring 1`] = `
+[
+  {
+    "end": 5,
+    "start": 5,
+  },
+  {
+    "end": 8,
+    "start": 8,
+  },
+]
+`;
+
+exports[`findSubstrIdxs > findAllSubstrIdxs > should have ([]) indexes of "rewtqw" substring 1`] = `[]`;
+
+exports[`findSubstrIdxs > should have ({ start: +0, end: 2 }) indexes of "str" substring 1`] = `
+{
+  "end": 2,
+  "start": 0,
+}
+`;
+
+exports[`findSubstrIdxs > should have ({ start: -1, end: -1 }) indexes of "w" substring 1`] = `
+{
+  "end": -1,
+  "start": -1,
+}
+`;
+
+exports[`findSubstrIdxs > should have ({ start: 1, end: 2 }) indexes of "tr" substring 1`] = `
+{
+  "end": 2,
+  "start": 1,
+}
+`;
