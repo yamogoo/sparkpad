@@ -1,19 +1,22 @@
 import type { HierarchyNodeParentId } from "./hierarchyView";
-import { isNoteIds } from "./note";
-
-export interface NoteGroup {
-  id: string;
-  title: string;
-  description: string;
-  parentId: string | null;
-}
 
 export type NoteGroupParentId = HierarchyNodeParentId;
 
-export type NoteGroupCreation = Pick<
-  NoteGroup,
-  "id" | "title" | "description" | "parentId"
->;
+export interface NoteGroupProps {
+  title: string;
+  content: string;
+}
+
+export interface NoteGroupRequiredProps {
+  readonly id: string;
+  parentId: NoteGroupParentId;
+}
+
+export interface NoteGroup extends NoteGroupRequiredProps, NoteGroupProps {}
+
+export interface NoteGroupCreation
+  extends Partial<NoteGroupProps>,
+    NoteGroupRequiredProps {}
 
 export type NoteGroups = Array<NoteGroup>;
 

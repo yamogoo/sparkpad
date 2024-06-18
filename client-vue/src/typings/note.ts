@@ -3,16 +3,21 @@ import type {
   HierarchyNodeTypes,
 } from "./hierarchyView";
 
-export interface Note {
-  id: string;
+export type NoteParentId = HierarchyNodeParentId;
+
+export interface NoteProps {
   title: string;
   content: string;
+}
+
+export interface NoteRequiredProps {
+  readonly id: string;
   parentId: NoteParentId;
 }
 
-export type NoteParentId = HierarchyNodeParentId;
+export interface Note extends NoteRequiredProps, NoteProps {}
 
-export type NoteCreation = Pick<Note, "id" | "title" | "content" | "parentId">;
+export interface NoteCreation extends Partial<NoteProps>, NoteRequiredProps {}
 
 export type NoteTypes = HierarchyNodeTypes;
 export type Notes = Array<Note>;

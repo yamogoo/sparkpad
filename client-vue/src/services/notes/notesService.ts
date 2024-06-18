@@ -24,6 +24,7 @@ const BASE_URL = `http://${HOST}:${PORT}/${VERSION}`;
 type APIKeys =
   | "getOne"
   | "getAll"
+  | "getAllByGroup"
   | "create"
   | "delete"
   | "update"
@@ -31,6 +32,10 @@ type APIKeys =
 
 export const api: Record<APIKeys, ApiMethod> = {
   getAll: {
+    path: () => `${BASE_URL}/groups/all/notes/`,
+    method: "GET",
+  },
+  getAllByGroup: {
     path: (parentId: string) => `${BASE_URL}/groups/${parentId}/notes/`,
     method: "GET",
   },
@@ -98,14 +103,14 @@ export class NotesService {
     return { payload, error };
   }
 
-  public async updateNote(note: NoteCreation): Promise<ServiceResponse<Note>> {
-    const { id } = note;
+  public async update(note: NoteCreation): Promise<ServiceResponse<Note>> {
+    const { id, parentId, title, content } = note;
 
     const res = await fetchData({
       method: api.update.method,
       headers: { ...authHeader() },
-      url: api.update.path(id),
-      body: note,
+      url: api.update.path(parentId, id),
+      body: { title, content },
     });
 
     if (!isNote(res.payload)) return { error: res.error };

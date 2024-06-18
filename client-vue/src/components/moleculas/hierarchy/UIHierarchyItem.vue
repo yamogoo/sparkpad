@@ -9,22 +9,23 @@ li.hierarchy-item(
     tabindex="0"
     @keyup.enter="onEdit"
   )
-    div.hierarchy-item__body__icon(
-      ref="refIcon"
+    div.hierarchy-item__body__section(
       @click="e => { onClick(e, {id, parentId, type}) }"
     )
-      UIIcon(
-        v-if="type === HierarchyNodeTypes.DIR"
-        data-testid="hierarchy-item-arrow-icon"
-        :name="Symbols.ARROW_BOTTOM"
-        size="12"
+      div.hierarchy-item__body__icon(
+        ref="refIcon"
       )
-    UIIcon(
-      data-testid="hierarchy-item-node-icon"
-      :name="nodeIcon"
-      size="18"
-      @click="e => { onClick(e, {id, parentId, type}) }"
-    )
+        UIIcon(
+          v-if="type === HierarchyNodeTypes.DIR"
+          data-testid="hierarchy-item-arrow-icon"
+          :name="Symbols.ARROW_BOTTOM"
+          size="12"
+        )
+      UIIcon(
+        data-testid="hierarchy-item-node-icon"
+        :name="nodeIcon"
+        size="18"
+      )
     div.hierarchy-item__body__label(
       v-if="!isEditMode"
       @click="e => {onEditName(e, {id, parentId, type})}"
@@ -324,6 +325,14 @@ $__border-radius: $border-radius;
       @include themify($themes) {
         fill: themed("icon", "primary");
       }
+    }
+
+    &__section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      gap: 8px;
     }
   }
 

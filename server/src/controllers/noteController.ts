@@ -10,6 +10,7 @@ import {
 } from "@/typings";
 
 import { db } from "@/models";
+import { logger } from "@/utils/logger";
 
 const UserModel = db.models.User;
 const NoteModel = db.models.Note;
@@ -92,7 +93,6 @@ const deleteAll = (
   req: Request<Pick<Note, "parentId">, {}, Authenticated<{}>>,
   res: Response<ApiResponse<Array<NoteId>>>
 ) => {
-  console.log("deleteAll");
   const { parentId } = req.params;
   const { userId } = req.body;
 
@@ -116,12 +116,35 @@ const deleteAll = (
     });
 };
 
-// const update = (req: Request, res: Response, next: NextFunction) => {};
+const update = async (
+  req: Request<Pick<Note, "id" | "parentId">>,
+  res: Response<ApiResponse<Note>>
+) => {
+  const { id } = req.params;
+  const { title, userId } = req.body;
+
+  logger.debug("req.body", { body: req.body });
+  logger.debug("req.params", { body: req.params });
+
+  NoteModel.findOne({ where: { id, userId } })
+    .then((note) => {
+      if (!note) return res.status(204).send({ error: "Note not found" });
+      else {
+        note.update({ title }).then((updated) => {
+          logger.debug("updated note", { note: updated });
+          res.status(200).send({ payload: JSON.parse(JSON.stringify(note)) });
+        });
+      }
+    })
+    .catch((error) => {
+      res.status(400).send({ error: JSON.stringify(error) });
+    });
+};
 
 export const noteController = {
   getAll,
   create,
   deleteOne,
   deleteAll,
-  // update,
+  update,
 };

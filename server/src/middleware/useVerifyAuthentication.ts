@@ -7,7 +7,7 @@ import jwt from "jsonwebtoken";
 
 const { secretKey } = authConfig;
 
-const verifyAuthentication = async (
+const useVerifyAuthentication = async (
   req: Request,
   res: Response<ApiResponse<AuthBody>>,
   next: NextFunction
@@ -43,7 +43,7 @@ const verifyAuthentication = async (
 };
 
 export const auth = {
-  verifyAuthentication,
+  useVerifyAuthentication,
 };
 
 // COOKIE:

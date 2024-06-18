@@ -53,7 +53,7 @@ const checkIfRoleExists = (
   next();
 };
 
-export const verifyRegister = {
+export const useVerifyRegister = {
   checkIfEmailOrLoginExists,
   checkIfRoleExists,
 };

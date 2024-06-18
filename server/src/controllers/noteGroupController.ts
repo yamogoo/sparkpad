@@ -10,6 +10,7 @@ import {
 } from "@/typings";
 
 import { db } from "@/models";
+import { logger } from "@/utils/logger";
 
 const UserModel = db.models.User;
 const NoteGroupModel = db.models.NoteGroup;
@@ -141,10 +142,35 @@ const deleteOne = async (
 
 const deleteAll = () => {};
 
+const update = async (
+  req: Request<Pick<NoteGroup, "id">>,
+  res: Response<ApiResponse<NoteGroup>>
+) => {
+  const { id } = req.params;
+  const { title, userId } = req.body;
+
+  logger.debug("req.body", { body: req.body });
+  logger.debug("req.params", { body: req.params });
+
+  NoteGroupModel.findOne({ where: { id, userId } })
+    .then((group) => {
+      if (!group) return res.status(204).send({ error: "Note not found" });
+      else {
+        group.update({ title }).then((updated) => {
+          logger.debug("updated group", { group: updated });
+          res.status(200).send({ payload: JSON.parse(JSON.stringify(group)) });
+        });
+      }
+    })
+    .catch((error) => {
+      res.status(400).send({ error: JSON.stringify(error) });
+    });
+};
+
 export const noteGroupsController = {
   getAll,
   create,
   deleteOne,
   deleteAll,
-  // updateNote,
+  update,
 };

@@ -113,6 +113,23 @@ export class NoteGroupService {
     return { payload, error };
   }
 
+  public async update(
+    group: NoteGroupCreation
+  ): Promise<ServiceResponse<NoteGroup>> {
+    const { id, title } = group;
+
+    const res = await fetchData({
+      method: api.update.method,
+      headers: { ...authHeader() },
+      url: api.update.path(id),
+      body: { title },
+    });
+
+    if (!isNoteGroup(res.payload)) return { error: res.error };
+    const { error, payload } = res;
+    return { payload, error };
+  }
+
   public async deleteAll(): Promise<ServiceResponse<NoteGroups>> {
     const res = await fetchData({
       method: api.deleteAll.method,

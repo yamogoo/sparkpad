@@ -1,6 +1,12 @@
 import { defineStore } from "pinia";
 
-import type { Notes, Note, NoteCreation, NoteParentId } from "@/typings";
+import type {
+  Notes,
+  Note,
+  NoteCreation,
+  NoteParentId,
+  NoteProps,
+} from "@/typings";
 
 import { notesService } from "@/services/notes/notesService";
 import { useNotesHistoryStore } from "../notesHistory";
@@ -173,6 +179,26 @@ export const useNotesStore = defineStore("notes", {
 
       const parentId = this.currentNote?.parentId ?? null;
       groupsStore.selectById(parentId);
+    },
+
+    /**
+     * @description Update note props by ParentID and ID
+     */
+    async updateById(
+      parentId: NoteParentId,
+      id: string,
+      props: Partial<NoteProps>
+    ) {
+      const { payload, error } = await notesService.update({
+        parentId,
+        id,
+        ...props,
+      });
+
+      if (payload && !error) {
+        const idx = this._notes.findIndex((note) => note.id === payload.id);
+        this._notes[idx].title = payload.title;
+      }
     },
 
     /* * * History * * */

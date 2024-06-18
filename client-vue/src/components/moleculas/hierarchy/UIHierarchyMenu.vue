@@ -132,7 +132,16 @@ const onDelete = ({ id, parentId, type }: NodeEmittedData): void => {
   }
 };
 
-const onUpdate = (id: string): void => {};
+const onUpdate = (
+  title: string,
+  { id, parentId, type }: NodeEmittedData
+): void => {
+  if (type === HierarchyNodeTypes.DIR) {
+    groupsStore.updateById(parentId, id, { title });
+  } else if (type === HierarchyNodeTypes.FILE) {
+    notesStore.updateById(parentId, id, { title });
+  }
+};
 </script>
 
 <style lang="scss">

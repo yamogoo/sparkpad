@@ -76,7 +76,6 @@ const onCreateDir = (): void => {
   const initGroup: NoteGroupCreation = {
     id: v4(),
     title: `new Dir ${(Math.random() * 100_000).toFixed(0)}`,
-    description: "",
     parentId: groupSid.value,
   };
   groupsStore.create(initGroup);

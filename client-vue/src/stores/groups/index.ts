@@ -1,5 +1,11 @@
 import { defineStore } from "pinia";
-import type { NoteGroup, NoteGroupCreation, NoteGroups } from "@/typings";
+import type {
+  NoteGroup,
+  NoteGroupCreation,
+  NoteGroupParentId,
+  NoteGroupProps,
+  NoteGroups,
+} from "@/typings";
 
 import { noteGroupService } from "@/services/notes/noteGroupsService";
 import { useNotesStore } from "../notes";
@@ -93,10 +99,13 @@ export const useNoteGroupsStore = defineStore("note-groups", {
       if (error) console.log(error);
       else if (payload && !error) {
         const { id } = payload;
-        if (id) this._groups.push(group);
+        if (id) this._groups.push(payload);
       }
     },
 
+    /**
+     * @description Select group and ID
+     */
     selectById(id: string | null): void {
       if (!id) {
         this._currentGroup = null;
@@ -106,6 +115,9 @@ export const useNoteGroupsStore = defineStore("note-groups", {
       }
     },
 
+    /**
+     * @description Delete group and all nested objects by ParentID and ID
+     */
     async deleteById(id: string) {
       if (this.length <= 0 || !this.create) return;
 
@@ -121,6 +133,26 @@ export const useNoteGroupsStore = defineStore("note-groups", {
           notesStore.deleteAllByMap(notes);
           this.deleteAllByMap(groups);
         }
+      }
+    },
+
+    /**
+     * @description Update group props by ParentID and ID
+     */
+    async updateById(
+      parentId: NoteGroupParentId,
+      id: string,
+      props: Partial<NoteGroupProps>
+    ) {
+      const { payload, error } = await noteGroupService.update({
+        parentId,
+        id,
+        ...props,
+      });
+
+      if (payload && !error) {
+        const idx = this._groups.findIndex((group) => group.id === payload.id);
+        this._groups[idx].title = payload.title;
       }
     },
   },

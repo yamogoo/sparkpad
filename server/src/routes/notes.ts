@@ -2,7 +2,7 @@ import express from "express";
 
 import { noteController } from "@/controllers/noteController";
 import { noteGroupsController } from "@/controllers/noteGroupController";
-import { auth } from "@/middleware/verifyAuthentication";
+import { auth } from "@/middleware/useVerifyAuthentication";
 
 const router = express.Router();
 
@@ -13,43 +13,90 @@ enum ParamKeys {
 
 /* * * Groups * * */
 
-router.get("/", [auth.verifyAuthentication, noteGroupsController.getAll]);
+/**
+ * Get all groups
+ */
+router.get("/", [auth.useVerifyAuthentication, noteGroupsController.getAll]);
 
+/**
+ * Get by ID
+ */
 router.get(`/:${ParamKeys.ID}`, [
-  auth.verifyAuthentication,
+  auth.useVerifyAuthentication,
   noteGroupsController.getAll,
 ]);
 
-router.post("/", [auth.verifyAuthentication, noteGroupsController.create]);
+/**
+ * Create one
+ */
+router.post("/", [auth.useVerifyAuthentication, noteGroupsController.create]);
 
+/**
+ * Delete by ID
+ */
 router.delete(`/:${ParamKeys.ID}`, [
-  auth.verifyAuthentication,
+  auth.useVerifyAuthentication,
   noteGroupsController.deleteOne,
 ]);
 
-// router.delete("/", [auth.verifyAuthentication, noteGroupsController.deleteAll]);
+/**
+ * Update by ID
+ */
+router.put(`/:${ParamKeys.ID}`, [
+  auth.useVerifyAuthentication,
+  noteGroupsController.update,
+]);
+
+// router.delete("/", [auth.useVerifyAuthentication, noteGroupsController.deleteAll]);
 
 /* * * Notes * * */
 
-router.get(`/:${ParamKeys.PARENT_ID}/notes/`, [
-  auth.verifyAuthentication,
+/**
+ * Get all notes
+ */
+router.get(`/all/notes/`, [
+  auth.useVerifyAuthentication,
   noteController.getAll,
 ]);
 
+/**
+ * Get all notes by group
+ */
+
+// router.get(`/:${ParamKeys.PARENT_ID}/notes/`, [
+//   auth.useVerifyAuthentication,
+//   noteController.getAllByGroup,
+// ]);
+
+/**
+ * Create one
+ */
 router.post(`/:${ParamKeys.PARENT_ID}/notes/`, [
-  auth.verifyAuthentication,
+  auth.useVerifyAuthentication,
   noteController.create,
 ]);
 
+/**
+ * Delete by ID
+ */
 router.delete(`/:${ParamKeys.PARENT_ID}/notes/:${ParamKeys.ID}`, [
-  auth.verifyAuthentication,
+  auth.useVerifyAuthentication,
   noteController.deleteOne,
 ]);
 
-// // router.put(`/:${ParamKeys.PARENT_ID}/notes/:${ParamKeys.ID}`, noteController.updateNote);
+/**
+ * Update by ID
+ */
+router.put(`/:${ParamKeys.PARENT_ID}/notes/:${ParamKeys.ID}`, [
+  auth.useVerifyAuthentication,
+  noteController.update,
+]);
 
+/**
+ * Delete All by group
+ */
 router.delete(`/:${ParamKeys.PARENT_ID}/notes/`, [
-  auth.verifyAuthentication,
+  auth.useVerifyAuthentication,
   noteController.deleteAll,
 ]);
 

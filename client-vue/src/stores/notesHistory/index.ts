@@ -9,7 +9,7 @@ interface NotesHistoryStoreState {
 export const useNotesHistoryStore = defineStore("history", {
   state: (): NotesHistoryStoreState => ({
     _sid: undefined,
-    _size: 6,
+    _size: 3,
     _queue: [],
   }),
   getters: {

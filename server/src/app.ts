@@ -10,6 +10,8 @@ import noteRouter from "@/routes/notes";
 
 import { db } from "./models";
 
+import { useLogger } from "@/middleware/useLogger";
+
 class App {
   public app: express.Application;
 
@@ -25,6 +27,7 @@ class App {
         origin: "*",
       })
     );
+    this.app.use(useLogger);
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(compression());

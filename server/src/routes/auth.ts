@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 
 import { authController } from "@/controllers/authController";
-import { verifyRegister } from "@/middleware/verifyRegister";
+import { useVerifyRegister } from "@/middleware/useVerifyRegister";
 
 const router = express.Router();
 
@@ -17,7 +17,7 @@ router.use((_req: Request, res: Response, next: NextFunction) => {
 // Sign Up
 router.post(
   "/register",
-  [verifyRegister.checkIfEmailOrLoginExists],
+  [useVerifyRegister.checkIfEmailOrLoginExists],
   authController.register
 );
 

@@ -75,6 +75,7 @@ $__border-radius: $border-radius;
     position: relative;
     flex-grow: 1;
     padding: $__base-padding;
+    overflow: hidden;
 
     &--container {
       position: relative;
