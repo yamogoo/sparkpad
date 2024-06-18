@@ -7,6 +7,8 @@ import {
   NoteGroups,
   NoteCreationRequestParams,
   NoteGroupDeletedAttributes,
+  NoteId,
+  NoteGroupId,
 } from "@/typings";
 
 import { db } from "@/models";
@@ -86,8 +88,41 @@ const findDescendents = async (
   };
 
   await findChildren(id);
+
   return descendants;
 };
+
+/**
+ * @description Delete all descedents (groups and notes) by root group ID
+ */
+async function deleteGroupAndNotes(
+  id: string,
+  userId: string,
+  groups: Array<NoteGroupId>,
+  notes: Array<NoteId>
+) {
+  const _notes = await NoteModel.findAll({
+    where: { parentId: id },
+  });
+
+  for (const note of _notes) {
+    notes.push({ id: note.id });
+  }
+
+  await NoteModel.destroy({ where: { parentId: id } });
+
+  const descendantGroups = await NoteGroupModel.findAll({
+    where: { parentId: id },
+  });
+
+  for (const group of descendantGroups) {
+    await deleteGroupAndNotes(group.id, userId, groups, notes);
+  }
+
+  groups.push({ id });
+
+  await NoteGroupModel.destroy({ where: { id } });
+}
 
 const deleteOne = async (
   req: Request<NoteCreationRequestParams, {}, Authenticated<{}>>,
@@ -96,48 +131,20 @@ const deleteOne = async (
   const { id } = req.params;
   const { userId } = req.body;
 
-  // deleting all nested items
+  const groups: Array<NoteGroupId> = [];
+  const notes: Array<NoteId> = [];
 
-  const descendants = await findDescendents(id, userId);
+  try {
+    await deleteGroupAndNotes(id, userId, groups, notes);
 
-  const groupIds = descendants.map((descendant) => {
-    return { id: descendant.id };
-  });
+    logger.debug("deleted items", { groups, notes });
 
-  // groupIds.push({ id });
-
-  const noteIds: Array<{ id: string }> = [];
-
-  for (const group of groupIds) {
-    const notes = await NoteModel.findAll({
-      where: { parentId: group.id, userId },
+    res.status(200).send({
+      payload: { groups: groups, notes: notes },
     });
-
-    notes.map(async (note) => {
-      const { id } = note;
-      noteIds.push({ id });
-
-      await NoteModel.destroy({ where: { id, userId } });
-    });
+  } catch (error) {
+    res.status(400).send({ error: JSON.stringify(error) });
   }
-
-  for (const group of groupIds) {
-    const id = group.id;
-    await NoteGroupModel.destroy({ where: { id, userId } })
-      .then((status) => {
-        // if (status === 0)
-        //   return res.status(204).send({ error: "Group not found" });
-      })
-      .catch((error) => {
-        // return res
-        //   .status(400)
-        //   .send({ error: `Error when deleting the group ${error}` });
-      });
-  }
-
-  return res.status(200).send({
-    payload: { groups: groupIds, notes: noteIds },
-  });
 };
 
 const deleteAll = () => {};

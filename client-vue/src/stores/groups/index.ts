@@ -63,8 +63,6 @@ export const useNoteGroupsStore = defineStore("note-groups", {
     },
 
     async fetchHierarchy(): Promise<any> {
-      // return new Promise.all([noteGroupService.getAll]);
-
       const data = await Promise.all([
         noteGroupService.getAll(),
         notesService.getAll(),
@@ -78,18 +76,6 @@ export const useNoteGroupsStore = defineStore("note-groups", {
         this._groups = groups.payload;
         notesStore._notes = notes.payload;
       }
-    },
-
-    /**
-     * @description Delete all groups by provided map.
-     * Can remove elements that are children of different root groups
-     */
-    deleteAllByMap(map: Array<{ id: string }>): void {
-      console.log(map);
-      map.forEach((deletedId) => {
-        const idx = this._groups.findIndex((note) => note.id === deletedId.id);
-        this._groups.splice(idx, 1);
-      });
     },
 
     async create(group: NoteGroupCreation) {
@@ -127,11 +113,7 @@ export const useNoteGroupsStore = defineStore("note-groups", {
 
         if (error) console.warn(error);
         else if (payload && !error) {
-          const { groups, notes } = payload;
-
-          const notesStore = useNotesStore();
-          notesStore.deleteAllByMap(notes);
-          this.deleteAllByMap(groups);
+          this.fetchHierarchy();
         }
       }
     },

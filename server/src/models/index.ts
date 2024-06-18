@@ -5,8 +5,10 @@ import NoteGroupModel from "./NoteGroupModel";
 import HistoryModel from "./HistoryModel";
 
 import { Dialect, Sequelize } from "sequelize";
-import { config } from "@/config/dbConfig";
 import { v4 } from "uuid";
+
+import { config } from "@/config/dbConfig";
+import { logger } from "@/utils/logger";
 
 export class Models {
   public User;
@@ -95,11 +97,9 @@ export class DataBase {
   public async testConnection() {
     try {
       await this.orm.authenticate();
-      console.log("Connection has been established successfully.");
-      // !!! ADD logger (DEBUG level)
+      logger.debug("Connection has been established successfully.");
     } catch (err) {
-      console.error("Unable to connect to the database:", err);
-      // !!! ADD logger (DEBUG level)
+      logger.error("Unable to connect to the database:", err);
     }
   }
 
@@ -120,14 +120,11 @@ export class DataBase {
           });
         }
       } catch (error) {
-        // !!! ADD debug level
-        console.log(error);
+        logger.error(`Error while init db connection`, { error });
       }
     });
 
     await this.orm.sync();
-
-    // this.testConnection();
   }
 }
 

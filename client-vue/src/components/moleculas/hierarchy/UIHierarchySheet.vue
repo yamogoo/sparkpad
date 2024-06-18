@@ -62,28 +62,33 @@ const isNoteListMode = computed(() => settingsStore.isNoteListMode);
 
 /* * * Handlers * * */
 
-const onCreateNote = (): void => {
+const onCreateNote = async (): Promise<void> => {
+  const id = v4();
+
   const initNote: NoteCreation = {
-    id: v4(),
-    title: `new Note ${(Math.random() * 100_000).toFixed(0)}`,
+    id,
+    title: `new file`,
     content: "",
     parentId: groupSid.value,
   };
-  notesStore.create(initNote);
+  await notesStore.create(initNote);
+  notesStore.selectById(id);
 };
 
-const onCreateDir = (): void => {
+const onCreateDir = async (): Promise<void> => {
+  const id = v4();
+
   const initGroup: NoteGroupCreation = {
-    id: v4(),
-    title: `new Dir ${(Math.random() * 100_000).toFixed(0)}`,
+    id,
+    title: `new folder`,
     parentId: groupSid.value,
   };
-  groupsStore.create(initGroup);
+  await groupsStore.create(initGroup);
 };
 
-const onDeleteItem = (): void => {
+const onDeleteItem = async (): Promise<void> => {
   if (noteSid.value) {
-    notesStore.deleteById(groupSid.value, noteSid.value);
+    await notesStore.deleteById(groupSid.value, noteSid.value);
     historyStore.deleteById(noteSid.value);
   }
 };

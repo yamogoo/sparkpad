@@ -1,12 +1,12 @@
 {
-  "name": "note-pad",
+  "name": "sparkpad",
   "private": true,
   "version": "0.0.0",
   "author": {
     "name": "Misha Grebennikov",
     "email": "grebennikovmisha@gmail.com"
   },
-  "description": "Simple note editor",
+  "description": "Markdown editor",
   "title": "Sparkpad",
   "type": "module",
   "scripts": {

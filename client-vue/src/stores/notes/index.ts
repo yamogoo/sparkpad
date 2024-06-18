@@ -161,7 +161,6 @@ export const useNotesStore = defineStore("notes", {
      * Can remove elements that are children of different root groups
      */
     deleteAllByMap(map: Array<{ id: string }>): void {
-      console.log(map);
       map.forEach((deletedId) => {
         const idx = this._notes.findIndex((note) => note.id === deletedId.id);
         this._notes.splice(idx, 1);

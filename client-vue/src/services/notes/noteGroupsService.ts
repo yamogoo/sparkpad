@@ -108,7 +108,7 @@ export class NoteGroupService {
     });
 
     if (!isNoteGroupDeletedAttributes(res.payload)) return { error: res.error };
-    console.log(res.payload);
+
     const { error, payload } = res;
     return { payload, error };
   }

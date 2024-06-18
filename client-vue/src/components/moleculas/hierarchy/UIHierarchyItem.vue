@@ -19,12 +19,12 @@ li.hierarchy-item(
           v-if="type === HierarchyNodeTypes.DIR"
           data-testid="hierarchy-item-arrow-icon"
           :name="Symbols.ARROW_BOTTOM"
-          size="12"
+          width="12"
         )
       UIIcon(
         data-testid="hierarchy-item-node-icon"
         :name="nodeIcon"
-        size="18"
+        width="18"
       )
     div.hierarchy-item__body__label(
       v-if="!isEditMode"

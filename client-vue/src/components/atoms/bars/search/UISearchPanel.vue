@@ -49,10 +49,12 @@ const isFocused = ref(false);
 
 onMounted(() => {
   if (refRoot.value) refRoot.value.addEventListener("pointerdown", onPress);
+  document.addEventListener("keydown", onKeydownClear);
 });
 
 onUnmounted(() => {
   if (refRoot.value) refRoot.value.removeEventListener("pointerdown", onPress);
+  document.removeEventListener("keydown", onKeydownClear);
 });
 
 const onPress = (): void => {
@@ -90,6 +92,12 @@ const onClear = (): void => {
   modelValue.value = "";
   onFocus(true);
   emits("search", modelValue.value);
+};
+
+const onKeydownClear = (e: KeyboardEvent): void => {
+  const { key } = e;
+
+  if (key === "Escape") onClear();
 };
 
 defineExpose({

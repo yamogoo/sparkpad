@@ -4,7 +4,7 @@ export type NoteGroupParentId = HierarchyNodeParentId;
 
 export interface NoteGroupProps {
   title: string;
-  content: string;
+  description: string;
 }
 
 export interface NoteGroupRequiredProps {
@@ -48,7 +48,7 @@ export const isNoteGroup = (noteGroup: any): noteGroup is NoteGroup => {
     typeof noteGroup === "object" &&
     typeof noteGroup.id === "string" &&
     typeof noteGroup.title === "string" &&
-    typeof noteGroup.description === "string" &&
+    // typeof noteGroup.description === "string" &&
     (noteGroup.parentId === null || typeof noteGroup.parentId === "string")
   );
 };
